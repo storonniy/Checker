@@ -1,0 +1,9 @@
+min
+nom
+max
+
+переводить вольтметр в нужный режим измерения
+учитывать единицы измерения
+, CultureInfo.InvariantCulture в Parse
+
+BAD ARGUMENT на FormatException срабатывает, даже если в таблице всё нормально.

@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props" Condition="Exists('..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{89E2B87A-6250-46C4-9E1E-CB5F2C62E81A}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Checker</RootNamespace>
+    <AssemblyName>Checker</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>F:\ААП\UCA\publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>2</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>FC10E92908600550243A5BFFD1E4528F99463453</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>UCA_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>false</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Automation.BDaq.dll</HintPath>
+    </Reference>
+    <Reference Include="FTD2XX_NET, Version=1.0.14.39395, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FTD2XX_NET.1.0.14\lib\net40\FTD2XX_NET.dll</HintPath>
+    </Reference>
+    <Reference Include="Ixxat.Vci4">
+      <HintPath>..\packages\Ixxat.Vci4.4.0.436\lib\net40\Ixxat.Vci4.dll</HintPath>
+    </Reference>
+    <Reference Include="Ixxat.Vci4.Contract">
+      <HintPath>..\packages\Ixxat.Vci4.4.0.436\lib\net40\Ixxat.Vci4.Contract.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TestPlatform.AdapterUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Microsoft.TestPlatform.AdapterUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="NModbus4">
+      <HintPath>.\NModbus4.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="vcinet.x64, Version=0.0.0.0, Culture=neutral, processorArchitecture=AMD64">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\vcinet.x64.dll</HintPath>
+    </Reference>
+    <Reference Include="vcinet.x86, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\vcinet.x86.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Auxiliary\NumberExtensions.cs" />
+    <Compile Include="Auxiliary\SerialPortExtensions.cs" />
+    <Compile Include="Auxiliary\UnitValuePair.cs" />
+    <Compile Include="DataBase\DBReader.cs" />
+    <Compile Include="DeviceDrivers\Advantech\Pci1761.cs" />
+    <Compile Include="DeviceDrivers\Advantech\Pci1762.cs" />
+    <Compile Include="DeviceDrivers\Advantech\Pci176X.cs" />
+    <Compile Include="DeviceDrivers\Akip3407.cs" />
+    <Compile Include="DeviceDrivers\Aktakom\Ath8030.cs" />
+    <Compile Include="DeviceDrivers\Aktakom\Modbus.cs" />
+    <Compile Include="DeviceDrivers\Asbl.cs" />
+    <Compile Include="DeviceDrivers\Commutator.cs" />
+    <Compile Include="DeviceDrivers\Gdm78261.cs" />
+    <Compile Include="DeviceDrivers\Instek\Psh73610.cs" />
+    <Compile Include="DeviceDrivers\Instek\PshPstPss.cs" />
+    <Compile Include="DeviceDrivers\Instek\Pst3201.cs" />
+    <Compile Include="DeviceDrivers\Keithley2401.cs" />
+    <Compile Include="DeviceDrivers\MK.cs" />
+    <Compile Include="DeviceDrivers\Psp405.cs" />
+    <Compile Include="DeviceDrivers\Simulator.cs" />
+    <Compile Include="DeviceDrivers\VciCAN\VciCAN.cs" />
+    <Compile Include="Device\DeviceInit.cs" />
+    <Compile Include="Device\Device.cs" />
+    <Compile Include="Device\DeviceList\AKIP3407_device.cs" />
+    <Compile Include="Device\DeviceList\AsblDevice.cs" />
+    <Compile Include="Device\DeviceList\ATH8030_device.cs" />
+    <Compile Include="Device\DeviceList\Commutator_device.cs" />
+    <Compile Include="Device\DeviceList\Keithley2401Device.cs" />
+    <Compile Include="Device\DeviceList\MK_device.cs" />
+    <Compile Include="Device\DeviceList\None.cs" />
+    <Compile Include="Device\DeviceList\Pci176XDevice\Pci1761Device.cs" />
+    <Compile Include="Device\DeviceList\Pci176XDevice\Pci1762Device.cs" />
+    <Compile Include="Device\DeviceList\Pci176XDevice\Pci176Xdevice.cs" />
+    <Compile Include="Device\DeviceList\Psh73610Device.cs" />
+    <Compile Include="Device\DeviceList\Pst3201Device.cs" />
+    <Compile Include="Device\DeviceList\Simulator_device.cs" />
+    <Compile Include="Device\IDeviceInterface.cs" />
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Device\DeviceList\Gdm78261Device.cs" />
+    <Compile Include="Log\Log.cs" />
+    <Compile Include="PureSerialReader.cs" />
+    <Compile Include="SettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SettingsForm.Designer.cs">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Settings\ControlObjectSettings.cs" />
+    <Compile Include="Step\StepsInit.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Device\DeviceList\PSP405_device.cs" />
+    <Compile Include="Step\Step.cs" />
+    <EmbeddedResource Include="MainForm.ja.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="i386\ftd2xx.lib" />
+    <None Include="i386\ftdibus.sys" />
+    <None Include="i386\ftser2k.sys" />
+    <None Include="Net-API_de.pdf" />
+    <None Include="Net-API_en.pdf" />
+    <None Include="packages.config" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="vci4net4.chm" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <!--        <Content Include="DataBase.accdb">-->
+    <!--            <CopyToOutputDirectory>Always</CopyToOutputDirectory>-->
+    <!--        </Content>-->
+    <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.7.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="i386\ftbusui.dll" />
+    <Content Include="i386\ftcserco.dll" />
+    <Content Include="i386\ftd2xx.dll" />
+    <Content Include="i386\ftlang.dll" />
+    <Content Include="i386\ftserui2.dll" />
+    <Content Include="TODO.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets" Condition="Exists('..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets'))" />
+    <Error Condition="!Exists('..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets'))" />
+  </Target>
+  <Import Project="..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets" Condition="Exists('..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets')" />
+  <Import Project="..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets')" />
+</Project>
