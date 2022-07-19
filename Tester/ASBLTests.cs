@@ -106,23 +106,23 @@ namespace Tester
             Asbl asbl = new Asbl();
             for (uint writeData = start; writeData < end + 1; writeData++)
             {
-                asbl.WriteData(Line.ADR_DIR_REG1, writeData);
-                uint readData = asbl.ReadData(Line.ADR_DIR_REG1);
+                asbl.WriteData(Line.AdrDirReg1, writeData);
+                uint readData = asbl.ReadData(Line.AdrDirReg1);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DIR_REG2, writeData);
-                readData = asbl.ReadData(Line.ADR_DIR_REG2);
+                asbl.WriteData(Line.AdrDirReg2, writeData);
+                readData = asbl.ReadData(Line.AdrDirReg2);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DIR_REG3, writeData);
-                readData = asbl.ReadData(Line.ADR_DIR_REG3);
+                asbl.WriteData(Line.AdrDirReg3, writeData);
+                readData = asbl.ReadData(Line.AdrDirReg3);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DIR_REG4, writeData);
-                readData = asbl.ReadData(Line.ADR_DIR_REG4);
+                asbl.WriteData(Line.AdrDirReg4, writeData);
+                readData = asbl.ReadData(Line.AdrDirReg4);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DIR_REG5, writeData);
-                readData = asbl.ReadData(Line.ADR_DIR_REG5);
+                asbl.WriteData(Line.AdrDirReg5, writeData);
+                readData = asbl.ReadData(Line.AdrDirReg5);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DIR_REG6, writeData);
-                readData = asbl.ReadData(Line.ADR_DIR_REG6);
+                asbl.WriteData(Line.AdrDirReg6, writeData);
+                readData = asbl.ReadData(Line.AdrDirReg6);
                 Assert.AreEqual(writeData, readData);
             }
         }
@@ -132,23 +132,23 @@ namespace Tester
             Asbl asbl = new Asbl();
             for (uint writeData = start; writeData < end + 1; writeData++)
             {
-                asbl.WriteData(Line.ADR_DATA_REG1, writeData);
-                uint readData = asbl.ReadData(Line.ADR_DATA_REG1);
+                asbl.WriteData(Line.AdrDataReg1, writeData);
+                uint readData = asbl.ReadData(Line.AdrDataReg1);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DATA_REG2, writeData);
-                readData = asbl.ReadData(Line.ADR_DATA_REG2);
+                asbl.WriteData(Line.AdrDataReg2, writeData);
+                readData = asbl.ReadData(Line.AdrDataReg2);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DATA_REG3, writeData);
-                readData = asbl.ReadData(Line.ADR_DATA_REG3);
+                asbl.WriteData(Line.AdrDataReg3, writeData);
+                readData = asbl.ReadData(Line.AdrDataReg3);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DATA_REG4, writeData);
-                readData = asbl.ReadData(Line.ADR_DATA_REG4);
+                asbl.WriteData(Line.AdrDataReg4, writeData);
+                readData = asbl.ReadData(Line.AdrDataReg4);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DATA_REG5, writeData);
-                readData = asbl.ReadData(Line.ADR_DATA_REG5);
+                asbl.WriteData(Line.AdrDataReg5, writeData);
+                readData = asbl.ReadData(Line.AdrDataReg5);
                 Assert.AreEqual(writeData, readData);
-                asbl.WriteData(Line.ADR_DATA_REG6, writeData);
-                readData = asbl.ReadData(Line.ADR_DATA_REG6);
+                asbl.WriteData(Line.AdrDataReg6, writeData);
+                readData = asbl.ReadData(Line.AdrDataReg6);
                 Assert.AreEqual(writeData, readData);
             }
         }
@@ -183,19 +183,19 @@ namespace Tester
         public void TestWithDiffDirections()
         {
             Asbl asbl = new Asbl();
-            asbl.WriteData(Line.ADR_DIR_REG1, 0xFFFF5);
-            Assert.AreEqual((uint)0xA, asbl.ReadData(Line.ADR_DATA_REG1));
+            asbl.WriteData(Line.AdrDirReg1, 0xFFFF5);
+            Assert.AreEqual((uint)0xA, asbl.ReadData(Line.AdrDataReg1));
             asbl.ClearAll();
             asbl.ClearLineDirection(2);
             asbl.ClearLineDirection(4);
-            Assert.AreEqual((uint)0xA, asbl.ReadData(Line.ADR_DATA_REG1));
+            Assert.AreEqual((uint)0xA, asbl.ReadData(Line.AdrDataReg1));
         }
 
         [TestMethod]
         public void TestLines_1()
         {
             Asbl asbl = new Asbl();
-            asbl.WriteData(Line.ADR_DIR_REG1, 4);
+            asbl.WriteData(Line.AdrDirReg1, 4);
             asbl.SetLineData(3);
         }
 
@@ -221,21 +221,21 @@ namespace Tester
         public void TestLinesWith0Direction()
         {
             Asbl asbl = new Asbl();
-            asbl.WriteData(Line.ADR_DIR_REG1, 0);
+            asbl.WriteData(Line.AdrDirReg1, 0);
             asbl.SetLineData(3);
-            asbl.WriteData(Line.ADR_DIR_REG1, 0x1F5);
+            asbl.WriteData(Line.AdrDirReg1, 0x1F5);
             asbl.SetLineData(3);
         }
 
         [TestMethod]
         public void TestLinesParameters()
         {
-            TestNewLineParameters((uint)1, Line.ADR_DIR_REG1, Line.ADR_DATA_REG1);
-            TestNewLineParameters((uint)21, Line.ADR_DIR_REG2, Line.ADR_DATA_REG2);
-            TestNewLineParameters((uint)41, Line.ADR_DIR_REG3, Line.ADR_DATA_REG3);
-            TestNewLineParameters((uint)61, Line.ADR_DIR_REG4, Line.ADR_DATA_REG4);
-            TestNewLineParameters((uint)81, Line.ADR_DIR_REG5, Line.ADR_DATA_REG5);
-            TestNewLineParameters((uint)101, Line.ADR_DIR_REG6, Line.ADR_DATA_REG6);
+            TestNewLineParameters((uint)1, Line.AdrDirReg1, Line.AdrDataReg1);
+            TestNewLineParameters((uint)21, Line.AdrDirReg2, Line.AdrDataReg2);
+            TestNewLineParameters((uint)41, Line.AdrDirReg3, Line.AdrDataReg3);
+            TestNewLineParameters((uint)61, Line.AdrDirReg4, Line.AdrDataReg4);
+            TestNewLineParameters((uint)81, Line.AdrDirReg5, Line.AdrDataReg5);
+            TestNewLineParameters((uint)101, Line.AdrDirReg6, Line.AdrDataReg6);
         }
 
         public void TestNewLineParameters(uint firstLineNumber, uint expectedDirectionRegister, uint expectedDataRegister)
@@ -246,7 +246,7 @@ namespace Tester
                 var line = new Line(lineNumber, new Asbl());
                 Assert.AreEqual(line.DirectionRegister, expectedDirectionRegister);
                 Assert.AreEqual(line.DataRegister, expectedDataRegister);
-                Assert.AreEqual(linePosition, line.bitNumber);
+                Assert.AreEqual(linePosition, line.BitNumber);
                 linePosition++;
             }
         }

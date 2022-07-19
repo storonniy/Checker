@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 using FTD2XX_NET;
 using static FTD2XX_NET.FTDI;
 using System.Threading;
@@ -18,25 +13,14 @@ namespace Checker.DeviceDrivers
 
     public class Asbl
     {
-        internal FTDI deviceA;
-        internal FTDI deviceB;
-        UInt32 ftdiDeviceCount;
-        FT_DEVICE_INFO_NODE[] ftdiDeviceList;
-
-        private const int highPinsDir = 0x0C;
-        private const int lowPinsDir = 0x6B;
+        private readonly FTDI deviceA;
+        private readonly FTDI deviceB;
+        private readonly uint ftdiDeviceCount;
+        private const int HighPinsDir = 0x0C;
+        private const int LowPinsDir = 0x6B;
         private byte lowPinsState = 0x68;
         private byte highPinsState = 0x0C;
-
-        /// <summary>
-        /// Создать фиктивное устройство (для тестов)
-        /// </summary>
-        /// <param name="n"></param>
-        public Asbl(uint n)
-        {
-
-        }
-
+        
         ~Asbl()
         {
             if (deviceA == null || deviceB == null) return;
@@ -54,7 +38,7 @@ namespace Checker.DeviceDrivers
             {
                 throw new AsblException("Failed to get number of devices (error " + ftStatus.ToString() + ")");
             }
-            ftdiDeviceList = new FT_DEVICE_INFO_NODE[ftdiDeviceCount];
+            var ftdiDeviceList = new FT_DEVICE_INFO_NODE[ftdiDeviceCount];
             ftStatus = deviceA.GetDeviceList(ftdiDeviceList);
             if (ftStatus != FT_STATUS.FT_OK)
                 throw new AsblException("Failed to populate device list");
@@ -76,13 +60,13 @@ namespace Checker.DeviceDrivers
             Check("FT_EnableJTAGController(deviceA)", () => FT_EnableJTAGController(deviceA));
             Check("deviceA.ResetDevice()", () => deviceA.ResetDevice());
             lowPinsState = 0x68;
-            FT_W_LowPins(lowPinsState, lowPinsDir);
+            FT_W_LowPins(lowPinsState, LowPinsDir);
             lowPinsState = 0x68;
-            FT_W_LowPins(lowPinsState, lowPinsDir);
+            FT_W_LowPins(lowPinsState, LowPinsDir);
             highPinsState = 0x0C;
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
             highPinsState = 0x0C;
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
             // находим в сипске устройств FTDI адаптеры с нужными серийными номерами и заполянем значение хэндла для канала B
             deviceB = new FTDI();
             Check("deviceB.OpenByIndex(1)", () => deviceB.OpenByIndex(1));
@@ -100,9 +84,9 @@ namespace Checker.DeviceDrivers
         private void AS_ResetFPGA()
         {
             Check("deviceB.ResetDevice()", () => deviceB.ResetDevice());
-            SetRSTn();
+            SetRsTn();
             Thread.Sleep(1);
-            ClrRSTn();
+            ClrRsTn();
         }
 
         private void Check(string errorMsg, Func<FT_STATUS> command)
@@ -124,7 +108,7 @@ namespace Checker.DeviceDrivers
             return status;
         }
 
-        public void ClearLineDirection(params uint[] lineNumbers)
+        public void ClearLineDirection(params int[] lineNumbers)
         {
             foreach (var lineNumber in lineNumbers)
             {
@@ -133,7 +117,7 @@ namespace Checker.DeviceDrivers
             }
         }
 
-        public void SetLineDirection(params uint[] lineNumbers)
+        public void SetLineDirection(params int[] lineNumbers)
         {
             foreach (var lineNumber in lineNumbers)
             {
@@ -141,7 +125,7 @@ namespace Checker.DeviceDrivers
                 line.SetDirection();
             }
         }
-        public void ClearLineData(params uint[] lineNumbers)
+        public void ClearLineData(params int[] lineNumbers)
         {
             foreach (var lineNumber in lineNumbers)
             {
@@ -150,7 +134,7 @@ namespace Checker.DeviceDrivers
             }
         }
 
-        public void SetLineData(params uint[] lineNumbers)
+        public void SetLineData(params int[] lineNumbers)
         {
             foreach (var lineNumber in lineNumbers)
             {
@@ -159,7 +143,7 @@ namespace Checker.DeviceDrivers
             }
         }
 
-        public bool GetLineData(uint lineNumber)
+        public bool GetLineData(int lineNumber)
         {
             var line = new Line(lineNumber, this);
             return line.GetLineState();
@@ -167,20 +151,18 @@ namespace Checker.DeviceDrivers
 
         public void ClearAll()
         {
-            uint dirState = 0xFFFFF;
-            Clear(Line.ADR_DIR_REG1, dirState);
-            Clear(Line.ADR_DIR_REG2, dirState);
-            Clear(Line.ADR_DIR_REG3, dirState);
-            Clear(Line.ADR_DIR_REG4, dirState);
-            Clear(Line.ADR_DIR_REG5, dirState);
-            Clear(Line.ADR_DIR_REG6, dirState);
-            uint dataState = 0;
-            Clear(Line.ADR_DATA_REG1, dataState);
-            Clear(Line.ADR_DATA_REG2, dataState);
-            Clear(Line.ADR_DATA_REG3, dataState);
-            Clear(Line.ADR_DATA_REG4, dataState);
-            Clear(Line.ADR_DATA_REG5, dataState);
-            Clear(Line.ADR_DATA_REG6, dataState);
+            Clear(Line.AdrDirReg1, 0xFFFFF);
+            Clear(Line.AdrDirReg2, 0xFFFFF);
+            Clear(Line.AdrDirReg3, 0xFFFFF);
+            Clear(Line.AdrDirReg4, 0xFFFFF);
+            Clear(Line.AdrDirReg5, 0xFFFFF);
+            Clear(Line.AdrDirReg6, 0xFFFFF);
+            Clear(Line.AdrDataReg1, 0);
+            Clear(Line.AdrDataReg2, 0);
+            Clear(Line.AdrDataReg3, 0);
+            Clear(Line.AdrDataReg4, 0);
+            Clear(Line.AdrDataReg5, 0);
+            Clear(Line.AdrDataReg6, 0);
         }
 
         private void Clear(uint register, uint data)
@@ -191,22 +173,16 @@ namespace Checker.DeviceDrivers
                 throw new FailedToSetLineException($"Хьюстон, у нас проблемы: readData = {readData}, expected {data}");
         }
 
-        private enum RegisterType
-        {
-            Direction,
-            Data
-        }
-
         public void WriteData(uint address, uint data)
         {
-            SetADRn();
+            SetAdRn();
             ClrR_Wn();
             uint numBytesWritten = 0;
             var addressBuffer = GetFilledBuffer(address);
             var addrStatus = deviceB.Write(addressBuffer, addressBuffer.Length, ref numBytesWritten);
             if (addrStatus != FT_STATUS.FT_OK)
                 throw new AsblException($"АСБЛ: операция записи {address} завершилась с ошибкой");
-            ClrADRn();
+            ClrAdRn();
             var dataBuffer = GetFilledBuffer(data);
             var dataStatus = deviceB.Write(dataBuffer, dataBuffer.Length, ref numBytesWritten);
             if (dataStatus != FT_STATUS.FT_OK)
@@ -216,14 +192,14 @@ namespace Checker.DeviceDrivers
 
         public uint ReadData(uint address)
         {
-            SetADRn();
+            SetAdRn();
             SetR_Wn();
             uint numBytesWritten = 0;
             var addressBuffer = GetFilledBuffer(address);
             var addrStatus = deviceB.Write(addressBuffer, addressBuffer.Length, ref numBytesWritten);
             if (addrStatus != FT_STATUS.FT_OK)
                 throw new AsblException($"АСБЛ: операция записи {address} завершилась с ошибкой");
-            ClrADRn();
+            ClrAdRn();
             Thread.Sleep(10);
             uint numBytesRead = 0;
             var buffer = new byte[12];
@@ -231,7 +207,7 @@ namespace Checker.DeviceDrivers
             if (readStatus != FT_STATUS.FT_OK)
                 throw new AsblException($"АСБЛ: операция чтения завершилась с ошибкой");
             uint data = 0;
-            for (int i = 0; i < buffer.Length; i++)
+            for (var i = 0; i < buffer.Length; i++)
             {
                 data += (uint)buffer[i] << (i * 8);
             }
@@ -267,19 +243,19 @@ namespace Checker.DeviceDrivers
         /// <summary>
         /// SetADRn Выставляет признак адреса / Снимает признак данных
         /// </summary>
-        private void SetADRn()
+        private void SetAdRn()
         {
             highPinsState = (byte)(highPinsState & 0x0B);
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
         }
 
         /// <summary>
         /// ClrADRn Выставляет признак данных / Снимает признак адреса
         /// </summary>
-        private void ClrADRn()
+        private void ClrAdRn()
         {
             highPinsState = (byte)(highPinsState | 0x04);
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
         }
 
         /// <summary>
@@ -288,7 +264,7 @@ namespace Checker.DeviceDrivers
         private void SetR_Wn()
         {
             highPinsState = (byte)(highPinsState | 0x08);
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
         }
 
         /// <summary>
@@ -297,25 +273,25 @@ namespace Checker.DeviceDrivers
         private void ClrR_Wn()
         {
             highPinsState = (byte)(highPinsState & 0x07);
-            FT_W_Highpins(highPinsState, highPinsDir);
+            FT_W_Highpins(highPinsState, HighPinsDir);
         }
 
         /// <summary>
         /// SetRSTn выставить сигнал сброса для ПЛИС
         /// </summary>
-        private void SetRSTn()
+        private void SetRsTn()
         {
             lowPinsState = (byte)(lowPinsState & 0xDF);
-            FT_W_LowPins(lowPinsState, lowPinsDir);
+            FT_W_LowPins(lowPinsState, LowPinsDir);
         }
 
         /// <summary>
         /// ClrRSTn снять сигнал сброса для ПЛИС
         /// </summary>
-        private void ClrRSTn()
+        private void ClrRsTn()
         {
             lowPinsState = (byte)(lowPinsState | 0x20);
-            FT_W_LowPins(lowPinsState, lowPinsDir);
+            FT_W_LowPins(lowPinsState, LowPinsDir);
         }
 
         private byte[] GetFilledBuffer(uint data)
@@ -331,39 +307,36 @@ namespace Checker.DeviceDrivers
     public class Line
     {
         readonly Asbl asbl;
-        public uint number { get; private set; }
+        public int Number { get;}
         public uint DirectionRegister { get; private set; }
         public uint DataRegister { get; private set; }
-        public uint bitNumber { get; private set; }
-        public bool Direction { get; private set; }
-        public bool Data { get; private set; }
+        public int BitNumber { get; }
 
-        public Line(uint number, Asbl asbl)
+        public Line(int number, Asbl asbl)
         {
             this.asbl = asbl;
             if (number < 1 || number > 120)
                 throw new ArgumentOutOfRangeException("Номер линии должен быть от 1 до 120");
-            this.number = number;
+            this.Number = number;
             SetRegisters();
-            bitNumber = (number - 1) % 20;
+            BitNumber = (number - 1) % 20;
         }
 
-        public static readonly Func<uint, uint> GetPowerOfTwo = (degree) => (uint)(1 << (int)degree);
+        public static readonly Func<int, uint> GetPowerOfTwo = (degree) => (uint)(1 << degree);
 
         private void ChangeBit(uint register, bool bitState)
         {
-            uint currentData = asbl.ReadData(register);
-            uint newData = bitState ? currentData | GetPowerOfTwo(bitNumber) : currentData - (currentData & GetPowerOfTwo(bitNumber));
+            var currentData = asbl.ReadData(register);
+            var newData = bitState ? currentData | GetPowerOfTwo(BitNumber) : currentData - (currentData & GetPowerOfTwo(BitNumber));
             asbl.WriteData(register, newData);
         }
 
         private void ChangeDirection(bool bitState)
         {
             ChangeBit(DirectionRegister, bitState);
-            uint writtenData = asbl.ReadData(DirectionRegister);
-            var state = bitState ? 1 : 0;
-            if (writtenData.BitState((int)bitNumber) != bitState)//((writtenData & (1 << (int)bitNumber)) >> (int)bitNumber != state)
-                throw new FailedToSetLineException($"Не удалось выставить линию {number} в {state}");
+            var writtenData = asbl.ReadData(DirectionRegister);
+            if (writtenData.BitState(BitNumber) != bitState)//((writtenData & (1 << (int)bitNumber)) >> (int)bitNumber != state)
+                throw new FailedToSetLineException($"Не удалось выставить линию {Number} в {(bitState ? 1 : 0)}");
         }
 
         public void SetDirection()
@@ -379,18 +352,21 @@ namespace Checker.DeviceDrivers
         public void ChangeData(bool bitState)
         {
             var expectedBitState = bitState ? 1 : 0;
-            if ((asbl.ReadData(DirectionRegister) & (1 << (int)bitNumber)) == 0)
-                throw new LineIsSetToReceiveException($"Попытка выставить в {expectedBitState} линию {number}, которая настроена на приём");
+            if ((asbl.ReadData(DirectionRegister) & (1 << BitNumber)) == 0)
+                throw new LineIsSetToReceiveException($"Попытка выставить в {expectedBitState} линию {Number}, которая настроена на приём");
             ChangeBit(DataRegister, bitState);
+            var a = GetLineState();
             if (GetLineState() != bitState) //(actualBitState != expectedBitState)
-                throw new FailedToSetLineException($"Не удалось выставить линию {number} в {expectedBitState}");
+                throw new FailedToSetLineException($"Не удалось выставить линию {Number} в {expectedBitState}");
         }
 
         public bool GetLineState()
         {
             var data = asbl.ReadData(DataRegister);
-            var actualBitState = (data & (1 << (int)bitNumber)) >> (int)bitNumber;
-            return actualBitState == 1;
+            return data.BitState(BitNumber);
+            var actualBitState = (data & (1 << BitNumber)) >> BitNumber;
+            var state = actualBitState == 1;
+            return state;
         }
 
         public void SetData()
@@ -405,93 +381,92 @@ namespace Checker.DeviceDrivers
 
         private void SetRegisters()
         {
-            if (number > 0 && number < 21)
+            if (Number > 0 && Number < 21)
             {
-                DirectionRegister = ADR_DIR_REG1;
-                DataRegister = ADR_DATA_REG1;
+                DirectionRegister = AdrDirReg1;
+                DataRegister = AdrDataReg1;
                 return;
             }
-            if (number < 41)
+            if (Number < 41)
             {
-                DirectionRegister = ADR_DIR_REG2;
-                DataRegister = ADR_DATA_REG2;
+                DirectionRegister = AdrDirReg2;
+                DataRegister = AdrDataReg2;
                 return;
             }
-            if (number < 61)
+            if (Number < 61)
             {
-                DirectionRegister = ADR_DIR_REG3;
-                DataRegister = ADR_DATA_REG3;
+                DirectionRegister = AdrDirReg3;
+                DataRegister = AdrDataReg3;
                 return;
             }
-            if (number < 81)
+            if (Number < 81)
             {
-                DirectionRegister = ADR_DIR_REG4;
-                DataRegister = ADR_DATA_REG4;
+                DirectionRegister = AdrDirReg4;
+                DataRegister = AdrDataReg4;
                 return;
             }
-            if (number < 101)
+            if (Number < 101)
             {
-                DirectionRegister = ADR_DIR_REG5;
-                DataRegister = ADR_DATA_REG5;
+                DirectionRegister = AdrDirReg5;
+                DataRegister = AdrDataReg5;
                 return;
             }
-            if (number < 121)
+            if (Number < 121)
             {
-                DirectionRegister = ADR_DIR_REG6;
-                DataRegister = ADR_DATA_REG6;
-                return;
+                DirectionRegister = AdrDirReg6;
+                DataRegister = AdrDataReg6;
             }
         }
         /// <summary>
         /// Управление направлением линий I/O1…I/O20 (записать «1» в разряд – настроить линию на выход, «0» - на вход)
         /// </summary>
-        public const uint ADR_DIR_REG1 = 0x00000000;
+        public const uint AdrDirReg1 = 0x00000000;
         /// <summary>
         /// Управление направлением линий I/O21…I/O40
         /// </summary>
-        public const uint ADR_DIR_REG2 = 0x00000001;
+        public const uint AdrDirReg2 = 0x00000001;
         /// <summary>
         /// Хранение состояния линий I/O1…I/O20. Записав «1» на соответствующей линии (если она настроена на выход) будет выставлена «1»
         /// Записав «0» на соответствующей линии(если она настроена на выход) будет выставлен «0». 
         /// При чтение по этому адресу возвращается текущее состояние линий, если на линию подана снаружи или выставлена «1»  в соответствующем разряде будет «1»
         /// </summary>
-        public const uint ADR_DATA_REG1 = 0x00000002;
+        public const uint AdrDataReg1 = 0x00000002;
         /// <summary>
         /// Хранение состояния линий I/O21…I/O40.
         /// </summary>
-        public const uint ADR_DATA_REG2 = 0x00000003;
+        public const uint AdrDataReg2 = 0x00000003;
         /// <summary>
         /// Управление направлением линий I/O41…I/O60
         /// </summary>
-        public const uint ADR_DIR_REG3 = 0x01000000;
+        public const uint AdrDirReg3 = 0x01000000;
         /// <summary>
         /// Управление направлением линий I/O61…I/O80
         /// </summary>
-        public const uint ADR_DIR_REG4 = 0x01000001;
+        public const uint AdrDirReg4 = 0x01000001;
         /// <summary>
         /// Управление состоянием линий I/O41…I/O60
         /// </summary>
-        public const uint ADR_DATA_REG3 = 0x01000002;
+        public const uint AdrDataReg3 = 0x01000002;
         /// <summary>
         /// Управление состоянием линий I/O61…I/O80
         /// </summary>
-        public const uint ADR_DATA_REG4 = 0x01000003;
+        public const uint AdrDataReg4 = 0x01000003;
         /// <summary>
         /// Управление направлением линий I/O81…I/O100
         /// </summary>
-        public const uint ADR_DIR_REG5 = 0x02000000;
+        public const uint AdrDirReg5 = 0x02000000;
         /// <summary>
         /// Управление направлением линий I/O101…I/O120
         /// </summary>
-        public const uint ADR_DIR_REG6 = 0x02000001;
+        public const uint AdrDirReg6 = 0x02000001;
         /// <summary>
         /// Управление состоянием линий I/O81…I/O100
         /// </summary>
-        public const uint ADR_DATA_REG5 = 0x02000002;
+        public const uint AdrDataReg5 = 0x02000002;
         /// <summary>
         /// Управление состоянием линий I/O101…I/O120
         /// </summary>
-        public const uint ADR_DATA_REG6 = 0x02000003;
+        public const uint AdrDataReg6 = 0x02000003;
     }
 
     public class LineIsSetToReceiveException : Exception

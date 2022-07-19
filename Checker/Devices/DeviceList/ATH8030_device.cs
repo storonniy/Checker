@@ -6,10 +6,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Checker.Auxiliary;
 using Checker.DeviceDrivers;
-using Checker.Steps;
 using Checker.Device;
 using Checker.DeviceDrivers.Aktakom;
-using Checker.DeviceInterface;
 using static Checker.Auxiliary.UnitValuePair;
 
 
@@ -24,7 +22,7 @@ namespace Checker.Devices
             ath8030 = new Ath8030(portName);
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             var lowerLimit = step.LowerLimit;
             var upperLimit = step.UpperLimit;

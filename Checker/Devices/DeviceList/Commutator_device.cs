@@ -3,9 +3,7 @@ using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using Checker.DeviceDrivers;
-using Checker.Steps;
 using Checker.Device;
-using Checker.DeviceInterface;
 
 namespace Checker.Devices
 {
@@ -19,7 +17,7 @@ namespace Checker.Devices
         }
 
         /// дописать OpenAllRelays
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {

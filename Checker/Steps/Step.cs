@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Data;
-using System.IO.Ports;
 using System.Globalization;
+using System.IO.Ports;
+using System.Linq;
 using Checker.Devices;
 
 namespace Checker.Steps
@@ -16,7 +14,6 @@ namespace Checker.Steps
         public Dictionary<string, Dictionary<string, List<Step>>> ModesDictionary { get; set; }
         public List<Step> EmergencyStepList { get; set; }
         //public DeviceInit DeviceHandler;
-        public Dictionary<string, List<Step>> StepsDictionary { get; set; }
         public int StepNumber { get; }
         public List<Devices.Device> DeviceList { get; set; }
         public string ProgramName { get; set; }
@@ -34,8 +31,8 @@ namespace Checker.Steps
         public double UpperLimit { get; }
         public bool ShowStep { get; }
         
-        public Step(DeviceNames deviceName, DeviceCommands deviceCommand, string argument, string additionalArg,
-            string description, double lowerLimit, double upperLimit, int channel, bool showStep)
+        public Step(DeviceNames deviceName, DeviceCommands deviceCommand, string argument = "", string additionalArg = "",
+            string description = "", double lowerLimit = 0, double upperLimit = 0, int channel = -1, bool showStep = false)
         {
             DeviceName = deviceName;
             Command = deviceCommand;
@@ -47,8 +44,6 @@ namespace Checker.Steps
             Channel = channel;
             ShowStep = showStep;
         }
-        
-        public Step(DeviceNames deviceName, DeviceCommands command) : this(deviceName, command, "", "", "", 0, 0, -1, false) {}
 
         private Step (DataRow row)
         {
@@ -70,25 +65,6 @@ namespace Checker.Steps
                 Description = $"Канал {Channel}: {Description}";
             AdditionalArg = row["additionalArg"].ToString();
         }
-
-        private static SerialPort GetSerialPort(string portName, int baudRate)
-        {
-            var serialPort = new SerialPort()
-            {
-                PortName = portName,
-                BaudRate = baudRate,
-                DataBits = 8,
-                Parity = Parity.None,
-                StopBits = StopBits.One,
-                DtrEnable = true,
-                RtsEnable = true,
-                Handshake = Handshake.None,
-                ReadTimeout = 2000,
-                WriteTimeout = 2500
-            };
-            return serialPort;
-        }
-
         private static string GetProgramName(DataSet dataSet)
         {
             var table = dataSet.Tables["ProgramName"];
@@ -106,10 +82,10 @@ namespace Checker.Steps
                 var tableNames = modesDictionary[modeName];
                 foreach (var tableName in tableNames)
                 {
-                    if (tableName.Split(' ').Length > 1)
-                        stepsDictionary.Add(tableName, allStepsDictionary[$"'{tableName}'"]);
-                    else
-                        stepsDictionary.Add(tableName, allStepsDictionary[tableName]);
+                    stepsDictionary.Add(tableName,
+                        tableName.Split(' ').Length > 1
+                            ? allStepsDictionary[$"'{tableName}'"]
+                            : allStepsDictionary[tableName]);
                 }
                 modeStepDictionary.Add(modeName, stepsDictionary);
             }
@@ -122,15 +98,12 @@ namespace Checker.Steps
             foreach (DataRow row in dataSet.Tables["DeviceInformation"].Rows)
             {
                 var deviceName = row["device"].ToString();
+                if (!Enum.TryParse(deviceName, out DeviceNames dev))
+                    throw new ArgumentException($"Устройство {deviceName} не найдено в списке доступных устройств");
                 var portName = row["portName"].ToString();
                 var baudRate = int.Parse(row["baudRate"].ToString());
                 var description = row["description"].ToString();
-                var device = new Devices.Device();
-                device.SerialPort = GetSerialPort(portName, baudRate);
-                device.Description = description;
-                if (!Enum.TryParse(deviceName, out DeviceNames dev))
-                    throw new ArgumentException($"Устройство {deviceName} не найдено в списке доступных устройств {description}");
-                device.Name = dev;
+                var device = new Devices.Device(dev, new SerialPort(portName, baudRate), description);
                 deviceList.Add(device);
             }
             dataSet.Tables.Remove(dataSet.Tables["DeviceInformation"]);
@@ -144,9 +117,8 @@ namespace Checker.Steps
             foreach (DataRow row in table.Rows)
             {
                 var checkingMode = row["VoltageSupplyMode"].ToString();
-                var names = row["TableNames"].ToString();
-                List<string> tableNames = names.Split(';').ToList();
-                for (int i = 0; i < tableNames.Count; i++)
+                var tableNames = row["TableNames"].ToString().Split(';').ToList();
+                for (var i = 0; i < tableNames.Count; i++)
                 {
                     while (tableNames[i].StartsWith(" "))
                         tableNames[i] = tableNames[i].Remove(0, 1);
@@ -164,8 +136,8 @@ namespace Checker.Steps
             foreach (DataRow row in table.Rows)
             {
                 var checkingMode = row["CheckingMode"].ToString();
-                List<string> tableNames = row["TableNames"].ToString().Split(';').ToList();
-                for (int i = 0; i < tableNames.Count; i++)
+                var tableNames = row["TableNames"].ToString().Split(';').ToList();
+                for (var i = 0; i < tableNames.Count; i++)
                 {
                     while (tableNames[i].StartsWith(" "))
                         tableNames[i] = tableNames[i].Remove(0, 1);
@@ -190,9 +162,7 @@ namespace Checker.Steps
             {
                 VoltageSupplyModesDictionary = voltageSupplyDictionary,
                 ModesDictionary = modeStepDictionary,
-                StepsDictionary = stepsDictionary,
                 EmergencyStepList = emergencyStepsDictionary["EmergencyBreaking"],
-                //DeviceHandler = new DeviceInit(deviceList),
                 DeviceList = deviceList,
                 ProgramName = programName
             };
@@ -204,13 +174,8 @@ namespace Checker.Steps
             var dictionary = new Dictionary<string, List<Step>>();           
             foreach (DataTable table in dataSet.Tables)
             {
-                var stepList = new List<Step>();
                 var tableName = table.ToString();
-                foreach (DataRow row in table.Rows)
-                {
-                    var step = new Step(row);
-                    stepList.Add(step);
-                }
+                var stepList = (from DataRow row in table.Rows select new Step(row)).ToList();
                 dictionary.Add(tableName, stepList);
             }
             return dictionary;

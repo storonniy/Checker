@@ -19,7 +19,7 @@ namespace Checker.Auxiliary
         {
             if (position < 0 || position > 31)
                 throw new ArgumentException("Номер позиции бита должен быть от 0 до 31");
-            return (b & (1 << position) >> position) == 1;
+            return (b & (1 << position)) >> position == 1;
         }
     }
 }

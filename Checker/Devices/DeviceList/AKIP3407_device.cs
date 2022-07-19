@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Globalization;
 using Checker.Auxiliary;
+using Checker.Device;
 using Checker.DeviceDrivers;
-using Checker.Steps;
 using static Checker.Auxiliary.UnitValuePair;
-using Checker.DeviceInterface;
 
 namespace Checker.Devices
 {
@@ -22,7 +21,7 @@ namespace Checker.Devices
             serialPort.NewLine = "\r";
             akip3407 = new Akip3407(serialPort);
         }
-        public override DeviceResult DoCommand (Step step)
+        public override DeviceResult DoCommand (Steps.Step step)
         {
             switch (step.Command)
             {

@@ -6,24 +6,22 @@ using System.Threading;
 using System.Globalization;
 using Checker.Auxiliary;
 using Checker.DeviceDrivers;
-using Checker.Steps;
 using static Checker.Auxiliary.UnitValuePair;
 using Checker.Device;
-using Checker.DeviceInterface;
 
 namespace Checker.Devices
 {
-    class PSP405_device : IDeviceInterface
+    class Psp405Device : IDeviceInterface
     {
-        readonly int delay = 500;
-        readonly Psp405 psp405;
+        private const int Delay = 500;
+        private readonly Psp405 psp405;
 
-        public PSP405_device(SerialPort serialPort)
+        public Psp405Device(SerialPort serialPort)
         {
             psp405 = new Psp405(serialPort);
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {
@@ -43,17 +41,17 @@ namespace Checker.Devices
             }
         }
 
-        public double SetCurrent(Step step)
+        public double SetCurrent(Steps.Step step)
         {
             psp405.SetVoltageLimit(40);
             psp405.SetCurrentLimit(step.UpperLimit);
             double current = Math.Abs(double.Parse(step.Argument));
-            Thread.Sleep(delay);
+            Thread.Sleep(Delay);
             double resistance = 480000.0;
             double voltage = current * resistance;
-            Thread.Sleep(delay);
+            Thread.Sleep(Delay);
             psp405.SetVoltage(voltage);
-            Thread.Sleep(delay);
+            Thread.Sleep(Delay);
             var volt = psp405.GetOutputVoltage();
             var actualCurrent = volt / resistance;
             return actualCurrent;

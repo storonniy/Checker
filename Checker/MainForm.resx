@@ -553,13 +553,13 @@
     <value>723, 463</value>
   </data>
   <data name="buttonStep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 23</value>
+    <value>133, 23</value>
   </data>
   <data name="buttonStep.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
   <data name="buttonStep.Text" xml:space="preserve">
-    <value>Шаг</value>
+    <value>Поэтапная проверка</value>
   </data>
   <data name="&gt;&gt;buttonStep.Name" xml:space="preserve">
     <value>buttonStep</value>
@@ -603,6 +603,36 @@
   <data name="&gt;&gt;buttonShowRelays.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <data name="checkBoxIgnoreErrors.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.Location" type="System.Drawing.Point, System.Drawing">
+    <value>838, 32</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.Size" type="System.Drawing.Size, System.Drawing">
+    <value>139, 17</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.TabIndex" type="System.Int32, mscorlib">
+    <value>39</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.Text" xml:space="preserve">
+    <value>Игнорировать ошибки</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreErrors.Name" xml:space="preserve">
+    <value>checkBoxIgnoreErrors</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreErrors.Type" xml:space="preserve">
+    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreErrors.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;checkBoxIgnoreErrors.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
   <data name="labelRelays.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
   </data>
@@ -637,76 +667,40 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;labelRelays.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="groupBoxManualStep.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
   </data>
-  <data name="checkBoxIgnoreErrors.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="numericUpDown1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>153, 17</value>
   </data>
-  <data name="checkBoxIgnoreErrors.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
+  <data name="numericUpDown1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>51, 20</value>
   </data>
-  <data name="checkBoxIgnoreErrors.Location" type="System.Drawing.Point, System.Drawing">
-    <value>394, 17</value>
+  <data name="numericUpDown1.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
   </data>
-  <data name="checkBoxIgnoreErrors.Size" type="System.Drawing.Size, System.Drawing">
-    <value>139, 17</value>
+  <data name="numericUpDown1.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
+    <value>Center</value>
   </data>
-  <data name="checkBoxIgnoreErrors.TabIndex" type="System.Int32, mscorlib">
-    <value>39</value>
+  <data name="&gt;&gt;numericUpDown1.Name" xml:space="preserve">
+    <value>numericUpDown1</value>
   </data>
-  <data name="checkBoxIgnoreErrors.Text" xml:space="preserve">
-    <value>Игнорировать ошибки</value>
+  <data name="&gt;&gt;numericUpDown1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;checkBoxIgnoreErrors.Name" xml:space="preserve">
-    <value>checkBoxIgnoreErrors</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnoreErrors.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxIgnoreErrors.Parent" xml:space="preserve">
+  <data name="&gt;&gt;numericUpDown1.Parent" xml:space="preserve">
     <value>groupBoxManualStep</value>
   </data>
-  <data name="&gt;&gt;checkBoxIgnoreErrors.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;numericUpDown1.ZOrder" xml:space="preserve">
     <value>0</value>
-  </data>
-  <data name="button2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="button2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 13</value>
-  </data>
-  <data name="button2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>93, 23</value>
-  </data>
-  <data name="button2.TabIndex" type="System.Int32, mscorlib">
-    <value>10</value>
-  </data>
-  <data name="button2.Text" xml:space="preserve">
-    <value>Очистить</value>
-  </data>
-  <data name="button2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;button2.Name" xml:space="preserve">
-    <value>button2</value>
-  </data>
-  <data name="&gt;&gt;button2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;button2.Parent" xml:space="preserve">
-    <value>groupBoxManualStep</value>
-  </data>
-  <data name="&gt;&gt;button2.ZOrder" xml:space="preserve">
-    <value>1</value>
   </data>
   <data name="button1.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
   <data name="button1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>120, 13</value>
+    <value>6, 15</value>
   </data>
   <data name="button1.Size" type="System.Drawing.Size, System.Drawing">
     <value>139, 23</value>
@@ -716,9 +710,6 @@
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Выполнить выбранные шаги</value>
-  </data>
-  <data name="button1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>
@@ -730,37 +721,7 @@
     <value>groupBoxManualStep</value>
   </data>
   <data name="&gt;&gt;button1.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="checkBoxCycle.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
-  </data>
-  <data name="checkBoxCycle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>265, 17</value>
-  </data>
-  <data name="checkBoxCycle.Size" type="System.Drawing.Size, System.Drawing">
-    <value>80, 17</value>
-  </data>
-  <data name="checkBoxCycle.TabIndex" type="System.Int32, mscorlib">
-    <value>37</value>
-  </data>
-  <data name="checkBoxCycle.Text" xml:space="preserve">
-    <value>Зациклить</value>
-  </data>
-  <data name="checkBoxCycle.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCycle.Name" xml:space="preserve">
-    <value>checkBoxCycle</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCycle.Type" xml:space="preserve">
-    <value>System.Windows.Forms.CheckBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCycle.Parent" xml:space="preserve">
-    <value>groupBoxManualStep</value>
-  </data>
-  <data name="&gt;&gt;checkBoxCycle.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>1</value>
   </data>
   <data name="groupBoxManualStep.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 14</value>
@@ -781,7 +742,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;groupBoxManualStep.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="treeOfChecking.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -808,7 +769,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;treeOfChecking.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 118</value>

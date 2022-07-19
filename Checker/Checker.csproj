@@ -33,7 +33,7 @@
     </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -69,10 +69,12 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>Checker.Program</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Automation.BDaq, Version=1.0.1.0, Culture=neutral, PublicKeyToken=463f5928d60183a0, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Automation.BDaq.dll</HintPath>
+    <Reference Include="Automation.BDaq">
+      <HintPath>.\Automation.BDaq.dll</HintPath>
     </Reference>
     <Reference Include="FTD2XX_NET, Version=1.0.14.39395, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\FTD2XX_NET.1.0.14\lib\net40\FTD2XX_NET.dll</HintPath>
@@ -86,6 +88,9 @@
     <Reference Include="Microsoft.TestPlatform.AdapterUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>bin\Microsoft.TestPlatform.AdapterUtilities.dll</HintPath>
+    </Reference>
+    <Reference Include="MIGUIControls">
+      <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\MiguiControls\v4.0_1.0.0.0__31bf3856ad364e35\MIGUIControls.dll</HintPath>
     </Reference>
     <Reference Include="NModbus4">
       <HintPath>.\NModbus4.dll</HintPath>
@@ -134,29 +139,29 @@
     <Compile Include="DeviceDrivers\Psp405.cs" />
     <Compile Include="DeviceDrivers\Simulator.cs" />
     <Compile Include="DeviceDrivers\VciCAN\VciCAN.cs" />
-    <Compile Include="Device\DeviceInit.cs" />
-    <Compile Include="Device\Device.cs" />
-    <Compile Include="Device\DeviceList\AKIP3407_device.cs" />
-    <Compile Include="Device\DeviceList\AsblDevice.cs" />
-    <Compile Include="Device\DeviceList\ATH8030_device.cs" />
-    <Compile Include="Device\DeviceList\Commutator_device.cs" />
-    <Compile Include="Device\DeviceList\Keithley2401Device.cs" />
-    <Compile Include="Device\DeviceList\MK_device.cs" />
-    <Compile Include="Device\DeviceList\None.cs" />
-    <Compile Include="Device\DeviceList\Pci176XDevice\Pci1761Device.cs" />
-    <Compile Include="Device\DeviceList\Pci176XDevice\Pci1762Device.cs" />
-    <Compile Include="Device\DeviceList\Pci176XDevice\Pci176Xdevice.cs" />
-    <Compile Include="Device\DeviceList\Psh73610Device.cs" />
-    <Compile Include="Device\DeviceList\Pst3201Device.cs" />
-    <Compile Include="Device\DeviceList\Simulator_device.cs" />
-    <Compile Include="Device\IDeviceInterface.cs" />
+    <Compile Include="Devices\DeviceInit.cs" />
+    <Compile Include="Devices\Device.cs" />
+    <Compile Include="Devices\DeviceList\AKIP3407_device.cs" />
+    <Compile Include="Devices\DeviceList\AsblDevice.cs" />
+    <Compile Include="Devices\DeviceList\ATH8030_device.cs" />
+    <Compile Include="Devices\DeviceList\Commutator_device.cs" />
+    <Compile Include="Devices\DeviceList\Keithley2401Device.cs" />
+    <Compile Include="Devices\DeviceList\MK_device.cs" />
+    <Compile Include="Devices\DeviceList\None.cs" />
+    <Compile Include="Devices\DeviceList\Pci176XDevice\Pci1761Device.cs" />
+    <Compile Include="Devices\DeviceList\Pci176XDevice\Pci1762Device.cs" />
+    <Compile Include="Devices\DeviceList\Pci176XDevice\Pci176Xdevice.cs" />
+    <Compile Include="Devices\DeviceList\Psh73610Device.cs" />
+    <Compile Include="Devices\DeviceList\Pst3201Device.cs" />
+    <Compile Include="Devices\DeviceList\Simulator_device.cs" />
+    <Compile Include="Devices\IDeviceInterface.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Device\DeviceList\Gdm78261Device.cs" />
+    <Compile Include="Devices\DeviceList\Gdm78261Device.cs" />
     <Compile Include="Log\Log.cs" />
     <Compile Include="PureSerialReader.cs" />
     <Compile Include="SettingsForm.cs">
@@ -166,11 +171,11 @@
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings\ControlObjectSettings.cs" />
-    <Compile Include="Step\StepsInit.cs" />
+    <Compile Include="Steps\StepsInit.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Device\DeviceList\PSP405_device.cs" />
-    <Compile Include="Step\Step.cs" />
+    <Compile Include="Devices\DeviceList\PSP405_device.cs" />
+    <Compile Include="Steps\Step.cs" />
     <EmbeddedResource Include="MainForm.ja.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>

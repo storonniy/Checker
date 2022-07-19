@@ -8,7 +8,6 @@ using Checker.Auxiliary;
 using Checker.DeviceDrivers;
 using Checker.Devices;
 using Checker.Device;
-using Checker.DeviceInterface;
 using static Checker.Auxiliary.UnitValuePair;
 
 namespace Tester

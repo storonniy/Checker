@@ -1,7 +1,6 @@
 ﻿using System.IO.Ports;
+using Checker.Device;
 using static Checker.Devices.DeviceResult;
-using Checker.Steps;
-using Checker.DeviceInterface;
 using Instek;
 
 namespace Checker.Devices
@@ -15,7 +14,7 @@ namespace Checker.Devices
             psh73610 = new Psh73610(serialPort);
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {

@@ -1,22 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO.Ports;
+﻿using System.IO.Ports;
 
 namespace Checker.Devices
 {
     public struct Device
     {
-        public SerialPort SerialPort;
-        public DeviceNames Name;
-        public DeviceStatus Status;
-        public string Description;
+        public Device(DeviceNames deviceName, SerialPort serialPort, string description)
+        {
+            Name = deviceName;
+            SerialPort = serialPort;
+            Description = description;
+        }
+        
+        public SerialPort SerialPort { get; }
+        public DeviceNames Name { get; }
+        public string Description { get; }
     }
 
     public enum DeviceStatus
     {
-        ERROR,
-        OK,
-        NOT_CONNECTED
+        Error,
+        Ok,
+        NotConnected
     }
     
     public struct DeviceResult
@@ -26,18 +30,18 @@ namespace Checker.Devices
 
         public static DeviceResult ResultOk(string description) => new DeviceResult()
         {
-            State = DeviceStatus.OK,
+            State = DeviceStatus.Ok,
             Description = description
         };
 
         public static DeviceResult ResultError(string description) => new DeviceResult()
         {
-            State = DeviceStatus.ERROR,
-            Description = $"ОШИБКА: {description}"
+            State = DeviceStatus.Error,
+            Description = $"*: {description}"
         };
         public static DeviceResult ResultNotConnected(string description) => new DeviceResult()
         {
-            State = DeviceStatus.NOT_CONNECTED,
+            State = DeviceStatus.NotConnected,
             Description = description
         };
     }
@@ -73,7 +77,6 @@ namespace Checker.Devices
         SetMaxCurrent,
         GetLoadCurrent,
         // PCI_1762
-        Commutate,
         ReadPCI1762Data,
         //
         CalculateCoefficient_UCAT,
@@ -103,7 +106,10 @@ namespace Checker.Devices
         SetMeasurementToVoltageAC,
         GetClosedRelayNames,
         GetVoltageDCAndSave,
-        GetLineState
+        GetLineState,
+        GetResistance,
+        SetMeasurementToResistance,
+        CheckResistancesDifference
     }
 
     public enum DeviceNames
@@ -132,6 +138,8 @@ namespace Checker.Devices
         Keithley2401_1,
         Keithley2401_2,
         MK,
-        Simulator
+        Simulator,
+        GetResistance,
+        PSH_73610_power
     }
 }

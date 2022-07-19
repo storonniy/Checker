@@ -1,37 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
-using Checker.Steps;
-using Checker.Device;
 using Checker.Device.DeviceList;
 using Checker.Device.DeviceList.Pci176XDevice;
-using Checker.DeviceDrivers;
-using Checker.DeviceInterface;
+using Checker.Steps;
 
 namespace Checker.Devices
 {
     public class DeviceInit
     {
-        public readonly Dictionary<DeviceNames, IDeviceInterface> Devices = new Dictionary<DeviceNames, IDeviceInterface>();
-        public readonly List<Device> DeviceList;
-
-        public DeviceInit InitDevices()
-        {
-            return new DeviceInit(DeviceList);
-        }
-
-        public void CloseDevicesSerialPort(List<Device> deviceList)
-        {
-            foreach (var device in deviceList)
-            {
-                device.SerialPort.Close();
-            }
-        }
-
+        public readonly Dictionary<DeviceNames, IDeviceInterface> Devices;
         public DeviceInit(List<Device> deviceList)
         {
-            this.DeviceList = deviceList;
+            Devices = new Dictionary<DeviceNames, IDeviceInterface>();
             foreach (var device in deviceList)
             {
                 IDeviceInterface newDevice = null;
@@ -39,7 +20,7 @@ namespace Checker.Devices
                 {
                     case DeviceNames.PSP_405:
                     case DeviceNames.PSP_405_power:
-                        newDevice = new PSP405_device(device.SerialPort);
+                        newDevice = new Psp405Device(device.SerialPort);
                         break;
                     case DeviceNames.GDM_78261:
                         newDevice = new Gdm78261Device(device.SerialPort);
@@ -59,9 +40,8 @@ namespace Checker.Devices
                         break;
                     // УСА_Т
                     case DeviceNames.PSH_73610:
-                        newDevice = new Psh73610Device(device.SerialPort);
-                        break;
                     case DeviceNames.PSH_73630:
+                    case DeviceNames.PSH_73610_power:
                         newDevice = new Psh73610Device(device.SerialPort);
                         break;
                     case DeviceNames.ATH_8030:
@@ -105,9 +85,9 @@ namespace Checker.Devices
             try
             {
                 var device = Devices[step.DeviceName];
-                if (device == null)
-                    return DeviceResult.ResultNotConnected($"NOT_CONNECTED: Устройство {step.DeviceName} не инициализировано");
-                return device.DoCommand(step);
+                return device == null 
+                    ? DeviceResult.ResultNotConnected($"NOT_CONNECTED: Устройство {step.DeviceName} не инициализировано") 
+                    : device.DoCommand(step);
             }
             catch (IOException)
             {

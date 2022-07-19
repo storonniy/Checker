@@ -51,12 +51,11 @@ namespace Checker
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.buttonStep = new System.Windows.Forms.Button();
             this.buttonShowRelays = new System.Windows.Forms.Button();
+            this.checkBoxIgnoreErrors = new System.Windows.Forms.CheckBox();
             this.labelRelays = new System.Windows.Forms.Label();
             this.groupBoxManualStep = new System.Windows.Forms.GroupBox();
-            this.checkBoxIgnoreErrors = new System.Windows.Forms.CheckBox();
-            this.button2 = new System.Windows.Forms.Button();
+            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
             this.button1 = new System.Windows.Forms.Button();
-            this.checkBoxCycle = new System.Windows.Forms.CheckBox();
             this.treeOfChecking = new System.Windows.Forms.TreeView();
             this.groupBoxCheckingManagement = new System.Windows.Forms.GroupBox();
             this.buttonCheckingStop = new System.Windows.Forms.Button();
@@ -67,6 +66,7 @@ namespace Checker
             this.groupBoxPreferences.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxManualStep.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown1)).BeginInit();
             this.groupBoxCheckingManagement.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -192,6 +192,7 @@ namespace Checker
             resources.ApplyResources(this.groupBox2, "groupBox2");
             this.groupBox2.Controls.Add(this.buttonStep);
             this.groupBox2.Controls.Add(this.buttonShowRelays);
+            this.groupBox2.Controls.Add(this.checkBoxIgnoreErrors);
             this.groupBox2.Controls.Add(this.labelRelays);
             this.groupBox2.Controls.Add(this.groupBoxManualStep);
             this.groupBox2.Controls.Add(this.treeOfChecking);
@@ -212,6 +213,13 @@ namespace Checker
             this.buttonShowRelays.UseVisualStyleBackColor = true;
             this.buttonShowRelays.Click += new System.EventHandler(this.buttonShowRelays_Click);
             // 
+            // checkBoxIgnoreErrors
+            // 
+            resources.ApplyResources(this.checkBoxIgnoreErrors, "checkBoxIgnoreErrors");
+            this.checkBoxIgnoreErrors.Name = "checkBoxIgnoreErrors";
+            this.checkBoxIgnoreErrors.Tag = "Показывает неинформативные шаги проверки";
+            this.checkBoxIgnoreErrors.UseVisualStyleBackColor = true;
+            // 
             // labelRelays
             // 
             resources.ApplyResources(this.labelRelays, "labelRelays");
@@ -220,26 +228,18 @@ namespace Checker
             // groupBoxManualStep
             // 
             resources.ApplyResources(this.groupBoxManualStep, "groupBoxManualStep");
-            this.groupBoxManualStep.Controls.Add(this.checkBoxIgnoreErrors);
-            this.groupBoxManualStep.Controls.Add(this.button2);
+            this.groupBoxManualStep.Controls.Add(this.numericUpDown1);
             this.groupBoxManualStep.Controls.Add(this.button1);
-            this.groupBoxManualStep.Controls.Add(this.checkBoxCycle);
             this.groupBoxManualStep.Name = "groupBoxManualStep";
             this.groupBoxManualStep.TabStop = false;
             // 
-            // checkBoxIgnoreErrors
+            // numericUpDown1
             // 
-            resources.ApplyResources(this.checkBoxIgnoreErrors, "checkBoxIgnoreErrors");
-            this.checkBoxIgnoreErrors.Name = "checkBoxIgnoreErrors";
-            this.checkBoxIgnoreErrors.Tag = "Показывает неинформативные шаги проверки";
-            this.checkBoxIgnoreErrors.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            resources.ApplyResources(this.button2, "button2");
-            this.button2.Name = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
+            this.numericUpDown1.Minimum = new decimal(new int[] {1, 0, 0, 0});
+            this.numericUpDown1.Name = "numericUpDown1";
+            this.numericUpDown1.Value = new decimal(new int[] {1, 0, 0, 0});
             // 
             // button1
             // 
@@ -248,18 +248,15 @@ namespace Checker
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // checkBoxCycle
-            // 
-            resources.ApplyResources(this.checkBoxCycle, "checkBoxCycle");
-            this.checkBoxCycle.Name = "checkBoxCycle";
-            this.checkBoxCycle.UseVisualStyleBackColor = true;
-            // 
             // treeOfChecking
             // 
             this.treeOfChecking.AllowDrop = true;
             resources.ApplyResources(this.treeOfChecking, "treeOfChecking");
             this.treeOfChecking.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.treeOfChecking.CheckBoxes = true;
             this.treeOfChecking.Name = "treeOfChecking";
+            this.treeOfChecking.ShowLines = false;
+            this.treeOfChecking.ShowPlusMinus = false;
             this.treeOfChecking.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeOfChecking_AfterSelect);
             // 
             // groupBoxCheckingManagement
@@ -305,10 +302,12 @@ namespace Checker
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBoxManualStep.ResumeLayout(false);
-            this.groupBoxManualStep.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown1)).EndInit();
             this.groupBoxCheckingManagement.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.NumericUpDown numericUpDown1;
 
         #endregion
         private System.Windows.Forms.Button buttonCheckingStart;
@@ -327,8 +326,6 @@ namespace Checker
         private System.Windows.Forms.ComboBox comboBoxCheckingMode;
         private System.Windows.Forms.GroupBox groupBoxPreferences;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox checkBoxCycle;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label labelAttention;
         private System.Windows.Forms.GroupBox groupBoxManualStep;
         private System.Windows.Forms.GroupBox groupBox1;

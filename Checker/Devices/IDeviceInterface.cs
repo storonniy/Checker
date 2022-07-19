@@ -3,12 +3,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using Checker.Auxiliary;
-using Checker.Devices;
 using Checker.Steps;
 using static Checker.Auxiliary.UnitValuePair;
 
 
-namespace Checker.DeviceInterface
+namespace Checker.Devices
 {
     public abstract class IDeviceInterface
     {
@@ -44,7 +43,7 @@ namespace Checker.DeviceInterface
             return GetResultOfSetting($"{step.DeviceName}: Установлен предел по току", UnitType.Current, result, currentLimit);
         }
 
-        public static DeviceResult SetCurrentLimit(Step step, Func<double, int, double> setCurrentLimit)
+        protected static DeviceResult SetCurrentLimit(Step step, Func<double, int, double> setCurrentLimit)
         {
             var channel = int.Parse(step.AdditionalArg);
             var currentLimit = double.Parse(step.Argument, CultureInfo.InvariantCulture);
@@ -140,6 +139,17 @@ namespace Checker.DeviceInterface
                 .Select(int.Parse)
                 .ToArray();
         }
+
+        public static DeviceResult Measure(Step step, Func<double> measure, UnitType unitType)
+        {
+            var value = measure();
+            if (step.Argument != "-")
+            {
+                var key = step.Argument;
+                AddValues(key, value);
+            }
+            return GetResult("Измерено", step, unitType, value);
+        }
         
         public virtual void Die()
         {
@@ -151,35 +161,36 @@ namespace Checker.DeviceInterface
         {
             public InputData(int channel, double inputValue)
             {
-                Channel = channel;
-                InputValue = inputValue;
+                this.channel = channel;
+                this.inputValue = inputValue;
             }
-            public int Channel;
-            public double InputValue;
+
+            private int channel;
+            private double inputValue;
         }
 
-        private static readonly Dictionary<InputData, List<double>> coefficientValuesDictionary = new Dictionary<InputData, List<double>>();
+        private static readonly Dictionary<InputData, List<double>> CoefficientValuesDictionary = new Dictionary<InputData, List<double>>();
 
-        public static readonly Action ClearCoefficientDictionary = () => coefficientValuesDictionary.Clear();
+        public static readonly Action ClearCoefficientDictionary = () => CoefficientValuesDictionary.Clear();
 
         public static void AddCoefficientData(int channel, double expectedValue, double value)
         {
             if (channel <= 0) return;
             var inputData = new InputData(channel, expectedValue);
-            if (!coefficientValuesDictionary.ContainsKey(inputData))
+            if (!CoefficientValuesDictionary.ContainsKey(inputData))
             {
-                coefficientValuesDictionary.Add(inputData, new List<double> { value });
+                CoefficientValuesDictionary.Add(inputData, new List<double> { value });
             }
             else
             {
-                coefficientValuesDictionary[inputData].Add(value);
+                CoefficientValuesDictionary[inputData].Add(value);
             }
         }
 
         protected static List<double> GetCoefficientValues(int channel, double value)
         {
             var inputData = new InputData(channel, value);
-            return coefficientValuesDictionary[inputData];
+            return CoefficientValuesDictionary[inputData];
         }
 
         #endregion
@@ -206,7 +217,7 @@ namespace Checker.DeviceInterface
 
     public static class DictionaryExtensions
     {
-        public static void SafeAdd<Tkey, Tvalue>(this Dictionary<Tkey, Tvalue> dictionary, Tkey key, Tvalue value)
+        public static void SafeAdd<TKey, TValue>(this Dictionary<TKey, TValue> dictionary, TKey key, TValue value)
         {
             if (dictionary.ContainsKey(key))
                 dictionary[key] = value;

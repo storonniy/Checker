@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Checker.DeviceDrivers;
 using System.IO.Ports;
 using Checker.Device.DeviceList;
+using Instek;
 
 namespace Tester
 {

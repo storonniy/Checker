@@ -7,7 +7,6 @@ using System.Threading;
 using Checker.Device;
 using static Checker.Auxiliary.UnitValuePair;
 using Checker.Device.DeviceList;
-using Checker.DeviceInterface;
 using static Checker.DeviceDrivers.MK;
 
 namespace TestProject

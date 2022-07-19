@@ -1,8 +1,6 @@
 ﻿using System.IO.Ports;
 using Checker.DeviceDrivers;
-using Checker.DeviceInterface;
 using Checker.Devices;
-using Checker.Steps;
 
 namespace Checker.Device.DeviceList
 {
@@ -16,7 +14,7 @@ namespace Checker.Device.DeviceList
             keithley2401 = new Keithley2401(serialPort);
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {

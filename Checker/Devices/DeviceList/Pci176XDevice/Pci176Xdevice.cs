@@ -1,8 +1,6 @@
 ﻿using Advantech;
 using Checker.DeviceDrivers;
-using Checker.DeviceInterface;
 using Checker.Devices;
-using Checker.Steps;
 using static Checker.Devices.DeviceResult;
 
 namespace Checker.Device.DeviceList
@@ -16,7 +14,7 @@ namespace Checker.Device.DeviceList
             this.pci176X = pci176X;
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {

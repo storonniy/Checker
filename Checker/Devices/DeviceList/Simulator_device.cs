@@ -5,9 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO.Ports;
 using Checker.DeviceDrivers;
-using Checker.DeviceInterface;
 using Checker.Devices;
-using Checker.Steps;
 
 namespace Checker.Device.DeviceList
 {
@@ -22,7 +20,7 @@ namespace Checker.Device.DeviceList
         }
 
         /// дописать OpenAllRelays
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             switch (step.Command)
             {

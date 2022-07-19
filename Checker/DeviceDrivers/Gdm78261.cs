@@ -31,7 +31,7 @@ namespace Checker.DeviceDrivers
         {
             Thread.Sleep(4000);
             serialPort.SendCommand("MEAS:VOLT:AC?\r");
-            return ParseValue();
+            return serialPort.ReadDouble();
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Checker.DeviceDrivers
         {
             Thread.Sleep(4000);
             serialPort.SendCommand("MEAS:VOLT:DC?\r");
-            return ParseValue();
+            return serialPort.ReadDouble();
         }
         /// <summary>
         /// Returns the DC current measurement, mA.
@@ -52,7 +52,7 @@ namespace Checker.DeviceDrivers
         {
             Thread.Sleep(2000);
             serialPort.SendCommand("MEAS:CURR:DC?\r");
-            return ParseValue();
+            return serialPort.ReadDouble();
         }
 
         public double ParseValue()
@@ -93,6 +93,18 @@ namespace Checker.DeviceDrivers
         public void SetMeasurementToVoltageAC()
         {
             serialPort.SendCommand($"CONF:VOLT:AC\r");
+        }
+
+        public void SetMeasurementToResistance()
+        {
+            serialPort.SendCommand($"CONF:RES\r");
+        }
+
+        public double GetResistance()
+        {
+            Thread.Sleep(5000);
+            serialPort.SendCommand("MEAS:RES?\r");
+            return serialPort.ReadDouble();
         }
     }
 }

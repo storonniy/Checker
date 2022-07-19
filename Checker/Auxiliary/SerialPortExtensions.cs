@@ -15,7 +15,7 @@ namespace Checker.Auxiliary
 
         public static double ReadDouble(this SerialPort serialPort)
         {
-            var value = serialPort.ReadLine().Replace("\r", "").Replace("\n", "");
+            var value = serialPort.ReadExisting().Replace("\r", "").Replace("\n", "");
             value = value.Trim();
             return ParseDouble(value);
         }

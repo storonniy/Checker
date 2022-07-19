@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Checker.DeviceDrivers;
-using Checker.DeviceInterface;
 using Checker.Devices;
-using Checker.Steps;
 using static Checker.Devices.DeviceResult;
 
 namespace Checker.Device.DeviceList
@@ -19,19 +15,15 @@ namespace Checker.Device.DeviceList
             asbl = new Asbl();
         }
 
-        public static uint[] GetLineNumbers(string argument)
+        public static int[] GetLineNumbers(string argument)
         {
-            var lineNumbers = argument.Trim().Split(';');
-            var uintLineNumbers = new List<uint>();
-            for (int i = 0; i < lineNumbers.Length; i++)
-            {
-                if (lineNumbers[i] != "")
-                    uintLineNumbers.Add(uint.Parse(lineNumbers[i]));
-            }
-            return uintLineNumbers.ToArray();
+            return argument.Replace(" ", "").Split(',')
+                .Where(x => x != "")
+                .Select(int.Parse)
+                .ToArray();
         }
 
-        public override DeviceResult DoCommand(Step step)
+        public override DeviceResult DoCommand(Steps.Step step)
         {
             try
             {
@@ -50,19 +42,15 @@ namespace Checker.Device.DeviceList
                         asbl.SetLineData(lineNumbers);
                         return ResultOk($"Линии {string.Join(", ", lineNumbers)} установлены в 1");
                     case DeviceCommands.ClearLineData:
-                        try
-                        {
-                            lineNumbers = GetLineNumbers(step.Argument);
-                            asbl.ClearLineData(lineNumbers);
-                            return ResultOk($"Линии {string.Join(", ", lineNumbers)} установлены в 0");
-                        }
-                        catch (FailedToSetLineException ex)
-                        {
-                            return ResultError(ex.Message);
-                        }
+                        lineNumbers = GetLineNumbers(step.Argument);
+                        asbl.ClearLineData(lineNumbers);
+                        return ResultOk($"Линии {string.Join(", ", lineNumbers)} установлены в 0");
                     case DeviceCommands.GetLineState:
-                        var lineNumber = (uint)int.Parse(step.Argument);
-                        var lineState = bool.Parse(step.AdditionalArg);
+                        var lineNumber = int.Parse(step.Argument);
+                        var lineStateN = int.Parse(step.AdditionalArg);
+                        if (lineStateN != 1 && lineStateN != 0)
+                            throw new Exception($"Невозможное логическое состояние {lineStateN}");
+                        var lineState = lineStateN == 1;
                         var actualLineState = asbl.GetLineData(lineNumber);
                         var msg =
                             $"Линия {lineNumber} находится в состоянии лог. {(actualLineState ? 1 : 0)}, ожидалось состояние лог. {(lineState ? 1 : 0)}";
@@ -76,19 +64,19 @@ namespace Checker.Device.DeviceList
             }
             catch (FailedToSetLineException ex)
             {
-                return DeviceResult.ResultError($"{step.DeviceName}: {ex.Message}");
+                return ResultError($"{step.DeviceName}: {ex.Message}");
             }
             catch (LineIsSetToReceiveException ex)
             {
-                return DeviceResult.ResultError($"{step.DeviceName}: {ex.Message}");
+                return ResultError($"{step.DeviceName}: {ex.Message}");
             }
             catch (AsblException ex)
             {
-                return DeviceResult.ResultError($"{step.DeviceName}: {ex.Message}");
+                return ResultError($"{step.DeviceName}: {ex.Message}");
             }
             catch (ArgumentOutOfRangeException ex)
             {
-                return DeviceResult.ResultError($"{step.DeviceName} : {step.Command} : {ex.Message}");
+                return ResultError($"{step.DeviceName} : {step.Command} : {ex.Message}");
             }
         }
     }

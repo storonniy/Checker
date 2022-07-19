@@ -1,19 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Checker;
-using System.IO;
-using System.IO.Ports;
-using Checker.Devices;
+﻿using Checker.Devices;
 
 namespace Checker.Steps
 {
     class StepParser
     {
         private readonly DeviceInit deviceHandler;
-        private readonly Step step;
+        private readonly Steps.Step step;
 
         public StepParser(DeviceInit deviceHandler, Step step)
         {
