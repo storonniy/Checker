@@ -362,6 +362,7 @@ namespace Checker.DeviceDrivers
 
         public bool GetLineState()
         {
+            Thread.Sleep(10);
             var data = asbl.ReadData(DataRegister);
             return data.BitState(BitNumber);
             var actualBitState = (data & (1 << BitNumber)) >> BitNumber;

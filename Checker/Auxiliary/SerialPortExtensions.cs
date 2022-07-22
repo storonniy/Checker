@@ -17,6 +17,8 @@ namespace Checker.Auxiliary
         {
             var value = serialPort.ReadExisting().Replace("\r", "").Replace("\n", "");
             value = value.Trim();
+            if (value == "")
+                throw new SerialPortDeviceException("устройство не отвечает");
             return ParseDouble(value);
         }
 
@@ -37,5 +39,10 @@ namespace Checker.Auxiliary
             serialPort.WriteLine(command);
             Thread.Sleep(delay);
         }
+    }
+
+    public class SerialPortDeviceException : Exception
+    {
+        public SerialPortDeviceException(string message) : base(message) { }
     }
 }

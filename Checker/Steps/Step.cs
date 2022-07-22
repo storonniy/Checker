@@ -17,9 +17,21 @@ namespace Checker.Steps
         public int StepNumber { get; }
         public List<Devices.Device> DeviceList { get; set; }
         public string ProgramName { get; set; }
+        public string ProtocolDirectory { get; set; }
     }
 
-    public class Step
+    internal struct ProgramData
+    {
+        public string ProgramName { get; set; }
+        public string ProtocolDirectory { get; set; }
+        public ProgramData (string programName, string protocolDirectory)
+        {
+            ProgramName = programName;
+            ProtocolDirectory = protocolDirectory;
+        }
+    }
+
+        public class Step
     {
         public string AdditionalArg { get; }
         public int Channel { get;}
@@ -71,6 +83,15 @@ namespace Checker.Steps
             var programName = table.Rows[0]["ProgramName"].ToString();
             dataSet.Tables.Remove(dataSet.Tables[table.TableName]);
             return programName;
+        }
+
+        private static ProgramData GetProgramData(DataSet dataSet)
+        {
+            var table = dataSet.Tables["ProgramName"];
+            var programName = table.Rows[0]["ProgramName"].ToString();
+            var protocolDirectory = table.Rows[0]["protocolDirectory"].ToString();
+            dataSet.Tables.Remove(dataSet.Tables[table.TableName]);
+            return new ProgramData(programName, protocolDirectory);
         }
 
         private static Dictionary<string, Dictionary<string, List<Step>>> GetModeStepDictionary(Dictionary<string, List<string>> modesDictionary, IReadOnlyDictionary<string, List<Step>> allStepsDictionary)
@@ -150,7 +171,9 @@ namespace Checker.Steps
 
         public static StepsInfo GetStepsInfo(DataSet dataSet)
         {
-            var programName = GetProgramName(dataSet);
+            var programData = GetProgramData(dataSet);
+            var programName = programData.ProgramName;
+            var protocolDirectory = programData.ProtocolDirectory;
             var voltageModesDictionary = GetVoltageSupplyModesDictionary(dataSet);
             var modesDictionary = GetModesDictionary(dataSet);
             var deviceList = GetDeviceList(dataSet);
@@ -164,7 +187,8 @@ namespace Checker.Steps
                 ModesDictionary = modeStepDictionary,
                 EmergencyStepList = emergencyStepsDictionary["EmergencyBreaking"],
                 DeviceList = deviceList,
-                ProgramName = programName
+                ProgramName = programName,
+                ProtocolDirectory = protocolDirectory
             };
             return info;
         }

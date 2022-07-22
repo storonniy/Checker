@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Checker.Auxiliary;
 using Checker.DeviceDrivers;
 using Checker.Devices;
 using static Checker.Devices.DeviceResult;
@@ -75,6 +76,10 @@ namespace Checker.Device.DeviceList
                 return ResultError($"{step.DeviceName}: {ex.Message}");
             }
             catch (ArgumentOutOfRangeException ex)
+            {
+                return ResultError($"{step.DeviceName} : {step.Command} : {ex.Message}");
+            }
+            catch (SerialPortDeviceException ex)
             {
                 return ResultError($"{step.DeviceName} : {step.Command} : {ex.Message}");
             }

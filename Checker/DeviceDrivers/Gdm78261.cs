@@ -29,8 +29,9 @@ namespace Checker.DeviceDrivers
 
         public double MeasureVoltageAC()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(500);
             serialPort.SendCommand("MEAS:VOLT:AC?\r");
+            Thread.Sleep(5000);
             return serialPort.ReadDouble();
         }
 
@@ -40,8 +41,9 @@ namespace Checker.DeviceDrivers
         /// <returns></returns>
         public double MeasureVoltageDC()
         {
-            Thread.Sleep(4000);
+            Thread.Sleep(500);
             serialPort.SendCommand("MEAS:VOLT:DC?\r");
+            Thread.Sleep(5000);
             return serialPort.ReadDouble();
         }
         /// <summary>
@@ -50,25 +52,10 @@ namespace Checker.DeviceDrivers
         /// <returns></returns>
         public double MeasureCurrentDC()
         {
-            Thread.Sleep(2000);
+            Thread.Sleep(500);
             serialPort.SendCommand("MEAS:CURR:DC?\r");
+            Thread.Sleep(5000);
             return serialPort.ReadDouble();
-        }
-
-        public double ParseValue()
-        {
-            var value = serialPort.ReadLine().Replace("\r", "");
-            var result = double.NaN;
-            value = value.Trim();
-            if (!double.TryParse(value, NumberStyles.Any, CultureInfo.GetCultureInfo("ru-RU"), out result))
-            {
-                if (!double.TryParse(value, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out result))
-                {
-                    throw new FormatException();
-                }
-            }
-            return result;
-            return (double)Decimal.Parse(value, NumberStyles.Float, CultureInfo.InvariantCulture);
         }
 
         /// <summary>
@@ -100,10 +87,11 @@ namespace Checker.DeviceDrivers
             serialPort.SendCommand($"CONF:RES\r");
         }
 
-        public double GetResistance()
+        public double MeasureResistance()
         {
-            Thread.Sleep(5000);
+            Thread.Sleep(500);
             serialPort.SendCommand("MEAS:RES?\r");
+            Thread.Sleep(5000);
             return serialPort.ReadDouble();
         }
     }

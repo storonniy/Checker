@@ -66,15 +66,15 @@ namespace Checker
                 {
                     ShowStepResult(step, stepResult);
                 }
-                /*                if (!step.Command.ToString().StartsWith("Get") || stepResult.State != DeviceStatus.Error) return;
-                                for (var i = 0; i < 3; i++)
-                                {
-                                    stepResult = DoStep(step);
-                                    if (step.ShowStep)
-                                    {
-                                        ShowStepResult(step, stepResult);
-                                    }
-                                }*/
+                if (!step.Command.ToString().StartsWith("Get") || stepResult.State != DeviceStatus.Error) return;
+                for (var i = 0; i < 2; i++)
+                {
+                    stepResult = DoStep(step);
+                    if (step.ShowStep)
+                    {
+                        ShowStepResult(step, stepResult);
+                    }
+                }
             }
             else if (_isCheckingStarted)
             {
@@ -212,7 +212,7 @@ namespace Checker
 
         private void InitialActions()
         {
-            var connectionString = "FKT.xlsx;";
+            var connectionString = "NS03.xlsx;";
             InitialActions(connectionString);
         }
 
@@ -222,7 +222,7 @@ namespace Checker
 
         private void CreateLog()
         {
-            _log = new Log(settings);
+            _log = new Log(settings, _stepsInfo.ProtocolDirectory);
             _log.Send($"Время начала проверки: {DateTime.Now}\n");
             _log.Send($"Имя оператора: {settings.OperatorName}\n");
             _log.Send($"Комментарий: {settings.Comment}\n");

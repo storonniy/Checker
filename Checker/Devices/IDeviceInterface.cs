@@ -148,7 +148,7 @@ namespace Checker.Devices
                 var key = step.Argument;
                 AddValues(key, value);
             }
-            return GetResult("Измерено", step, unitType, value);
+            return GetResult($"Измерено", step, unitType, value);
         }
         
         public virtual void Die()

@@ -7,11 +7,17 @@ using Checker.DeviceDrivers;
 using Checker.Devices;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Tester
+namespace Advantech
 {
     [TestClass]
     public class Pci1762Tests
     {
+        [TestMethod]
+        public void GetSignals()
+        {
+            var actual = Pci1751.Signal.ParseAll(new[] { "A00, A01, A15" });
+            CollectionAssert.AreEquivalent(new List<Pci1751.Signal> {new Pci1751.Signal("A", 0)}, actual);
+        }
         
         [TestMethod]
         public void GetRelaysAsByteMoreTests()

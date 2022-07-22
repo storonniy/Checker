@@ -172,7 +172,7 @@ namespace Tester
         public void TestAllLines()
         {
             Asbl asbl = new Asbl();
-            for (uint i = 1; i < 121; i++)
+            for (int i = 1; i < 121; i++)
             {
                 asbl.SetLineDirection(i);
                 asbl.SetLineData(i);
@@ -243,7 +243,7 @@ namespace Tester
             uint linePosition = 0;
             for (uint lineNumber = firstLineNumber; lineNumber < firstLineNumber + 19; lineNumber++)
             {
-                var line = new Line(lineNumber, new Asbl());
+                var line = new Line((int)lineNumber, new Asbl());
                 Assert.AreEqual(line.DirectionRegister, expectedDirectionRegister);
                 Assert.AreEqual(line.DataRegister, expectedDataRegister);
                 Assert.AreEqual(linePosition, line.BitNumber);

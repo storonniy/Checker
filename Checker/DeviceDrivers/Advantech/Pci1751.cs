@@ -7,16 +7,44 @@ using Checker.Auxiliary;
 
 namespace Advantech
 {
-    public class Pci176X
+    public class Pci1751
     {
+        public class Signal
+        {
+            public int Data { get; }
+            public PortName Port { get; }
+
+            public Signal(string portName, int data)
+            {
+                if (!Enum.TryParse(portName, out PortName p))
+                    throw new ArgumentException($"Устройство {portName} не найдено в списке доступных устройств");
+                Port = p;
+                Data = data;
+            }
+
+            internal enum PortName
+            {
+                A,
+                B,
+                C
+            }
+            
+            public static List<Signal> ParseAll(IEnumerable<string> signalNames)
+            {
+                return signalNames
+                    .Select(s => new Signal(s.Substring(0, 1), int.Parse(s.Substring(1, 2))))
+                    .ToList();
+            }
+        }
+
         private readonly InstantDoCtrl instantDoCtrl;
         private readonly int portsCount;
         private readonly int maxRelayNumber;
 
-        protected Pci176X(string description, int portsCount)
+        protected Pci1751(string description)
         {
-            this.portsCount = portsCount;
-            maxRelayNumber = portsCount * 8 - 1;
+            portsCount = 6;
+            maxRelayNumber = 15;
             instantDoCtrl = new InstantDoCtrl();
             instantDoCtrl.SelectedDevice = new DeviceInformation(description);
             if (!instantDoCtrl.Initialized)
@@ -25,14 +53,14 @@ namespace Advantech
             }
         }
         
-        public bool CloseRelays(int[] relayNumbers)
+        public bool SetSignal(string[] signals)
         {
-            return ChangeRelayState(relayNumbers, GetCloseRelayData);
+            return ChangeRelayState(signals, GetCloseRelayData);
         }
 
-        public bool OpenRelays(int[] relayNumbers)
+        public bool ClearSignal(string[] signals)
         {
-            return ChangeRelayState(relayNumbers, GetOpenRelayData);
+            return ChangeRelayState(signals, GetOpenRelayData);
         }
 
         private static readonly Func<byte, byte, byte> GetOpenRelayData =
@@ -41,9 +69,10 @@ namespace Advantech
         private static readonly Func<byte, byte, byte> GetCloseRelayData =
             (currentData, newData) => (byte) (currentData | newData);
 
-        private bool ChangeRelayState(int[] relayNumbers, Func<byte, byte, byte> getNewPortData)
-        {         
-            var dict = GetPortBytesDictionary(relayNumbers);
+        private bool ChangeRelayState(string[] signalNames, Func<byte, byte, byte> getNewPortData)
+        {
+            var signals = Signal.ParseAll(signalNames);
+            var dict = GetPortBytesDictionary(signals);
             return dict.All(portData =>
             {
                 var newData = getNewPortData(Read(portData.Key), portData.Value);
@@ -68,12 +97,12 @@ namespace Advantech
         }
 
 
-        public Dictionary<int, byte> GetPortBytesDictionary(int[] relayNumbers)
+        public Dictionary<int, byte> GetPortBytesDictionary(List<Signal> signals)
         {
-            if (relayNumbers.Any(relayNumber => relayNumber < 0 || relayNumber > maxRelayNumber))
+            if (signals.Any(relayNumber => relayNumber.Data < 0 || relayNumber.Data > maxRelayNumber))
                 throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {maxRelayNumber}");
-            return relayNumbers
-                .Select(r => Tuple.Create(r / 8, r % 8))
+            return signals
+                .Select(r => Tuple.Create(2 * (int)r.Port + r.Data / 8, r.Data % 8))
                 .GroupBy(r => r.Item1)
                 .ToDictionary(group => group.Key,
                     group => ConvertRelayNumbersToByte(group.Select(x => x.Item2).ToList()));
@@ -86,7 +115,7 @@ namespace Advantech
             return data;
         }
 
-        public List<int> GetClosedRelaysNumbers()
+        public List<int> GetSignals()
         {
             return Enumerable.Range(0, portsCount)
                 .SelectMany(portNum => ConvertDataToRelayNumbers(Read(portNum), portNum))
