@@ -1,5 +1,5 @@
 ﻿using System.IO.Ports;
-using Checker.Device;
+using static Checker.Auxiliary.UnitValuePair;
 using static Checker.Devices.DeviceResult;
 using Instek;
 
@@ -19,9 +19,9 @@ namespace Checker.Devices
             switch (step.Command)
             {
                 case DeviceCommands.SetVoltage:
-                    return SetVoltage(step, pst3201.SetVoltage);
+                    return SetValue(step, pst3201.SetVoltage, UnitType.Voltage);
                 case DeviceCommands.SetCurrentLimit:
-                    return SetCurrent(step, pst3201.SetCurrentLimit);
+                    return SetValue(step, pst3201.SetCurrentLimit, UnitType.Current);
                 case DeviceCommands.PowerOff:
                     return PowerOff(step, pst3201.PowerOff);
                 case DeviceCommands.PowerOn:

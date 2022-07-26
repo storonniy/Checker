@@ -22,6 +22,7 @@ namespace Checker.Settings
             public string Comment { get; set; }
             public string FactoryNumber { get; set; }
             public string OperatorName { get; set; }
+            public string TableName { get; set; }
         }
 
         public static Regime GetRegimeAsEnum(string regimeName)

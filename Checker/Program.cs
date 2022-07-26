@@ -5,7 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Checker.Settings;
-using static Checker.Settings.ControlObjectSettings;
+using System.Collections.Specialized;
+using System.Configuration;
 
 namespace Checker
 {
@@ -20,13 +21,14 @@ namespace Checker
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             //Application.Run(new SettingsForm());
+            var tableName = ConfigurationManager.AppSettings.Get("TableName");
             var settings = new ControlObjectSettings.Settings()
             {
                 Comment = "Не указан",
                 FactoryNumber = "Не указан",
-                OperatorName = "Не указан"
+                OperatorName = "Не указан",
+                TableName = tableName
             };
-            var doub = double.Parse("09,02", CultureInfo.InvariantCulture);
             Application.Run(new Form1(settings));
         }
     }

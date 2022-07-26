@@ -212,7 +212,7 @@ namespace Checker
 
         private void InitialActions()
         {
-            var connectionString = "UPD.xlsx;";
+            var connectionString = settings.TableName;// "UPD.xlsx;";
             InitialActions(connectionString);
         }
 

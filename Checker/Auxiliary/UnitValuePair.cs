@@ -37,6 +37,7 @@ namespace Checker.Auxiliary
             Frequency,
             Resistance
         }
+        
 
         public static UnitType GetUnitType (string unitName)
         {

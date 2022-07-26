@@ -33,19 +33,15 @@ namespace Checker.Device.DeviceList
                 case DeviceCommands.SetMeasurementToCurrent:
                     var currentRange = double.Parse(step.Argument, CultureInfo.InvariantCulture);
                     gdm78261.SetMeasurementToCurrentDC(currentRange);
-                    Thread.Sleep(1000);
                     return DeviceResult.ResultOk($"{step.DeviceName} переведен в режим измерения тока");
                 case DeviceCommands.SetMeasurementToVoltageAC:
                     gdm78261.SetMeasurementToVoltageAC();
-                    Thread.Sleep(1000);
                     return DeviceResult.ResultOk($"{step.DeviceName} переключён в режим измерения переменного напряжения");
                 case DeviceCommands.SetMeasurementToVoltageDC:
                     gdm78261.SetMeasurementToVoltageDC();
-                    Thread.Sleep(1000);
                     return DeviceResult.ResultOk($"{step.DeviceName} переключён в режим измерения постоянного напряжения");
                 case DeviceCommands.SetMeasurementToResistance:
                     gdm78261.SetMeasurementToResistance();
-                    Thread.Sleep(1000);
                     return DeviceResult.ResultOk($"{step.DeviceName} переключён в режим измерения сопротивления");
                 default:
                     return DeviceResult.ResultError($"Неизвестная команда {step.Command}");

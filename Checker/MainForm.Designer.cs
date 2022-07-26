@@ -49,7 +49,6 @@ namespace Checker
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.buttonStep = new System.Windows.Forms.Button();
             this.buttonShowRelays = new System.Windows.Forms.Button();
             this.checkBoxIgnoreErrors = new System.Windows.Forms.CheckBox();
             this.labelRelays = new System.Windows.Forms.Label();
@@ -58,6 +57,7 @@ namespace Checker
             this.button1 = new System.Windows.Forms.Button();
             this.treeOfChecking = new System.Windows.Forms.TreeView();
             this.groupBoxCheckingManagement = new System.Windows.Forms.GroupBox();
+            this.buttonStep = new System.Windows.Forms.Button();
             this.buttonCheckingStop = new System.Windows.Forms.Button();
             this.buttonOpenDataBase = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -198,13 +198,6 @@ namespace Checker
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
-            // buttonStep
-            // 
-            resources.ApplyResources(this.buttonStep, "buttonStep");
-            this.buttonStep.Name = "buttonStep";
-            this.buttonStep.UseVisualStyleBackColor = true;
-            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
-            // 
             // buttonShowRelays
             // 
             resources.ApplyResources(this.buttonShowRelays, "buttonShowRelays");
@@ -236,17 +229,9 @@ namespace Checker
             // 
             this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // button1
             // 
@@ -276,6 +261,13 @@ namespace Checker
             resources.ApplyResources(this.groupBoxCheckingManagement, "groupBoxCheckingManagement");
             this.groupBoxCheckingManagement.Name = "groupBoxCheckingManagement";
             this.groupBoxCheckingManagement.TabStop = false;
+            // 
+            // buttonStep
+            // 
+            resources.ApplyResources(this.buttonStep, "buttonStep");
+            this.buttonStep.Name = "buttonStep";
+            this.buttonStep.UseVisualStyleBackColor = true;
+            this.buttonStep.Click += new System.EventHandler(this.buttonStep_Click);
             // 
             // buttonCheckingStop
             // 
@@ -313,7 +305,6 @@ namespace Checker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBoxCheckingManagement.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.NumericUpDown numericUpDown1;

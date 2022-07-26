@@ -26,7 +26,7 @@ namespace Checker.Devices
             switch (step.Command)
             {
                 case DeviceCommands.SetVoltage:
-                    return SetVoltage(step, psp405.SetVoltage);
+                    return SetValue(step, psp405.SetVoltage, UnitType.Voltage);
                 case DeviceCommands.SetCurrent:
                     var actualCurrent = SetCurrent(step);
                     return GetResult($"{step.DeviceName}: Установлен ток", step, UnitValuePair.UnitType.Current, actualCurrent);
@@ -35,7 +35,7 @@ namespace Checker.Devices
                 case DeviceCommands.PowerOff:
                     return PowerOff(step, psp405.PowerOff);
                 case DeviceCommands.SetCurrentLimit:
-                    return SetCurrentLimit(step, psp405.SetCurrentLimit);
+                    return SetValue(step, psp405.SetCurrentLimit, UnitType.Current);
                 default:
                     return ResultError($"Неизвестная команда {step.Command}");
             }

@@ -1,4 +1,5 @@
 ﻿using System.IO.Ports;
+using static Checker.Auxiliary.UnitValuePair;
 using Checker.DeviceDrivers;
 using Checker.Devices;
 
@@ -19,9 +20,9 @@ namespace Checker.Device.DeviceList
             switch (step.Command)
             {
                 case DeviceCommands.SetVoltage:
-                    return SetVoltage(step, keithley2401.SetVoltage);
+                    return SetValue(step, keithley2401.SetVoltage, UnitType.Voltage);
                 case DeviceCommands.SetCurrentLimit:
-                    return SetCurrentLimit(step, keithley2401.SetCurrentLimit);
+                    return SetValue(step, keithley2401.SetCurrentLimit, UnitType.Current);
                 case DeviceCommands.PowerOn:
                     return PowerOn(step, keithley2401.PowerOn);
                 case DeviceCommands.PowerOff:

@@ -26,7 +26,7 @@ namespace Checker.Devices
             switch (step.Command)
             {
                 case DeviceCommands.SetVoltage:
-                    return SetVoltage(step, akip3407.SetVoltage);
+                    return SetValue(step, akip3407.SetVoltage, UnitType.Voltage);
                 case DeviceCommands.SetFrequency:
                     var actualFrequency = akip3407.SetFrequency(step.Argument);
                     return GetResult("Установлена частота", step, UnitType.Frequency, actualFrequency);

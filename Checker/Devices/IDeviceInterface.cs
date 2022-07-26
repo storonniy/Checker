@@ -13,7 +13,7 @@ namespace Checker.Devices
     {
         public abstract DeviceResult DoCommand(Step step);
 
-        protected static DeviceResult SetVoltage(Step step, Func<double, double> setVoltage)
+        /*protected static DeviceResult SetVoltage(Step step, Func<double, double> setVoltage)
         {
             var voltage = double.Parse(step.Argument, CultureInfo.InvariantCulture);
             var result = setVoltage(voltage);
@@ -49,21 +49,21 @@ namespace Checker.Devices
             var currentLimit = double.Parse(step.Argument, CultureInfo.InvariantCulture);
             var result = setCurrentLimit(currentLimit, channel);
             return GetResultOfSetting($"{step.DeviceName}: Установлен предел по току", UnitType.Current, result, currentLimit);
-        }
+        }*/
         
-        protected static DeviceResult SetValue(Step step, Func<double, double> setValue, UnitType unitType, string description)
+        protected static DeviceResult SetValue(Step step, Func<double, double> setValue, UnitType unitType)
         {
             var value = double.Parse(step.Argument, CultureInfo.InvariantCulture);
             var result = setValue(value);
-            return GetResultOfSetting($"{step.DeviceName}: {description}", unitType, result, value);
+            return GetResultOfSetting($"{step.DeviceName}: установлено", unitType, result, value);
         }
         
-        protected static DeviceResult SetValue(Step step, Func<double, int, double> setValue, UnitType unitType, string description)
+        protected static DeviceResult SetValue(Step step, Func<double, int, double> setValue, UnitType unitType)
         {
             var channel = int.Parse(step.AdditionalArg);
             var value = double.Parse(step.Argument, CultureInfo.InvariantCulture);
             var result = setValue(value, channel);
-            return GetResultOfSetting($"{step.DeviceName}: {description}", unitType, result, value);
+            return GetResultOfSetting($"{step.DeviceName}: установлено", unitType, result, value);
         }
         
 
