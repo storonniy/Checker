@@ -50,6 +50,22 @@ namespace Checker.Devices
             var result = setCurrentLimit(currentLimit, channel);
             return GetResultOfSetting($"{step.DeviceName}: Установлен предел по току", UnitType.Current, result, currentLimit);
         }
+        
+        protected static DeviceResult SetValue(Step step, Func<double, double> setValue, UnitType unitType, string description)
+        {
+            var value = double.Parse(step.Argument, CultureInfo.InvariantCulture);
+            var result = setValue(value);
+            return GetResultOfSetting($"{step.DeviceName}: {description}", unitType, result, value);
+        }
+        
+        protected static DeviceResult SetValue(Step step, Func<double, int, double> setValue, UnitType unitType, string description)
+        {
+            var channel = int.Parse(step.AdditionalArg);
+            var value = double.Parse(step.Argument, CultureInfo.InvariantCulture);
+            var result = setValue(value, channel);
+            return GetResultOfSetting($"{step.DeviceName}: {description}", unitType, result, value);
+        }
+        
 
         protected static DeviceResult PowerOn(Step step, Action powerOn)
         {

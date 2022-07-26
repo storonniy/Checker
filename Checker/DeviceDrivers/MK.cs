@@ -13,8 +13,8 @@ namespace Checker.DeviceDrivers
 {
     public class MK
     {
-        readonly CanConNet vciDevice;
-        readonly List<BlockData> blockDataList;
+        private readonly CanConNet vciDevice;
+        private readonly List<BlockData> blockDataList;
 
         public MK()
         {
@@ -40,11 +40,28 @@ namespace Checker.DeviceDrivers
             ICanMessage answer;
             do
             {
+                Thread.Sleep(100);
                 answer = vciDevice.GetData();
                 if (answer == null)
                     throw new MkException("Устройство не отвечает");
             } while (answer[0] != validFirstByte);
             return answer;
+        }
+
+        private List<ICanMessage> GetICanMessagesList(byte validFirstByte)
+        {
+            var messagesList = new List<ICanMessage>();
+            while (true)
+            {
+                Thread.Sleep(100);
+                var answer = vciDevice.GetData();
+                if (answer == null) break;
+                if (answer[0] == validFirstByte)
+                {
+                    messagesList.Add(answer);
+                }
+            }
+            return messagesList;
         }
 
         #region 1 Assign Block ID
@@ -102,19 +119,69 @@ namespace Checker.DeviceDrivers
         /// Замкнуть массив реле. В случае внутренней ошибки блока МК размыкает все реле МК.
         /// </summary>
         /// <returns> Возвращает статус операции (реле МК успешно разомкнуты/произошла ошибка) </returns>
-        /// мне лень, замыкаем/размыкаем по одному реле
-        private byte CloseRelaysArray(int blockNumber, params int[] relayNumbers)
+        public byte CloseRelaysArray(int blockNumber, byte[] state)
         {
             var id = blockDataList[blockNumber].Id;
-            byte[] message1 = { 0x03, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            byte[] message1 = { 0x03, 0x01, 0x00, state[0], state[1], state[2], state[3], state[4] };
             vciDevice.TransmitData(message1, id);
-            byte[] message2 = { 0x03, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+            byte[] message2 = { 0x03, 0x02, 0x00, state[5], state[6], state[7], state[8], state[9] };
             vciDevice.TransmitData(message2, id);
             var answer = GetAnswer(0xFC);
             var status = answer[2];
             return status;
         }
 
+        // public bool CloseRelays(int blockNumber, params int[] relayNumbers)
+        // {
+        //     var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetCloseRelayData);
+        //     var status = CloseRelaysArray(blockNumber, newStates);
+        //     return status == 0x00;
+        // }
+        //
+        // public bool OpenRelays(int blockNumber, params int[] relayNumbers)
+        // {
+        //     var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetOpenRelayData);
+        //     var status = CloseRelaysArray(blockNumber, newStates);
+        //     return status == 0x00;
+        // }
+        //
+        // private static readonly Func<byte, byte, byte> GetOpenRelayData =
+        //     (currentStates, newStates) => (byte) (currentStates - (byte) (currentStates & newStates));
+        //
+        // private static readonly Func<byte, byte, byte> GetCloseRelayData =
+        //     (currentStates, newStates) => (byte) (currentStates | newStates);
+        //
+        // public byte[] GetRelayStatesBytes(int[] relayNumbers)
+        // {
+        //     if (relayNumbers.Any(relayNumber => relayNumber < 0 || relayNumber > 79))
+        //         throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {79}");
+        //     var relayStatesBytes = new byte[10];
+        //     var a = relayNumbers
+        //         .Select(r => Tuple.Create(r / 8, r % 8))
+        //         .GroupBy(r => r.Item1)
+        //         .Select(g => Tuple.Create(g.Key, ConvertRelayNumbersToByte(g.Select(x => x.Item2).ToArray())))
+        //         .ToArray();
+        //     a.se
+        // }
+        
+        // public byte[] GetChangedRelaysBytes(int blockNumber, int[] relayNumbers, Func<byte, byte, byte> changeByte)
+        // {
+        //     var newStates = GetRelayStatesBytes(relayNumbers);
+        //     var currentStates = RequestAllRelayStatus(blockNumber);
+        //     return Enumerable.Range(0, 10)
+        //         .Select(i => changeByte(currentStates[i], newStates[i]))
+        //         .ToArray();
+        // }
+        //
+        public static byte ConvertRelayNumbersToByte(IEnumerable<int> relayNumbers)
+        {
+            return (byte) relayNumbers
+                .Distinct()
+                .Where(relayNumber => relayNumber >= 0 && relayNumber <= 7)
+                .Select(relayNumber => (byte) (1 << relayNumber))
+                .Sum(x => x);
+        }
+        
         #endregion
 
         #region 4 Request status of all relays
@@ -126,14 +193,14 @@ namespace Checker.DeviceDrivers
         /// <returns> Returns array of 10 bytes which contains relay states (each bit represents relay state) </returns>
         public byte[] RequestAllRelayStatus(int blockNumber)
         {
-            uint id = blockDataList[blockNumber].Id;
+            var id = blockDataList[blockNumber].Id;
             byte[] canMessage = { 0x04, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
             vciDevice.TransmitData(canMessage, id);
             var answer1 = GetAnswer(0xFB);
             var answer2 = GetAnswer(0xFB);
             var a1 = new byte[8];
             var a2 = new byte[8];
-            for (int i = 0; i < 8; i++)
+            for (var i = 0; i < 8; i++)
             {
                 a1[i] = answer1[i];
                 a2[i] = answer2[i];
@@ -141,13 +208,13 @@ namespace Checker.DeviceDrivers
             return GetRelayStatesBytes(new List<byte[]> { a1, a2 });
         }
 
-        public static byte[] GetRelayStatesBytes(List<byte[]> canMessages)
+        public static byte[] GetRelayStatesBytes(IEnumerable<byte[]> canMessages)
         {
             return canMessages
                 .Select(b => Tuple.Create(b[1], b))
                 .OrderBy(tuple => tuple.Item1)
                 .Select(tuple => tuple.Item2)
-                .SelectMany(b => new byte[] { b[3], b[4], b[5], b[6], b[7] })
+                .SelectMany(b => new [] { b[3], b[4], b[5], b[6], b[7] })
                 .ToArray();
         }
         
@@ -165,10 +232,8 @@ namespace Checker.DeviceDrivers
                 .ToArray();
         }
 
-        /// <summary>
-        /// Requests closed relay names of all connected MK blocks
-        /// </summary>
-        /// <returns></returns>
+
+        /// <returns>Возвращает номера всех замкнутых реле всех блоков МК, находящихся на данной шине CAN</returns>
         public string[] GetClosedRelayNames()
         {
             return Enumerable.Range(0, blockDataList.Count)
@@ -176,14 +241,11 @@ namespace Checker.DeviceDrivers
                 .ToArray();
         }
 
-        /// <summary>
-        /// Requests closed relay names of specified MK block number
-        /// </summary>
-        /// <param name="blockNumber">Block number </param>
-        /// <returns> formatted string which contains block number and actual closed relay numbers </returns>
+        /// <returns>Возвращает номера всех замкнутых реле конкретного блока МК</returns>
+
         public string GetClosedRelayNames(int blockNumber)
         {
-            int[] relayNumbers = GetRelayNumbers(RequestAllRelayStatus(blockNumber));
+            var relayNumbers = GetRelayNumbers(RequestAllRelayStatus(blockNumber));
             return $"MK{blockNumber + 1}: {string.Join(", ", relayNumbers)}";
         }
 
@@ -198,24 +260,23 @@ namespace Checker.DeviceDrivers
         /// <param name="relayState"> Состояние реле. True - замкнуть, false - разомкнуть </param>
         private bool ChangeRelayState(int blockNumber, int relayNumber, bool relayState)
         {
-            uint id = blockDataList[blockNumber].Id;
+            var id = blockDataList[blockNumber].Id;
             if (relayNumber < 0 || relayNumber > 79)
             {
                 throw new Exception("Номер реле должен быть в диапазоне от 0 до 79");
             }
-            byte stateByte = (byte)(relayState ? 0x01 : 0x00);
+            var stateByte = (byte)(relayState ? 0x01 : 0x00);
             byte[] canMessage = { 0x05, (byte)relayNumber, stateByte, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF };
             vciDevice.TransmitData(canMessage, id);
             Thread.Sleep(150);
             var answer = GetAnswer(0xFA);
             var returnedRelayNumber = answer[1];
-            var status = answer[2];
             if (returnedRelayNumber != (byte)relayNumber)
             {
                 EmergencyBreak();
-                throw new Exception($"МК не изменил состояние нужных реле: {String.Join(" ", answer)}");
+                throw new Exception($"МК не изменил состояние нужных реле: {string.Join(" ", answer)}");
             }
-            byte requestedRelayStatus = (byte)(relayState ? 0x01 : 0x00);
+            var requestedRelayStatus = (byte)(relayState ? 0x01 : 0x00);
             var actualStatus = RequestSingleRelayStatus(blockNumber, relayNumber);
             return requestedRelayStatus == actualStatus;
         }
@@ -226,33 +287,19 @@ namespace Checker.DeviceDrivers
         /// <param name="blockNumber"> Номер блока </param>
         /// <param name="relayNumbers">Принимает номера реле, нумерующиеся с 1</param>
         /// <returns></returns>
-        public bool CloseRelays(int blockNumber, int[] relayNumbers)
-        {
-            foreach (var relayNumber in relayNumbers)
-            {
-                var status = ChangeRelayState(blockNumber, relayNumber - 1, true);
-                if (!status)
-                    return false;
-            }
-            return true;
-        }
-
+        public bool CloseRelays(int blockNumber, int[] relayNumbers) => relayNumbers
+            .Select(r => ChangeRelayState(blockNumber, r - 1, true))
+            .All(status => status);
+        
         /// <summary>
         /// 
         /// </summary>
         /// <param name="blockNumber"></param>
         /// <param name="relayNumbers">Принимает номера реле, нумерующиеся с 1</param>
         /// <returns></returns>
-        public bool OpenRelays(int blockNumber, int[] relayNumbers)
-        {
-            foreach (var relayNumber in relayNumbers)
-            {
-                var status = ChangeRelayState(blockNumber, relayNumber - 1, false);
-                if (!status)
-                    return false;
-            }
-            return true;
-        }
+        public bool OpenRelays(int blockNumber, int[] relayNumbers) => relayNumbers
+            .Select(r => ChangeRelayState(blockNumber, r - 1, false))
+            .All(status => status);
 
         #endregion
 
@@ -276,7 +323,7 @@ namespace Checker.DeviceDrivers
             {
                 return status;
             }
-            throw new Exception($"МК вернул статус не запрашиваемых реле: {String.Join(" ", answer)}");
+            throw new Exception($"МК вернул статус реле {returnedRelayNumber}, требовался статус реле {relayNumber}");
         }
 
         #endregion
@@ -308,30 +355,11 @@ namespace Checker.DeviceDrivers
             const uint id = 0x00;
             byte[] canMessage = { 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
             vciDevice.TransmitData(canMessage, id);
-            //int numberOfBlocks = 7; // Комментарии никто не читает. Но в этой переменной отражено реальное число блоков.
-            var blockDataList = new List<BlockData>();
-            while (true)
-            {
-                try
-                {
-                    Thread.Sleep(100);
-                    var answer = GetAnswer(0xF7);
-                    blockDataList.Add(new BlockData(answer.Identifier, 256 * answer[3] + answer[2]));
-                }
-                catch (MkException)
-                {
-                    break;
-                }
-            }
-            //blockDataList.Sort(new BlockDataComparer());
-            if (blockDataList.Count == 0)
-                throw new MkException("К шине CAN не подключены устройства типа МК");
-            return SortByID(blockDataList);
-        }
-
-        public static Func<List<BlockData>, List<BlockData>> SortByID = list => list
+            return GetICanMessagesList(0xF7)
+                .Select(msg => new BlockData(msg.Identifier, 256 * msg[3] + msg[2]))
                 .OrderBy(blockData => blockData.Id)
                 .ToList();
+        }
 
         #endregion
     }
@@ -344,23 +372,19 @@ namespace Checker.DeviceDrivers
             FactoryNumber = factoryNumber;
         }
 
-        public uint Id { get; private set; }
-        public int FactoryNumber { get; private set; }
+        public uint Id { get; }
+        public int FactoryNumber { get; }
 
         public override bool Equals(object obj)
         {
-            if (!(obj is BlockData))
+            if (obj is not BlockData blockData)
                 return false;
-            var blockData = (BlockData)obj;
             return Id.Equals(blockData.Id) && FactoryNumber.Equals(blockData.FactoryNumber);
         }
     }
 
     public class MkException : Exception
     {
-        public MkException(string message) : base(message)
-        {
-
-        }
+        public MkException(string message) : base(message) { }
     }
 }

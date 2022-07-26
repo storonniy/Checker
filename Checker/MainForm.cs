@@ -66,7 +66,7 @@ namespace Checker
                 {
                     ShowStepResult(step, stepResult);
                 }
-                if (!step.Command.ToString().StartsWith("Get") || stepResult.State != DeviceStatus.Error) return;
+/*                if (!step.Command.ToString().StartsWith("Get") || stepResult.State != DeviceStatus.Error) return;
                 for (var i = 0; i < 2; i++)
                 {
                     stepResult = DoStep(step);
@@ -74,7 +74,7 @@ namespace Checker
                     {
                         ShowStepResult(step, stepResult);
                     }
-                }
+                }*/
             }
             else if (_isCheckingStarted)
             {
@@ -212,7 +212,7 @@ namespace Checker
 
         private void InitialActions()
         {
-            var connectionString = "NS03.xlsx;";
+            var connectionString = "UPD.xlsx;";
             InitialActions(connectionString);
         }
 

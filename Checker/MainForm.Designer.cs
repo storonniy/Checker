@@ -66,7 +66,7 @@ namespace Checker
             this.groupBoxPreferences.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBoxManualStep.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.groupBoxCheckingManagement.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -190,7 +190,6 @@ namespace Checker
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.buttonStep);
             this.groupBox2.Controls.Add(this.buttonShowRelays);
             this.groupBox2.Controls.Add(this.checkBoxIgnoreErrors);
             this.groupBox2.Controls.Add(this.labelRelays);
@@ -237,9 +236,17 @@ namespace Checker
             // 
             this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-            this.numericUpDown1.Minimum = new decimal(new int[] {1, 0, 0, 0});
+            this.numericUpDown1.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Value = new decimal(new int[] {1, 0, 0, 0});
+            this.numericUpDown1.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // button1
             // 
@@ -261,6 +268,7 @@ namespace Checker
             // 
             // groupBoxCheckingManagement
             // 
+            this.groupBoxCheckingManagement.Controls.Add(this.buttonStep);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonCheckingStop);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonOpenDataBase);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonCheckingStart);
@@ -302,9 +310,10 @@ namespace Checker
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBoxManualStep.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize) (this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBoxCheckingManagement.ResumeLayout(false);
             this.ResumeLayout(false);
+
         }
 
         private System.Windows.Forms.NumericUpDown numericUpDown1;

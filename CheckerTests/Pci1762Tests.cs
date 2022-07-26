@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using Advantech;
-using Checker.DeviceDrivers;
 using NUnit.Framework;
 
 namespace CheckerTests

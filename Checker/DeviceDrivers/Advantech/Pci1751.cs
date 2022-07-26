@@ -22,18 +22,37 @@ namespace Advantech
                 Data = data;
             }
 
-            internal enum PortName
+            public Signal(string signalName)
+            {
+                var signal = Parse(signalName);
+                Data = signal.Data;
+                Port = signal.Port;
+            }
+
+            public enum PortName
             {
                 A,
                 B,
                 C
             }
+
+            private static Signal Parse(string signalName)
+            {
+                return new Signal(signalName.Substring(0, 1), int.Parse(signalName.Substring(1)));
+            }
             
             public static List<Signal> ParseAll(IEnumerable<string> signalNames)
             {
                 return signalNames
-                    .Select(s => new Signal(s.Substring(0, 1), int.Parse(s.Substring(1, 2))))
+                    .Select(Parse)
                     .ToList();
+            }
+
+            public override bool Equals(object obj)
+            {
+                if (obj is null or not Signal) return false;
+                var signal = (Signal)obj;
+                return signal.Data.Equals(Data) && signal.Port.Equals(Port);
             }
         }
 
@@ -41,7 +60,7 @@ namespace Advantech
         private readonly int portsCount;
         private readonly int maxRelayNumber;
 
-        protected Pci1751(string description)
+        public Pci1751(string description)
         {
             portsCount = 6;
             maxRelayNumber = 15;
@@ -97,10 +116,10 @@ namespace Advantech
         }
 
 
-        public Dictionary<int, byte> GetPortBytesDictionary(List<Signal> signals)
+        public static Dictionary<int, byte> GetPortBytesDictionary(List<Signal> signals)
         {
-            if (signals.Any(relayNumber => relayNumber.Data < 0 || relayNumber.Data > maxRelayNumber))
-                throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {maxRelayNumber}");
+            if (signals.Any(relayNumber => relayNumber.Data < 0 || relayNumber.Data > 15))
+                throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {15}");
             return signals
                 .Select(r => Tuple.Create(2 * (int)r.Port + r.Data / 8, r.Data % 8))
                 .GroupBy(r => r.Item1)
@@ -115,18 +134,19 @@ namespace Advantech
             return data;
         }
 
-        public List<int> GetSignals()
+        public List<string> GetSignals()
         {
             return Enumerable.Range(0, portsCount)
                 .SelectMany(portNum => ConvertDataToRelayNumbers(Read(portNum), portNum))
                 .ToList();
         }
 
-        public static List<int> ConvertDataToRelayNumbers(byte data, int portNum)
+        public static IEnumerable<string> ConvertDataToRelayNumbers(byte data, int portNum)
         {
+            var portName = (Signal.PortName)(portNum / 2);
             return Enumerable.Range(0, 8)
                 .Where(bitNumber => data.BitState(bitNumber))
-                .Select(bitNumber => 8 * portNum + bitNumber)
+                .Select(bitNumber => $"{portName}{8 * (portNum % 2) + bitNumber}")
                 .ToList();
         }
     }

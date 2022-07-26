@@ -29,11 +29,12 @@ namespace Checker.Devices
                     return SetVoltage(step, akip3407.SetVoltage);
                 case DeviceCommands.SetFrequency:
                     var actualFrequency = akip3407.SetFrequency(step.Argument);
-                    return GetResult("Установлена частота", step, UnitValuePair.UnitType.Frequency, actualFrequency);
+                    return GetResult("Установлена частота", step, UnitType.Frequency, actualFrequency);
                 case DeviceCommands.PowerOn:
                     return PowerOn(step, akip3407.PowerOn);
                 case DeviceCommands.PowerOff:
                     return PowerOff(step, akip3407.PowerOff);
+                case DeviceCommands.SetDutyCycle:
                 default:
                     return DeviceResult.ResultError($"Неизвестная команда {step.Command}");
             }

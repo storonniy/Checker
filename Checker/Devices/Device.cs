@@ -14,6 +14,11 @@ namespace Checker.Devices
         public SerialPort SerialPort { get; }
         public DeviceNames Name { get; }
         public string Description { get; }
+
+        public override string ToString()
+        {
+            return $"{Name} {SerialPort.PortName} {SerialPort.BaudRate} {Description}";
+        }
     }
 
     public enum DeviceStatus
@@ -68,7 +73,6 @@ namespace Checker.Devices
         CalculateCoefficient,
         GetVoltageRipple,
         // УСА_Т
-        // PSH_73610, PSH_73630 (относятся к типу PSH, свести к одному устройству PSH)
         SetVoltageProtection,
         SetCurrentProtection,
         // ATH_8030
@@ -109,7 +113,10 @@ namespace Checker.Devices
         GetLineState,
         GetResistance,
         SetMeasurementToResistance,
-        CheckResistancesDifference
+        CheckResistancesDifference,
+        SetSignal,
+        ClearSignal,
+        SetDutyCycle
     }
 
     public enum DeviceNames

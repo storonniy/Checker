@@ -34,7 +34,7 @@
     <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -44,7 +44,7 @@
     <WarningLevel>2</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -150,6 +150,7 @@
     <Compile Include="Devices\DeviceList\Keithley2401Device.cs" />
     <Compile Include="Devices\DeviceList\MK_device.cs" />
     <Compile Include="Devices\DeviceList\None.cs" />
+    <Compile Include="Devices\DeviceList\Pci1751Device.cs" />
     <Compile Include="Devices\DeviceList\Pci176XDevice\Pci1761Device.cs" />
     <Compile Include="Devices\DeviceList\Pci176XDevice\Pci1762Device.cs" />
     <Compile Include="Devices\DeviceList\Pci176XDevice\Pci176Xdevice.cs" />

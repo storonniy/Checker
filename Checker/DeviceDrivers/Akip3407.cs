@@ -13,8 +13,8 @@ namespace Checker.DeviceDrivers
 {
     public class Akip3407
     {
-        private SerialPort serialPort;
-        private readonly int delay = 2000;
+        private readonly SerialPort serialPort;
+        private const int delay = 2000;
 
         public Akip3407(SerialPort serialPort)
         {
@@ -47,16 +47,11 @@ namespace Checker.DeviceDrivers
             return serialPort.ReadDouble();
         }
 
-        public double SetFrequency (string frequency)
+        public double SetFrequency(string frequency)
         {
             SendCommand($"SOUR1:FREQ {frequency}");
             SendCommand("SOUR1:FREQ?");
             return serialPort.ReadDouble();
-        }
-
-        private double ParseValue()
-        {
-            return double.Parse(serialPort.ReadExisting().Replace("\n", ""), CultureInfo.InvariantCulture);
         }
 
         #region Power Status
