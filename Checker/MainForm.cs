@@ -27,8 +27,8 @@ namespace Checker
         private static Form1 _form;
         private static Log _log;
 
-        private readonly Thread mainThread = new Thread(Some);
-        private static readonly Queue<Steps.Step> Queue = new Queue<Steps.Step>();
+        private readonly Thread mainThread = new(Some);
+        private static readonly Queue<Step> Queue = new();
         private static Form1 _eventSend;
         private static bool _checkingResult = true;
         private static bool _isCheckingStarted;
@@ -161,7 +161,7 @@ namespace Checker
         {
             var modeName = comboBoxCheckingMode.SelectedItem.ToString();
             FillTreeView(treeOfChecking, _stepsInfo.ModesDictionary[modeName]);
-            if (modeName == "Полная проверка")
+            if (modeName.ToLower().Contains("проверка"))
             {
                 SetVoltageSupplyMode();
                 comboBoxVoltageSupply.Enabled = true;
@@ -227,14 +227,16 @@ namespace Checker
             _log.Send($"Имя оператора: {settings.OperatorName}\n");
             _log.Send($"Комментарий: {settings.Comment}\n");
             _log.Send($"Заводской номер: {settings.FactoryNumber}\n");
-            var modeName = GetModeName();
-            _log.Send($"Режим: {modeName}\r\n");
+            var voltageMode = GetModeName();
+            _log.Send($"Режим проверки: {_regime}\n");
+            _log.Send($"Напряжение питания: {voltageMode}\r\n");
+
         }
 
         private string GetModeName()
         {
             var modeName = comboBoxCheckingMode.SelectedItem.ToString();
-            if (modeName == "Полная проверка")
+            if (modeName.ToLower().Contains("проверка"))
             {
                 modeName = comboBoxVoltageSupply.SelectedItem.ToString();
             }
@@ -245,9 +247,10 @@ namespace Checker
 
         #region Проверка
 
-        private void EnQueueCheckingSteps(string modeName)//(Dictionary<string, List<Step>> stepsDictionary)
+        private static void EnQueueCheckingSteps(string modeName)
         {
-            var stepsDictionary = (modeName.Contains("ОУ") || modeName.Contains("НУ")) ? _stepsInfo.VoltageSupplyModesDictionary[modeName] : _stepsInfo.ModesDictionary[modeName];
+           //var stepsDictionary = modeName.ToLower().Contains("проверка") ? _stepsInfo.VoltageSupplyModesDictionary[modeName] : _stepsInfo.ModesDictionary[modeName];
+           var stepsDictionary = _stepsInfo.VoltageSupplyModesDictionary[modeName];
             foreach (var step in stepsDictionary.Keys.SelectMany(tableName => stepsDictionary[tableName]))
             {
                 lock (Queue)
@@ -263,9 +266,12 @@ namespace Checker
             _form.HighlightTreeNode(node, Color.Blue);
             var indexOf = node.Text.IndexOf(' ');
             var stepNumber = int.Parse(node.Text.Substring(0, indexOf));
-            var result = $"Шаг {stepNumber}: {step.Description}\r\n{deviceResult.Description}\r\n\r\n";
-            _log.Send(result);
-            _log.Send(DateTime.Now.ToString(CultureInfo.InvariantCulture));
+            var result = $"{step.Description}\r\n{deviceResult.Description}\r\n\r\n";// $"Шаг {stepNumber}: {step.Description}\r\n{deviceResult.Description}\r\n\r\n";
+            if (step.Command.ToString().Contains("Set") || step.Command.ToString().Contains("Get"))
+            {
+                _log.Send(result);
+                _log.Send(DateTime.Now.ToString(CultureInfo.InvariantCulture));                
+            }
             _form.AddSubTreeNode(node, deviceResult.Description);
             Color color;
             switch (deviceResult.State)
@@ -289,14 +295,14 @@ namespace Checker
             var dialogResult = MessageBox.Show(description, @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             switch (dialogResult)
             {
-                case DialogResult.Yes:
+                case DialogResult.No:
                     _isCheckingInterrupted = true;
                     _isCheckingStarted = false;
                     MessageBox.Show(@"Проверка остановлена.");
                     _form.AbortChecking();
                     _form.ChangeStartButtonState();
                     break;
-                case DialogResult.No:
+                case DialogResult.Yes:
                     _isCheckingStarted = true;
                     _form.ChangeControlState(_form.groupBoxManualStep, true);
                     //form.ChangeCheckingState(false);
@@ -314,7 +320,7 @@ namespace Checker
                 if (!_form.checkBoxIgnoreErrors.Checked)
                 {
                     _isCheckingStarted = false;
-                    var description = $"В ходе проверки произошла ошибка:\r\nШаг: {step.Description}\r\nРезультат шага: {deviceResult.Description}\r\nОстановить проверку?";
+                    var description = $"В ходе проверки произошла ошибка:\r\nШаг: {step.Description}\r\nРезультат шага: {deviceResult.Description}\r\nПродолжить проверку?";
                     ShowErrorDialog(description);
                 }
             }
@@ -515,7 +521,7 @@ namespace Checker
         {
             if (InvokeRequired)
             {
-                Invoke((MethodInvoker)delegate { CleanTreeView(); });
+                Invoke((MethodInvoker)CleanTreeView);
                 return;
             }
             treeOfChecking.Nodes.Clear();
@@ -575,8 +581,10 @@ namespace Checker
             ChangeControlState(buttonStep, !_isCheckingStarted);
         }
 
+        private static string _regime;
         private void comboBoxCheckingMode_SelectedIndexChanged(object sender, EventArgs e)
         {
+            _regime = comboBoxCheckingMode.SelectedItem.ToString();
             SelectCheckingMode();
         }
 
@@ -633,7 +641,7 @@ namespace Checker
             if (_isCheckingStarted)
             {
                 _isCheckingInterrupted = true;
-                var result = "Проверка прервана, результаты проверки записаны в файл.";
+                const string result = "Проверка прервана, результаты проверки записаны в файл.";
                 _log.Send(result);
             }
             Die();

@@ -145,7 +145,7 @@
     <value>groupBoxCheckingManagement</value>
   </data>
   <data name="&gt;&gt;buttonCheckingStart.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>2</value>
   </data>
   <data name="buttonCheckingPause.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
@@ -172,13 +172,73 @@
     <value>groupBoxCheckingManagement</value>
   </data>
   <data name="&gt;&gt;buttonCheckingPause.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>3</value>
   </data>
   <data name="panel1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
   </data>
   <data name="groupBox1.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
+  </data>
+  <data name="label11.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label11.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 80</value>
+  </data>
+  <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
+    <value>74, 17</value>
+  </data>
+  <data name="label11.TabIndex" type="System.Int32, mscorlib">
+    <value>44</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>Оператор</value>
+  </data>
+  <data name="&gt;&gt;label11.Name" xml:space="preserve">
+    <value>label11</value>
+  </data>
+  <data name="&gt;&gt;label11.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label11.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label11.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="label12.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label12.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 51</value>
+  </data>
+  <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
+    <value>123, 17</value>
+  </data>
+  <data name="label12.TabIndex" type="System.Int32, mscorlib">
+    <value>43</value>
+  </data>
+  <data name="label12.Text" xml:space="preserve">
+    <value>Заводской номер</value>
+  </data>
+  <data name="&gt;&gt;label12.Name" xml:space="preserve">
+    <value>label12</value>
+  </data>
+  <data name="&gt;&gt;label12.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label12.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label12.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="textBoxOperatorName.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 79</value>
@@ -199,7 +259,37 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxOperatorName.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>2</value>
+  </data>
+  <data name="label13.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label13.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
+    <value>40, 20</value>
+  </data>
+  <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
+    <value>89, 17</value>
+  </data>
+  <data name="label13.TabIndex" type="System.Int32, mscorlib">
+    <value>42</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>Коментарий</value>
+  </data>
+  <data name="&gt;&gt;label13.Name" xml:space="preserve">
+    <value>label13</value>
+  </data>
+  <data name="&gt;&gt;label13.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label13.Parent" xml:space="preserve">
+    <value>groupBox1</value>
+  </data>
+  <data name="&gt;&gt;label13.ZOrder" xml:space="preserve">
+    <value>3</value>
   </data>
   <data name="textBoxFactoryNumber.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 50</value>
@@ -220,7 +310,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxFactoryNumber.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>4</value>
   </data>
   <data name="textBoxComment.Location" type="System.Drawing.Point, System.Drawing">
     <value>176, 19</value>
@@ -241,7 +331,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;textBoxComment.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>5</value>
   </data>
   <data name="label4.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -249,17 +339,17 @@
   <data name="label4.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
+  <data name="label4.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label4.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 82</value>
   </data>
   <data name="label4.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="label4.TabIndex" type="System.Int32, mscorlib">
     <value>26</value>
-  </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>Оператор</value>
   </data>
   <data name="&gt;&gt;label4.Name" xml:space="preserve">
     <value>label4</value>
@@ -271,7 +361,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label4.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>6</value>
   </data>
   <data name="label2.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -279,17 +369,17 @@
   <data name="label2.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
+  <data name="label2.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 20</value>
   </data>
   <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>98, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="label2.TabIndex" type="System.Int32, mscorlib">
     <value>24</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>Комментарий</value>
   </data>
   <data name="&gt;&gt;label2.Name" xml:space="preserve">
     <value>label2</value>
@@ -301,7 +391,7 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>7</value>
   </data>
   <data name="label3.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -309,17 +399,17 @@
   <data name="label3.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
+  <data name="label3.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label3.Location" type="System.Drawing.Point, System.Drawing">
     <value>17, 51</value>
   </data>
   <data name="label3.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="label3.TabIndex" type="System.Int32, mscorlib">
     <value>25</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>Заводской номер</value>
   </data>
   <data name="&gt;&gt;label3.Name" xml:space="preserve">
     <value>label3</value>
@@ -331,13 +421,13 @@
     <value>groupBox1</value>
   </data>
   <data name="&gt;&gt;label3.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>8</value>
   </data>
   <data name="groupBox1.Location" type="System.Drawing.Point, System.Drawing">
-    <value>700, 3</value>
+    <value>701, 3</value>
   </data>
   <data name="groupBox1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>350, 111</value>
+    <value>349, 111</value>
   </data>
   <data name="groupBox1.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
@@ -354,35 +444,71 @@
   <data name="&gt;&gt;groupBox1.ZOrder" xml:space="preserve">
     <value>0</value>
   </data>
-  <data name="buttonPowerOn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+  <data name="label7.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label7.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
     <value>NoControl</value>
   </data>
-  <data name="buttonPowerOn.Location" type="System.Drawing.Point, System.Drawing">
-    <value>12, 79</value>
+  <data name="label7.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 42</value>
   </data>
-  <data name="buttonPowerOn.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 23</value>
+  <data name="label7.Size" type="System.Drawing.Size, System.Drawing">
+    <value>117, 17</value>
   </data>
-  <data name="buttonPowerOn.TabIndex" type="System.Int32, mscorlib">
-    <value>9</value>
+  <data name="label7.TabIndex" type="System.Int32, mscorlib">
+    <value>46</value>
   </data>
-  <data name="buttonPowerOn.Text" xml:space="preserve">
-    <value>Снять питание</value>
+  <data name="label7.Text" xml:space="preserve">
+    <value>Режим проверки</value>
   </data>
-  <data name="buttonPowerOn.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="&gt;&gt;label7.Name" xml:space="preserve">
+    <value>label7</value>
   </data>
-  <data name="&gt;&gt;buttonPowerOn.Name" xml:space="preserve">
-    <value>buttonPowerOn</value>
+  <data name="&gt;&gt;label7.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
-  <data name="&gt;&gt;buttonPowerOn.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonPowerOn.Parent" xml:space="preserve">
+  <data name="&gt;&gt;label7.Parent" xml:space="preserve">
     <value>groupBoxPreferences</value>
   </data>
-  <data name="&gt;&gt;buttonPowerOn.ZOrder" xml:space="preserve">
+  <data name="&gt;&gt;label7.ZOrder" xml:space="preserve">
     <value>0</value>
+  </data>
+  <data name="label5.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="label5.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="label5.Location" type="System.Drawing.Point, System.Drawing">
+    <value>6, 16</value>
+  </data>
+  <data name="label5.Size" type="System.Drawing.Size, System.Drawing">
+    <value>110, 17</value>
+  </data>
+  <data name="label5.TabIndex" type="System.Int32, mscorlib">
+    <value>45</value>
+  </data>
+  <data name="label5.Text" xml:space="preserve">
+    <value>Режим питания</value>
+  </data>
+  <data name="&gt;&gt;label5.Name" xml:space="preserve">
+    <value>label5</value>
+  </data>
+  <data name="&gt;&gt;label5.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label5.Parent" xml:space="preserve">
+    <value>groupBoxPreferences</value>
+  </data>
+  <data name="&gt;&gt;label5.ZOrder" xml:space="preserve">
+    <value>1</value>
   </data>
   <data name="labelAttention.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -412,13 +538,13 @@
     <value>groupBoxPreferences</value>
   </data>
   <data name="&gt;&gt;labelAttention.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>2</value>
   </data>
   <data name="comboBoxCheckingMode.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 42</value>
   </data>
   <data name="comboBoxCheckingMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 21</value>
+    <value>256, 21</value>
   </data>
   <data name="comboBoxCheckingMode.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -433,13 +559,13 @@
     <value>groupBoxPreferences</value>
   </data>
   <data name="&gt;&gt;comboBoxCheckingMode.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>3</value>
   </data>
   <data name="comboBoxVoltageSupply.Location" type="System.Drawing.Point, System.Drawing">
     <value>162, 15</value>
   </data>
   <data name="comboBoxVoltageSupply.Size" type="System.Drawing.Size, System.Drawing">
-    <value>138, 21</value>
+    <value>256, 21</value>
   </data>
   <data name="comboBoxVoltageSupply.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -454,7 +580,7 @@
     <value>groupBoxPreferences</value>
   </data>
   <data name="&gt;&gt;comboBoxVoltageSupply.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>4</value>
   </data>
   <data name="label6.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -462,17 +588,17 @@
   <data name="label6.Font" type="System.Drawing.Font, System.Drawing">
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
+  <data name="label6.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
   <data name="label6.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 43</value>
   </data>
   <data name="label6.Size" type="System.Drawing.Size, System.Drawing">
-    <value>104, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="label6.TabIndex" type="System.Int32, mscorlib">
     <value>28</value>
-  </data>
-  <data name="label6.Text" xml:space="preserve">
-    <value>Режим работы</value>
   </data>
   <data name="&gt;&gt;label6.Name" xml:space="preserve">
     <value>label6</value>
@@ -484,7 +610,7 @@
     <value>groupBoxPreferences</value>
   </data>
   <data name="&gt;&gt;label6.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>5</value>
   </data>
   <data name="label1.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -499,13 +625,10 @@
     <value>6, 16</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>150, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>35</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>Напряжение питания</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -517,13 +640,13 @@
     <value>groupBoxPreferences</value>
   </data>
   <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
-    <value>5</value>
+    <value>6</value>
   </data>
   <data name="groupBoxPreferences.Location" type="System.Drawing.Point, System.Drawing">
-    <value>366, 4</value>
+    <value>255, 4</value>
   </data>
   <data name="groupBoxPreferences.Size" type="System.Drawing.Size, System.Drawing">
-    <value>328, 111</value>
+    <value>440, 111</value>
   </data>
   <data name="groupBoxPreferences.TabIndex" type="System.Int32, mscorlib">
     <value>37</value>
@@ -542,6 +665,36 @@
   </data>
   <data name="groupBox2.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
+  </data>
+  <data name="buttonPowerOn.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonPowerOn.Location" type="System.Drawing.Point, System.Drawing">
+    <value>723, 243</value>
+  </data>
+  <data name="buttonPowerOn.Size" type="System.Drawing.Size, System.Drawing">
+    <value>129, 23</value>
+  </data>
+  <data name="buttonPowerOn.TabIndex" type="System.Int32, mscorlib">
+    <value>9</value>
+  </data>
+  <data name="buttonPowerOn.Text" xml:space="preserve">
+    <value>Снять питание</value>
+  </data>
+  <data name="buttonPowerOn.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonPowerOn.Name" xml:space="preserve">
+    <value>buttonPowerOn</value>
+  </data>
+  <data name="&gt;&gt;buttonPowerOn.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonPowerOn.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;buttonPowerOn.ZOrder" xml:space="preserve">
+    <value>0</value>
   </data>
   <data name="buttonShowRelays.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -574,7 +727,37 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;buttonShowRelays.ZOrder" xml:space="preserve">
-    <value>0</value>
+    <value>1</value>
+  </data>
+  <data name="buttonOpenDataBase.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
+    <value>NoControl</value>
+  </data>
+  <data name="buttonOpenDataBase.Location" type="System.Drawing.Point, System.Drawing">
+    <value>723, 272</value>
+  </data>
+  <data name="buttonOpenDataBase.Size" type="System.Drawing.Size, System.Drawing">
+    <value>84, 23</value>
+  </data>
+  <data name="buttonOpenDataBase.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="buttonOpenDataBase.Text" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="buttonOpenDataBase.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="&gt;&gt;buttonOpenDataBase.Name" xml:space="preserve">
+    <value>buttonOpenDataBase</value>
+  </data>
+  <data name="&gt;&gt;buttonOpenDataBase.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;buttonOpenDataBase.Parent" xml:space="preserve">
+    <value>groupBox2</value>
+  </data>
+  <data name="&gt;&gt;buttonOpenDataBase.ZOrder" xml:space="preserve">
+    <value>2</value>
   </data>
   <data name="checkBoxIgnoreErrors.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
@@ -604,7 +787,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;checkBoxIgnoreErrors.ZOrder" xml:space="preserve">
-    <value>1</value>
+    <value>3</value>
   </data>
   <data name="labelRelays.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Right</value>
@@ -622,13 +805,10 @@
     <value>736, 55</value>
   </data>
   <data name="labelRelays.Size" type="System.Drawing.Size, System.Drawing">
-    <value>45, 17</value>
+    <value>0, 17</value>
   </data>
   <data name="labelRelays.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
-  </data>
-  <data name="labelRelays.Text" xml:space="preserve">
-    <value>Реле:</value>
   </data>
   <data name="labelRelays.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
@@ -643,7 +823,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;labelRelays.ZOrder" xml:space="preserve">
-    <value>2</value>
+    <value>4</value>
   </data>
   <data name="groupBoxManualStep.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Left, Right</value>
@@ -659,6 +839,9 @@
   </data>
   <data name="numericUpDown1.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
+  </data>
+  <data name="numericUpDown1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;numericUpDown1.Name" xml:space="preserve">
     <value>numericUpDown1</value>
@@ -686,6 +869,9 @@
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Выполнить выбранные шаги</value>
+  </data>
+  <data name="button1.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>
@@ -718,7 +904,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;groupBoxManualStep.ZOrder" xml:space="preserve">
-    <value>3</value>
+    <value>5</value>
   </data>
   <data name="treeOfChecking.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Top, Bottom, Left, Right</value>
@@ -745,7 +931,7 @@
     <value>groupBox2</value>
   </data>
   <data name="&gt;&gt;treeOfChecking.ZOrder" xml:space="preserve">
-    <value>4</value>
+    <value>6</value>
   </data>
   <data name="groupBox2.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 118</value>
@@ -755,6 +941,9 @@
   </data>
   <data name="groupBox2.TabIndex" type="System.Int32, mscorlib">
     <value>10</value>
+  </data>
+  <data name="groupBox2.Text" xml:space="preserve">
+    <value>Алгоритм проверки</value>
   </data>
   <data name="&gt;&gt;groupBox2.Name" xml:space="preserve">
     <value>groupBox2</value>
@@ -778,13 +967,16 @@
     <value>126, 64</value>
   </data>
   <data name="buttonStep.Size" type="System.Drawing.Size, System.Drawing">
-    <value>133, 23</value>
+    <value>84, 23</value>
   </data>
   <data name="buttonStep.TabIndex" type="System.Int32, mscorlib">
     <value>40</value>
   </data>
   <data name="buttonStep.Text" xml:space="preserve">
-    <value>Поэтапная проверка</value>
+    <value>Шаг</value>
+  </data>
+  <data name="buttonStep.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;buttonStep.Name" xml:space="preserve">
     <value>buttonStep</value>
@@ -828,47 +1020,14 @@
   <data name="&gt;&gt;buttonCheckingStop.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <data name="buttonOpenDataBase.ImeMode" type="System.Windows.Forms.ImeMode, System.Windows.Forms">
-    <value>NoControl</value>
-  </data>
-  <data name="buttonOpenDataBase.Location" type="System.Drawing.Point, System.Drawing">
-    <value>240, 24</value>
-  </data>
-  <data name="buttonOpenDataBase.Size" type="System.Drawing.Size, System.Drawing">
-    <value>84, 23</value>
-  </data>
-  <data name="buttonOpenDataBase.TabIndex" type="System.Int32, mscorlib">
-    <value>7</value>
-  </data>
-  <data name="buttonOpenDataBase.Text" xml:space="preserve">
-    <value>Открыть</value>
-  </data>
-  <data name="buttonOpenDataBase.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
-  <data name="&gt;&gt;buttonOpenDataBase.Name" xml:space="preserve">
-    <value>buttonOpenDataBase</value>
-  </data>
-  <data name="&gt;&gt;buttonOpenDataBase.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;buttonOpenDataBase.Parent" xml:space="preserve">
-    <value>groupBoxCheckingManagement</value>
-  </data>
-  <data name="&gt;&gt;buttonOpenDataBase.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
   <data name="groupBoxCheckingManagement.Location" type="System.Drawing.Point, System.Drawing">
     <value>18, 4</value>
   </data>
   <data name="groupBoxCheckingManagement.Size" type="System.Drawing.Size, System.Drawing">
-    <value>342, 111</value>
+    <value>231, 111</value>
   </data>
   <data name="groupBoxCheckingManagement.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
-  </data>
-  <data name="groupBoxCheckingManagement.Text" xml:space="preserve">
-    <value>Управление</value>
   </data>
   <data name="&gt;&gt;groupBoxCheckingManagement.Name" xml:space="preserve">
     <value>groupBoxCheckingManagement</value>
@@ -924,11 +1083,11 @@
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
     <value>1073, 665</value>
   </data>
+  <data name="$this.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 15</value>
+  </data>
   <data name="$this.MinimumSize" type="System.Drawing.Size, System.Drawing">
     <value>1089, 703</value>
-  </data>
-  <data name="$this.Text" xml:space="preserve">
-    <value>Программа проверки УСА-Т С-33163 ШЮГИ.468151.111 Версия 1.0.0</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form1</value>

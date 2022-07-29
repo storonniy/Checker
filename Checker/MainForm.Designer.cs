@@ -35,21 +35,27 @@ namespace Checker
             this.buttonCheckingPause = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.textBoxOperatorName = new System.Windows.Forms.TextBox();
+            this.label13 = new System.Windows.Forms.Label();
             this.textBoxFactoryNumber = new System.Windows.Forms.TextBox();
             this.textBoxComment = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBoxPreferences = new System.Windows.Forms.GroupBox();
-            this.buttonPowerOn = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
             this.labelAttention = new System.Windows.Forms.Label();
             this.comboBoxCheckingMode = new System.Windows.Forms.ComboBox();
             this.comboBoxVoltageSupply = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.buttonPowerOn = new System.Windows.Forms.Button();
             this.buttonShowRelays = new System.Windows.Forms.Button();
+            this.buttonOpenDataBase = new System.Windows.Forms.Button();
             this.checkBoxIgnoreErrors = new System.Windows.Forms.CheckBox();
             this.labelRelays = new System.Windows.Forms.Label();
             this.groupBoxManualStep = new System.Windows.Forms.GroupBox();
@@ -59,7 +65,6 @@ namespace Checker
             this.groupBoxCheckingManagement = new System.Windows.Forms.GroupBox();
             this.buttonStep = new System.Windows.Forms.Button();
             this.buttonCheckingStop = new System.Windows.Forms.Button();
-            this.buttonOpenDataBase = new System.Windows.Forms.Button();
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -97,7 +102,10 @@ namespace Checker
             // groupBox1
             // 
             resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Controls.Add(this.label11);
+            this.groupBox1.Controls.Add(this.label12);
             this.groupBox1.Controls.Add(this.textBoxOperatorName);
+            this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.textBoxFactoryNumber);
             this.groupBox1.Controls.Add(this.textBoxComment);
             this.groupBox1.Controls.Add(this.label4);
@@ -106,11 +114,26 @@ namespace Checker
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.TabStop = false;
             // 
+            // label11
+            // 
+            resources.ApplyResources(this.label11, "label11");
+            this.label11.Name = "label11";
+            // 
+            // label12
+            // 
+            resources.ApplyResources(this.label12, "label12");
+            this.label12.Name = "label12";
+            // 
             // textBoxOperatorName
             // 
             resources.ApplyResources(this.textBoxOperatorName, "textBoxOperatorName");
             this.textBoxOperatorName.Name = "textBoxOperatorName";
             this.textBoxOperatorName.TextChanged += new System.EventHandler(this.textBoxOperatorName_TextChanged);
+            // 
+            // label13
+            // 
+            resources.ApplyResources(this.label13, "label13");
+            this.label13.Name = "label13";
             // 
             // textBoxFactoryNumber
             // 
@@ -141,7 +164,8 @@ namespace Checker
             // 
             // groupBoxPreferences
             // 
-            this.groupBoxPreferences.Controls.Add(this.buttonPowerOn);
+            this.groupBoxPreferences.Controls.Add(this.label7);
+            this.groupBoxPreferences.Controls.Add(this.label5);
             this.groupBoxPreferences.Controls.Add(this.labelAttention);
             this.groupBoxPreferences.Controls.Add(this.comboBoxCheckingMode);
             this.groupBoxPreferences.Controls.Add(this.comboBoxVoltageSupply);
@@ -151,12 +175,15 @@ namespace Checker
             this.groupBoxPreferences.Name = "groupBoxPreferences";
             this.groupBoxPreferences.TabStop = false;
             // 
-            // buttonPowerOn
+            // label7
             // 
-            resources.ApplyResources(this.buttonPowerOn, "buttonPowerOn");
-            this.buttonPowerOn.Name = "buttonPowerOn";
-            this.buttonPowerOn.UseVisualStyleBackColor = true;
-            this.buttonPowerOn.Click += new System.EventHandler(this.button3_Click);
+            resources.ApplyResources(this.label7, "label7");
+            this.label7.Name = "label7";
+            // 
+            // label5
+            // 
+            resources.ApplyResources(this.label5, "label5");
+            this.label5.Name = "label5";
             // 
             // labelAttention
             // 
@@ -190,7 +217,9 @@ namespace Checker
             // groupBox2
             // 
             resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Controls.Add(this.buttonPowerOn);
             this.groupBox2.Controls.Add(this.buttonShowRelays);
+            this.groupBox2.Controls.Add(this.buttonOpenDataBase);
             this.groupBox2.Controls.Add(this.checkBoxIgnoreErrors);
             this.groupBox2.Controls.Add(this.labelRelays);
             this.groupBox2.Controls.Add(this.groupBoxManualStep);
@@ -198,12 +227,26 @@ namespace Checker
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.TabStop = false;
             // 
+            // buttonPowerOn
+            // 
+            resources.ApplyResources(this.buttonPowerOn, "buttonPowerOn");
+            this.buttonPowerOn.Name = "buttonPowerOn";
+            this.buttonPowerOn.UseVisualStyleBackColor = true;
+            this.buttonPowerOn.Click += new System.EventHandler(this.button3_Click);
+            // 
             // buttonShowRelays
             // 
             resources.ApplyResources(this.buttonShowRelays, "buttonShowRelays");
             this.buttonShowRelays.Name = "buttonShowRelays";
             this.buttonShowRelays.UseVisualStyleBackColor = true;
             this.buttonShowRelays.Click += new System.EventHandler(this.buttonShowRelays_Click);
+            // 
+            // buttonOpenDataBase
+            // 
+            resources.ApplyResources(this.buttonOpenDataBase, "buttonOpenDataBase");
+            this.buttonOpenDataBase.Name = "buttonOpenDataBase";
+            this.buttonOpenDataBase.UseVisualStyleBackColor = true;
+            this.buttonOpenDataBase.Click += new System.EventHandler(this.buttonOpenDataBase_Click);
             // 
             // checkBoxIgnoreErrors
             // 
@@ -255,7 +298,6 @@ namespace Checker
             // 
             this.groupBoxCheckingManagement.Controls.Add(this.buttonStep);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonCheckingStop);
-            this.groupBoxCheckingManagement.Controls.Add(this.buttonOpenDataBase);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonCheckingStart);
             this.groupBoxCheckingManagement.Controls.Add(this.buttonCheckingPause);
             resources.ApplyResources(this.groupBoxCheckingManagement, "groupBoxCheckingManagement");
@@ -276,13 +318,6 @@ namespace Checker
             this.buttonCheckingStop.UseVisualStyleBackColor = true;
             this.buttonCheckingStop.Click += new System.EventHandler(this.buttonCheckingStop_Click);
             // 
-            // buttonOpenDataBase
-            // 
-            resources.ApplyResources(this.buttonOpenDataBase, "buttonOpenDataBase");
-            this.buttonOpenDataBase.Name = "buttonOpenDataBase";
-            this.buttonOpenDataBase.UseVisualStyleBackColor = true;
-            this.buttonOpenDataBase.Click += new System.EventHandler(this.buttonOpenDataBase_Click);
-            // 
             // contextMenuStrip1
             // 
             this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -292,6 +327,7 @@ namespace Checker
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.Controls.Add(this.panel1);
             this.Name = "Form1";
             this.panel1.ResumeLayout(false);
@@ -306,6 +342,15 @@ namespace Checker
             this.groupBoxCheckingManagement.ResumeLayout(false);
             this.ResumeLayout(false);
         }
+
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label13;
+
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label7;
+
+        private System.Windows.Forms.ComboBox comboBoxCheckingMode;
 
         private System.Windows.Forms.NumericUpDown numericUpDown1;
 
@@ -323,7 +368,6 @@ namespace Checker
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox comboBoxVoltageSupply;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBoxCheckingMode;
         private System.Windows.Forms.GroupBox groupBoxPreferences;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label labelAttention;

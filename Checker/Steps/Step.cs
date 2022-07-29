@@ -77,13 +77,6 @@ namespace Checker.Steps
                 Description = $"Канал {Channel}: {Description}";
             AdditionalArg = row["additionalArg"].ToString();
         }
-        private static string GetProgramName(DataSet dataSet)
-        {
-            var table = dataSet.Tables["ProgramName"];
-            var programName = table.Rows[0]["ProgramName"].ToString();
-            dataSet.Tables.Remove(dataSet.Tables[table.TableName]);
-            return programName;
-        }
 
         private static ProgramData GetProgramData(DataSet dataSet)
         {
@@ -138,12 +131,7 @@ namespace Checker.Steps
             foreach (DataRow row in table.Rows)
             {
                 var checkingMode = row["VoltageSupplyMode"].ToString();
-                var tableNames = row["TableNames"].ToString().Split(';').ToList();
-                for (var i = 0; i < tableNames.Count; i++)
-                {
-                    while (tableNames[i].StartsWith(" "))
-                        tableNames[i] = tableNames[i].Remove(0, 1);
-                }
+                var tableNames = row["TableNames"].ToString().Split(';').Where(t => t != "").Select(t => t.Trim()).ToList();
                 modesDictionary.Add(checkingMode, tableNames);
             }
             dataSet.Tables.Remove(dataSet.Tables[table.TableName]);
@@ -157,12 +145,7 @@ namespace Checker.Steps
             foreach (DataRow row in table.Rows)
             {
                 var checkingMode = row["CheckingMode"].ToString();
-                var tableNames = row["TableNames"].ToString().Split(';').ToList();
-                for (var i = 0; i < tableNames.Count; i++)
-                {
-                    while (tableNames[i].StartsWith(" "))
-                        tableNames[i] = tableNames[i].Remove(0, 1);
-                }
+                var tableNames = row["TableNames"].ToString().Split(';').Where(t => t != "").Select(t => t.Trim()).ToList();
                 modesDictionary.Add(checkingMode, tableNames);
             }
             dataSet.Tables.Remove(dataSet.Tables[table.TableName]);
