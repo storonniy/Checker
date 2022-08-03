@@ -48,6 +48,7 @@ namespace Checker.Devices
                 case DeviceCommands.SetHighLevel:
                     return SetValue(step, akip3407.SetHighLevel, UnitType.Voltage);
                 default:
+                    
                     return DeviceResult.ResultError($"Неизвестная команда {step.Command}");
             }
         }
