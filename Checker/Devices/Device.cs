@@ -119,7 +119,10 @@ namespace Checker.Devices
         SetDutyCycle,
         StartGenerator,
         StopGenerator,
-        ClearAllSignals
+        ClearAllSignals,
+        SetSignalShape,
+        SetLowLevel,
+        SetHighLevel
     }
 
     public enum DeviceNames

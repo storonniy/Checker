@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.IO.Ports;
 using System.Threading;
-using System.Globalization;
 using Checker.Auxiliary;
-using Checker.DeviceDrivers;
 
 namespace Checker.DeviceDrivers
 {
@@ -63,6 +58,63 @@ namespace Checker.DeviceDrivers
         public bool PowerOff()
         {
             return ChangePowerStatus("0");
+        }
+
+        public bool SetSignalShape(string shape, string frequency, double highLevel, double lowLevel)
+        {
+            if (Enum.TryParse<Shape>(shape, out _)) 
+                throw new Exception($"Неизвестная форма сигнала {shape}");
+            serialPort.SendCommand($"SOUR1:APPL:{shape} {frequency}, {highLevel}, {lowLevel}");
+            serialPort.SendCommand($"SOUR1:FUNC?");
+            return serialPort.ReadExisting().Contains(shape);
+        }
+        public bool SetSignalShape(string shape, string parameters)
+        {
+            if (Enum.TryParse<Shape>(shape, out _)) 
+                throw new Exception($"Неизвестная форма сигнала {shape}");
+            serialPort.SendCommand($"SOUR1:APPL:{shape} {parameters}");
+            serialPort.SendCommand($"SOUR1:FUNC?");
+            return serialPort.ReadExisting().Contains(shape);
+        }
+
+        public double SetLowLevel(double lowLevel)
+        {
+            serialPort.SendCommand($"SOUR1:VOLT:LOW {lowLevel}");
+            serialPort.SendCommand("SOUR1:VOLT:LOW?");
+            return serialPort.ReadDouble();
+        }
+        
+        public double SetHighLevel(double highLevel)
+        {
+            serialPort.SendCommand($"SOUR1:VOLT:HIGH {highLevel}");
+            serialPort.SendCommand("SOUR1:VOLT:HIGH?");
+            return serialPort.ReadDouble();
+        }
+
+        public double SetDutyCycle(double dutyCycle)
+        {
+            serialPort.SendCommand("SOUR1:FUNC?");
+            var shape = serialPort.ReadExisting().Replace("\r", "");
+            serialPort.SendCommand($"FUNC:{shape}:DCYC {dutyCycle}");
+            serialPort.SendCommand($"FUNC:{shape}:DCYC?");
+            return serialPort.ReadDouble();
+        }
+        
+        public enum Shape
+        {
+            SIN,
+            SQU,
+            TANG,
+            PULS,
+            NOIS,
+            PRBS,
+            REXP,
+            FEXP,
+            SINC,
+            CIRC,
+            GAUS,
+            CARD,
+            QUAK
         }
 
         private bool ChangePowerStatus(string status)

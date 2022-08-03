@@ -16,6 +16,7 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <LangVersion>9</LangVersion>
     <PublishUrl>D:\DoneAAP\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -25,13 +26,17 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>2</ApplicationRevision>
+    <MapFileExtensions>false</MapFileExtensions>
+    <TargetCulture>ru-RU</TargetCulture>
+    <ProductName>ШЮГИ.468151.113 ДМ</ProductName>
+    <PublisherName>122</PublisherName>
+    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
+    <ApplicationRevision>14</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <CreateDesktopShortcut>true</CreateDesktopShortcut>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <LangVersion>9</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>x86</PlatformTarget>
@@ -73,6 +78,27 @@
   <PropertyGroup>
     <StartupObject>Checker.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>9</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <LangVersion>9</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Automation.BDaq">
       <HintPath>.\Automation.BDaq.dll</HintPath>
@@ -86,10 +112,6 @@
     <Reference Include="Ixxat.Vci4.Contract">
       <HintPath>..\packages\Ixxat.Vci4.4.0.436\lib\net40\Ixxat.Vci4.Contract.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.TestPlatform.AdapterUtilities, Version=15.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Microsoft.TestPlatform.AdapterUtilities.dll</HintPath>
-    </Reference>
     <Reference Include="MIGUIControls">
       <HintPath>..\..\..\..\..\..\Windows\Microsoft.NET\assembly\GAC_MSIL\MiguiControls\v4.0_1.0.0.0__31bf3856ad364e35\MIGUIControls.dll</HintPath>
     </Reference>
@@ -101,6 +123,7 @@
     </Reference>
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -201,9 +224,6 @@
     <EmbeddedResource Include="SettingsForm.resx">
       <DependentUpon>SettingsForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="i386\ftd2xx.lib" />
-    <None Include="i386\ftdibus.sys" />
-    <None Include="i386\ftser2k.sys" />
     <None Include="Net-API_de.pdf" />
     <None Include="Net-API_en.pdf" />
     <None Include="packages.config" />
@@ -238,12 +258,32 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="i386\ftbusui.dll" />
-    <Content Include="i386\ftcserco.dll" />
-    <Content Include="i386\ftd2xx.dll" />
-    <Content Include="i386\ftlang.dll" />
-    <Content Include="i386\ftserui2.dll" />
     <Content Include="TODO.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <PublishFile Include="ja\Checker.resources">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>Satellite</FileType>
+    </PublishFile>
+    <PublishFile Include="TODO.txt">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Exclude</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Algorithms\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets" Condition="Exists('..\packages\Ixxat.Vci4.4.0.436\build\net40\Ixxat.Vci4.targets')" />
@@ -258,4 +298,7 @@
   </Target>
   <Import Project="..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets" Condition="Exists('..\packages\Ixxat.Vci4.Core.4.0.439\build\net40\Ixxat.Vci4.Core.targets')" />
   <Import Project="..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets" Condition="Exists('..\packages\MSTest.TestAdapter.2.2.10\build\net46\MSTest.TestAdapter.targets')" />
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ProjectDir)\Algorithms $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
 </Project>

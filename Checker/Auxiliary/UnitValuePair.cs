@@ -35,7 +35,8 @@ namespace Checker.Auxiliary
             Current,
             Power,
             Frequency,
-            Resistance
+            Resistance,
+            Percent
         }
         
 
@@ -53,6 +54,8 @@ namespace Checker.Auxiliary
                     return UnitType.Frequency;
                 case "Ohm":
                     return UnitType.Resistance;
+                case "%":
+                    return UnitType.Percent;
                 default:
                     throw new Exception("Неизвестный тип величины");
             }
@@ -86,6 +89,8 @@ namespace Checker.Auxiliary
                     return "Гц";
                 case UnitValuePair.UnitType.Resistance:
                     return "Ом";
+                case UnitValuePair.UnitType.Percent:
+                    return "%";
                 default:
                     throw new Exception("Неизвестный тип величины");
             }

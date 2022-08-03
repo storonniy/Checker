@@ -35,6 +35,18 @@ namespace Checker.Devices
                 case DeviceCommands.PowerOff:
                     return PowerOff(step, akip3407.PowerOff);
                 case DeviceCommands.SetDutyCycle:
+                    return SetValue(step, akip3407.SetDutyCycle, UnitType.Percent);
+                case DeviceCommands.SetSignalShape:
+                    var shape = step.Argument;
+                    var parameters = step.AdditionalArg;
+                    var status = akip3407.SetSignalShape(shape, parameters);
+                    return status
+                        ? DeviceResult.ResultOk($"{step.DeviceName}: установлена форма сигнала {shape}")
+                        : DeviceResult.ResultError($"{step.DeviceName}: ошибка при установке формы сигнала {shape}");
+                case DeviceCommands.SetLowLevel:
+                    return SetValue(step, akip3407.SetLowLevel, UnitType.Voltage);
+                case DeviceCommands.SetHighLevel:
+                    return SetValue(step, akip3407.SetHighLevel, UnitType.Voltage);
                 default:
                     return DeviceResult.ResultError($"Неизвестная команда {step.Command}");
             }
