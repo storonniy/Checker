@@ -131,48 +131,51 @@ namespace Checker.DeviceDrivers
             return status;
         }
 
-        // public bool CloseRelays(int blockNumber, params int[] relayNumbers)
-        // {
-        //     var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetCloseRelayData);
-        //     var status = CloseRelaysArray(blockNumber, newStates);
-        //     return status == 0x00;
-        // }
-        //
-        // public bool OpenRelays(int blockNumber, params int[] relayNumbers)
-        // {
-        //     var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetOpenRelayData);
-        //     var status = CloseRelaysArray(blockNumber, newStates);
-        //     return status == 0x00;
-        // }
-        //
-        // private static readonly Func<byte, byte, byte> GetOpenRelayData =
-        //     (currentStates, newStates) => (byte) (currentStates - (byte) (currentStates & newStates));
-        //
-        // private static readonly Func<byte, byte, byte> GetCloseRelayData =
-        //     (currentStates, newStates) => (byte) (currentStates | newStates);
-        //
-        // public byte[] GetRelayStatesBytes(int[] relayNumbers)
-        // {
-        //     if (relayNumbers.Any(relayNumber => relayNumber < 0 || relayNumber > 79))
-        //         throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {79}");
-        //     var relayStatesBytes = new byte[10];
-        //     var a = relayNumbers
-        //         .Select(r => Tuple.Create(r / 8, r % 8))
-        //         .GroupBy(r => r.Item1)
-        //         .Select(g => Tuple.Create(g.Key, ConvertRelayNumbersToByte(g.Select(x => x.Item2).ToArray())))
-        //         .ToArray();
-        //     a.se
-        // }
+        public bool CloseRelays(int blockNumber, params int[] relayNumbers)
+        {
+            relayNumbers = relayNumbers.Select(r => r - 1).ToArray();
+            var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetCloseRelayData);
+            var status = CloseRelaysArray(blockNumber, newStates);
+            return status == 0x00;
+        }
         
-        // public byte[] GetChangedRelaysBytes(int blockNumber, int[] relayNumbers, Func<byte, byte, byte> changeByte)
-        // {
-        //     var newStates = GetRelayStatesBytes(relayNumbers);
-        //     var currentStates = RequestAllRelayStatus(blockNumber);
-        //     return Enumerable.Range(0, 10)
-        //         .Select(i => changeByte(currentStates[i], newStates[i]))
-        //         .ToArray();
-        // }
-        //
+        public bool OpenRelays(int blockNumber, params int[] relayNumbers)
+        {
+            relayNumbers = relayNumbers.Select(r => r - 1).ToArray();
+            var newStates = GetChangedRelaysBytes(blockNumber, relayNumbers, GetOpenRelayData);
+            var status = CloseRelaysArray(blockNumber, newStates);
+            return status == 0x00;
+        }
+        
+        private static readonly Func<byte, byte, byte> GetOpenRelayData =
+            (currentStates, newStates) => (byte) (currentStates - (byte) (currentStates & newStates));
+        
+        private static readonly Func<byte, byte, byte> GetCloseRelayData =
+            (currentStates, newStates) => (byte) (currentStates | newStates);
+        
+        public static byte[] GetRelayStatesBytes(int[] relayNumbers)
+        {
+            if (relayNumbers.Any(relayNumber => relayNumber < 0 || relayNumber > 79))
+                throw new ArgumentOutOfRangeException($"Номер реле должен быть от 0 до {79}");
+            var relayStatesBytes = new byte[10];
+            var a = relayNumbers
+                .Select(r => Tuple.Create(r / 8, r % 8))
+                .GroupBy(r => r.Item1)
+                .Select(g => Tuple.Create(g.Key, ConvertRelayNumbersToByte(g.Select(x => x.Item2).ToArray())))
+                .Select(tuple => relayStatesBytes[tuple.Item1] = tuple.Item2)
+                .ToArray();
+            return relayStatesBytes;
+        }
+        
+        public byte[] GetChangedRelaysBytes(int blockNumber, int[] relayNumbers, Func<byte, byte, byte> changeByte)
+        {
+            var newStates = GetRelayStatesBytes(relayNumbers);
+            var currentStates = RequestAllRelayStatus(blockNumber);
+            return Enumerable.Range(0, 10)
+                .Select(i => changeByte(currentStates[i], newStates[i]))
+                .ToArray();
+        }
+        
         public static byte ConvertRelayNumbersToByte(IEnumerable<int> relayNumbers)
         {
             return (byte) relayNumbers
@@ -281,7 +284,7 @@ namespace Checker.DeviceDrivers
             return requestedRelayStatus == actualStatus;
         }
 
-        /// <summary>
+        /*/// <summary>
         /// 
         /// </summary>
         /// <param name="blockNumber"> Номер блока </param>
@@ -299,8 +302,9 @@ namespace Checker.DeviceDrivers
         /// <returns></returns>
         public bool OpenRelays(int blockNumber, int[] relayNumbers) => relayNumbers
             .Select(r => ChangeRelayState(blockNumber, r - 1, false))
-            .All(status => status);
+            .All(status => status);*/
 
+        
         #endregion
 
         #region 6 Request status of one of the relays

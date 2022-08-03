@@ -29,7 +29,7 @@ namespace Checker.Devices
                     return SetValue(step, psp405.SetVoltage, UnitType.Voltage);
                 case DeviceCommands.SetCurrent:
                     var actualCurrent = SetCurrent(step);
-                    return GetResult($"{step.DeviceName}: Установлен ток", step, UnitValuePair.UnitType.Current, actualCurrent);
+                    return GetResult($"{step.DeviceName}: Установлен ток", step, UnitType.Current, actualCurrent);
                 case DeviceCommands.PowerOn:
                     return PowerOn(step, psp405.PowerOn);
                 case DeviceCommands.PowerOff:

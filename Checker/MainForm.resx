@@ -714,9 +714,6 @@
   <data name="buttonShowRelays.Text" xml:space="preserve">
     <value>Показать реле</value>
   </data>
-  <data name="buttonShowRelays.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;buttonShowRelays.Name" xml:space="preserve">
     <value>buttonShowRelays</value>
   </data>
@@ -776,9 +773,6 @@
   </data>
   <data name="checkBoxIgnoreErrors.Text" xml:space="preserve">
     <value>Игнорировать ошибки</value>
-  </data>
-  <data name="checkBoxIgnoreErrors.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;checkBoxIgnoreErrors.Name" xml:space="preserve">
     <value>checkBoxIgnoreErrors</value>
@@ -843,9 +837,6 @@
   <data name="numericUpDown1.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
     <value>Center</value>
   </data>
-  <data name="numericUpDown1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
-  </data>
   <data name="&gt;&gt;numericUpDown1.Name" xml:space="preserve">
     <value>numericUpDown1</value>
   </data>
@@ -872,9 +863,6 @@
   </data>
   <data name="button1.Text" xml:space="preserve">
     <value>Выполнить выбранные шаги</value>
-  </data>
-  <data name="button1.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
   </data>
   <data name="&gt;&gt;button1.Name" xml:space="preserve">
     <value>button1</value>

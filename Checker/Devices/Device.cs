@@ -33,18 +33,18 @@ namespace Checker.Devices
         public DeviceStatus State;
         public string Description;
 
-        public static DeviceResult ResultOk(string description) => new DeviceResult()
+        public static DeviceResult ResultOk(string description) => new()
         {
             State = DeviceStatus.Ok,
             Description = description
         };
 
-        public static DeviceResult ResultError(string description) => new DeviceResult()
+        public static DeviceResult ResultError(string description) => new()
         {
             State = DeviceStatus.Error,
             Description = $"*: {description}"
         };
-        public static DeviceResult ResultNotConnected(string description) => new DeviceResult()
+        public static DeviceResult ResultNotConnected(string description) => new()
         {
             State = DeviceStatus.NotConnected,
             Description = description

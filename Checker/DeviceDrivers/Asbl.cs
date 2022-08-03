@@ -170,15 +170,13 @@ namespace Checker.DeviceDrivers
             SetLineDirection(17, 18);
             // Выбираем режим работы с ПрДУ
             WriteData(0x0000a000, 1);
-            
             WriteData(0x0000a001, (uint)frequency);
         }
         
         public void StartGenerator() => SetLineData(17, 18);
-
-
+        
         public void StopGenerator() => ClearLineData(17, 18);
-
+        
         private void Clear(uint register, uint data)
         {
             WriteData(register, data);

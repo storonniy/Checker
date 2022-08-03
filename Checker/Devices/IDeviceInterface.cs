@@ -12,44 +12,6 @@ namespace Checker.Devices
     public abstract class IDeviceInterface
     {
         public abstract DeviceResult DoCommand(Step step);
-
-        /*protected static DeviceResult SetVoltage(Step step, Func<double, double> setVoltage)
-        {
-            var voltage = double.Parse(step.Argument, CultureInfo.InvariantCulture);
-            var result = setVoltage(voltage);
-            return GetResultOfSetting($"{step.DeviceName}: Установлено напряжение", UnitType.Voltage, result, voltage);
-        }
-
-        protected static DeviceResult SetVoltage(Step step, Func<double, int, double> setVoltage)
-        {
-            var channel = int.Parse(step.AdditionalArg);
-            var voltage = double.Parse(step.Argument, CultureInfo.InvariantCulture);
-            var result = setVoltage(voltage, channel);
-            return GetResultOfSetting($"{ step.DeviceName}: Установлено напряжение", UnitType.Voltage, result, voltage);
-        }
-
-        protected static DeviceResult SetCurrent(Step step, Func<double, int, double> setCurrent)
-        {
-            var channel = int.Parse(step.AdditionalArg);
-            var current = double.Parse(step.Argument, CultureInfo.InvariantCulture);
-            var result = setCurrent(current, channel);
-            return GetResultOfSetting($"{step.DeviceName}: Установлен ток", UnitType.Current, result, current);
-        }
-
-        protected static DeviceResult SetCurrentLimit(Step step, Func<double, double> setCurrentLimit)
-        {
-            var currentLimit = double.Parse(step.Argument, CultureInfo.InvariantCulture);
-            var result = setCurrentLimit(currentLimit);
-            return GetResultOfSetting($"{step.DeviceName}: Установлен предел по току", UnitType.Current, result, currentLimit);
-        }
-
-        protected static DeviceResult SetCurrentLimit(Step step, Func<double, int, double> setCurrentLimit)
-        {
-            var channel = int.Parse(step.AdditionalArg);
-            var currentLimit = double.Parse(step.Argument, CultureInfo.InvariantCulture);
-            var result = setCurrentLimit(currentLimit, channel);
-            return GetResultOfSetting($"{step.DeviceName}: Установлен предел по току", UnitType.Current, result, currentLimit);
-        }*/
         
         protected static DeviceResult SetValue(Step step, Func<double, double> setValue, UnitType unitType)
         {
@@ -185,7 +147,7 @@ namespace Checker.Devices
             private double inputValue;
         }
 
-        private static readonly Dictionary<InputData, List<double>> CoefficientValuesDictionary = new Dictionary<InputData, List<double>>();
+        private static readonly Dictionary<InputData, List<double>> CoefficientValuesDictionary = new ();
 
         public static readonly Action ClearCoefficientDictionary = () => CoefficientValuesDictionary.Clear();
 

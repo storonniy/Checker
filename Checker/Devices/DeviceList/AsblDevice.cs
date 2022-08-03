@@ -58,7 +58,7 @@ namespace Checker.Device.DeviceList
                         return lineState == actualLineState ? ResultOk(msg) : ResultError(msg);
                     case DeviceCommands.ClearAll:
                         asbl.ClearAll();
-                        return ResultOk("");
+                        return ResultOk("Направление всех линий установлено на выход, всех состояния линий выставлены в 0");
                     case DeviceCommands.SetFrequency:
                         var frequency = int.Parse(step.Argument);
                         asbl.SetFrequency(frequency);

@@ -272,17 +272,9 @@ namespace Checker
             // 
             this.numericUpDown1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             resources.ApplyResources(this.numericUpDown1, "numericUpDown1");
-            this.numericUpDown1.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numericUpDown1.Minimum = new decimal(new int[] { 1, 0, 0, 0 });
             this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
+            this.numericUpDown1.Value = new decimal(new int[] { 1, 0, 0, 0 });
             // 
             // button1
             // 
@@ -349,7 +341,6 @@ namespace Checker
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.groupBoxCheckingManagement.ResumeLayout(false);
             this.ResumeLayout(false);
-
         }
 
         private System.Windows.Forms.Label label11;

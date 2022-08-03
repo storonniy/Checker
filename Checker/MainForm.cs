@@ -18,9 +18,9 @@ namespace Checker
     {
         #region Глобальные переменные
 
-        private static readonly Dictionary<TreeNode, Step> NodeStepDictionary = new ();
+        private static readonly Dictionary<TreeNode, Step> NodeStepDictionary = new();
 
-        private static readonly Dictionary<Step, TreeNode> StepNodeDictionary = new ();
+        private static readonly Dictionary<Step, TreeNode> StepNodeDictionary = new();
 
         private static StepsInfo _stepsInfo;
         private static DeviceInit _deviceHandler;
@@ -279,7 +279,8 @@ namespace Checker
             _form.HighlightTreeNode(node, Color.Blue);
             var result =
                 $"{step.Description}\r\n{deviceResult.Description}\r\n\r\n"; // $"Шаг {stepNumber}: {step.Description}\r\n{deviceResult.Description}\r\n\r\n";
-            if (step.Command.ToString().Contains("Set") || step.Command.ToString().Contains("Get") || step.DeviceName == DeviceNames.None)
+            if (step.Command.ToString().Contains("Set") || step.Command.ToString().Contains("Get") ||
+                step.DeviceName == DeviceNames.None || step.Command.ToString().Contains("Power"))
             {
                 _log.Send(result);
                 _log.Send(DateTime.Now.ToString(CultureInfo.InvariantCulture));
@@ -368,7 +369,7 @@ namespace Checker
                 AddSelectedStepsToQueue(stepList);
         }
 
-        private static List<Steps.Step> GetSelectedSteps()
+        private static List<Step> GetSelectedSteps()
         {
             return NodeStepDictionary.Keys
                 .Where(node => node.Checked)
@@ -390,6 +391,23 @@ namespace Checker
         private static void node_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Action == TreeViewAction.Unknown) return;
+            var key = e.Node.Text.Split(' ')[0];
+            if (key.Length > 8) key = "";
+            var layers = key.Split('.');
+            var depth = layers.Length - 1;
+            var upperLayers = new string[depth];
+            Array.Copy(layers, upperLayers, depth);
+            var upperKeys = Enumerable.Range(0, depth).Select(d => string.Join(".", upperLayers.Take(d))).ToArray();
+            foreach (TreeNode node in e.Node.Parent.Nodes)
+            {
+                var thisKey = node.Text.Split(' ')[0];
+                if (thisKey.Length > 8) thisKey = "";
+                if (thisKey == key || upperKeys.Any(k => k == thisKey))
+                {
+                    node.Checked = e.Node.Checked;
+                }
+            }
+
             if (e.Node.Nodes.Count > 0)
             {
                 CheckChildNodes(e.Node, e.Node.Checked);
@@ -483,7 +501,7 @@ namespace Checker
                 foreach (var step in stepDictionary[tableName].Where(step => step.ShowStep))
                 {
                     nodesCount++;
-                    var nodeName = step.Description;//$"{nodesCount} {step.Description}";
+                    var nodeName = step.Description; //$"{nodesCount} {step.Description}";
                     var stepNode = new TreeNode(nodeName);
                     NodeStepDictionary.Add(stepNode, step);
                     StepNodeDictionary.Add(step, stepNode);
@@ -727,25 +745,23 @@ namespace Checker
 
         private void buttonShowRelays_Click(object sender, EventArgs e)
         {
-/*            var stepGetMkRelays = new Step(DeviceNames.MK, DeviceCommands.GetClosedRelayNames);
-            var stepGetSimulatorRelays = new Step(DeviceNames.MK, DeviceCommands.GetClosedRelayNames);*/
-            var stepPCI1761_1 = new Step(DeviceNames.PCI_1761_1, DeviceCommands.GetClosedRelayNames);
-            var stepPCI1762_1 = new Step(DeviceNames.PCI_1762_1, DeviceCommands.GetClosedRelayNames);
-            var stepPCI1762_2 = new Step(DeviceNames.PCI_1762_2, DeviceCommands.GetClosedRelayNames);
-            var stepPCI1762_3 = new Step(DeviceNames.PCI_1762_3, DeviceCommands.GetClosedRelayNames);
-            var stepPCI1762_5 = new Step(DeviceNames.PCI_1762_5, DeviceCommands.GetClosedRelayNames);
-
+            // var stepPCI1761_1 = new Step(DeviceNames.PCI_1761_1, DeviceCommands.GetClosedRelayNames);
+            // var stepPCI1762_1 = new Step(DeviceNames.PCI_1762_1, DeviceCommands.GetClosedRelayNames);
+            // var stepPCI1762_2 = new Step(DeviceNames.PCI_1762_2, DeviceCommands.GetClosedRelayNames);
+            // var stepPCI1762_3 = new Step(DeviceNames.PCI_1762_3, DeviceCommands.GetClosedRelayNames);
+            // var stepPCI1762_5 = new Step(DeviceNames.PCI_1762_5, DeviceCommands.GetClosedRelayNames);
+            var stepGetMkRelays = new Step(DeviceNames.MK, DeviceCommands.GetClosedRelayNames);
             var stepGetSimulatorRelays = new Step(DeviceNames.MK, DeviceCommands.GetClosedRelayNames);
             try
             {
-                /*                var relays = _deviceHandler.Devices[DeviceNames.MK].DoCommand(stepGetMkRelays).Description;
-                                relays += _deviceHandler.Devices[DeviceNames.Simulator].DoCommand(stepGetSimulatorRelays).Description;
-                                ShowRelays(relays);*/
-                var relays = _deviceHandler.Devices[DeviceNames.PCI_1761_1].DoCommand(stepPCI1761_1).Description + "\n";
-                relays += _deviceHandler.Devices[DeviceNames.PCI_1762_1].DoCommand(stepPCI1762_1).Description + "\n";
-                relays += _deviceHandler.Devices[DeviceNames.PCI_1762_2].DoCommand(stepPCI1762_2).Description + "\n";
-                relays += _deviceHandler.Devices[DeviceNames.PCI_1762_3].DoCommand(stepPCI1762_3).Description + "\n";
-                relays += _deviceHandler.Devices[DeviceNames.PCI_1762_5].DoCommand(stepPCI1762_5).Description + "\n";
+                var relays = _deviceHandler.Devices[DeviceNames.MK].DoCommand(stepGetMkRelays).Description;
+                relays += _deviceHandler.Devices[DeviceNames.Simulator].DoCommand(stepGetSimulatorRelays).Description;
+                ShowRelays(relays);
+                // var relays = _deviceHandler.Devices[DeviceNames.PCI_1761_1].DoCommand(stepPCI1761_1).Description + "\n";
+                // relays += _deviceHandler.Devices[DeviceNames.PCI_1762_1].DoCommand(stepPCI1762_1).Description + "\n";
+                // relays += _deviceHandler.Devices[DeviceNames.PCI_1762_2].DoCommand(stepPCI1762_2).Description + "\n";
+                // relays += _deviceHandler.Devices[DeviceNames.PCI_1762_3].DoCommand(stepPCI1762_3).Description + "\n";
+                // relays += _deviceHandler.Devices[DeviceNames.PCI_1762_5].DoCommand(stepPCI1762_5).Description + "\n";
                 ShowRelays(relays);
             }
             catch (NullReferenceException)

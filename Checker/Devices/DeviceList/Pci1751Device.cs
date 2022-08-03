@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Advantech;
 using Checker.Steps;
 using static Checker.Devices.DeviceResult;
@@ -31,7 +32,9 @@ namespace Checker.Devices.DeviceList
                     var expectedSignals = GetSignalNames(step.Argument);
                     var signals = pci1751.GetSignals();
                     var result = expectedSignals.All(s => signals.Contains(s));
-                    return ResultOk(string.Join(", ", signals));
+                    return result
+                        ? ResultOk($"{step.DeviceName}: сигналы {string.Join(", ", expectedSignals)} присутствуют")
+                        : ResultError($"{step.DeviceName}: не все сигналы {string.Join(", ", expectedSignals)} присутствуют, все сигналы: {string.Join(",", signals)}");
                 case DeviceCommands.ClearAllSignals:
                     var st = pci1751.ClearAllSignals();
                     return st ? ResultOk($"{step.DeviceName}: все сигналы установлены в 0") : ResultError($"{step.DeviceName}: при установке всех сигналов в 0 произошла ошибка");

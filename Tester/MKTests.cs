@@ -13,12 +13,30 @@ namespace Tester
     public class MKTests
     {
         [TestMethod]
+        public void GetRelayStatesBytesFromRelayNumbersTest()
+        {
+            int[] relayNumbers = { 0, 7, 11, 12, 16, 23, 27, 28, 32, 39, 43, 44, 48, 55, 59, 60, 64, 71, 75, 76};
+            byte[] expected = {  0x81, 0x18, 0x81, 0x18, 0x81, 0x18, 0x81, 0x18, 0x81, 0x18};
+            GetRelayStatesBytesFromRelayNumbersTests(relayNumbers, expected);
+            relayNumbers = new [] { 11, 12, 27, 28, 43, 44, 59, 60, 75, 76};
+            expected = new byte[]{  0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18, 0x00, 0x18};
+            GetRelayStatesBytesFromRelayNumbersTests(relayNumbers, expected);
+        }
+
+        private void GetRelayStatesBytesFromRelayNumbersTests(int[] relayNumbers, byte[] expected)
+        {
+            var actual = MK.GetRelayStatesBytes(relayNumbers);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+        
+        
+        [TestMethod]
         public void GetRelayStatesBytesTest()
         {
-            for (int j = 0; j < 100; j++)
+            for (var j = 0; j < 100; j++)
             {
-                byte[] canMsg1 = new byte[8];
-                byte[] canMsg2 = new byte[8];
+                var canMsg1 = new byte[8];
+                var canMsg2 = new byte[8];
                 var rnd = new Random();
                 canMsg1[0] = 0xFB;
                 canMsg1[1] = 0x01;
@@ -42,8 +60,8 @@ namespace Tester
         [TestMethod]
         public void GetRelayNumbersTest()
         {
-            byte[] canMsg1 = new byte[]{ 0xFB, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 };
-            byte[] canMsg2 = new byte[]{ 0xFB, 0x02, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 };
+            byte[] canMsg1 = { 0xFB, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 };
+            byte[] canMsg2 = { 0xFB, 0x02, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01 };
             var relayNumbers = new int[] { 1, 9, 17, 25, 33, 41, 49, 57, 65, 73 };
             var actual = MK.GetRelayNumbers(MK.GetRelayStatesBytes(new List<byte[]> { canMsg1, canMsg2 }));
             CollectionAssert.AreEquivalent(relayNumbers, actual);
