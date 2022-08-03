@@ -116,7 +116,10 @@ namespace Checker.Devices
         CheckResistancesDifference,
         SetSignal,
         ClearSignal,
-        SetDutyCycle
+        SetDutyCycle,
+        StartGenerator,
+        StopGenerator,
+        ClearAllSignals
     }
 
     public enum DeviceNames
@@ -147,6 +150,8 @@ namespace Checker.Devices
         MK,
         Simulator,
         GetResistance,
-        PSH_73610_power
+        PSH_73610_power,
+        PCI_1751,
+        Keithley2401
     }
 }

@@ -24,9 +24,9 @@ namespace Checker
             var tableName = ConfigurationManager.AppSettings.Get("TableName");
             var settings = new ControlObjectSettings.Settings()
             {
-                Comment = "Не указан",
-                FactoryNumber = "Не указан",
-                OperatorName = "Не указан",
+                Comment = "",
+                FactoryNumber = "",
+                OperatorName = "",
                 TableName = tableName
             };
             Application.Run(new Form1(settings));

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Checker.Device.DeviceList;
 using Checker.Device.DeviceList.Pci176XDevice;
+using Checker.Devices.DeviceList;
 using Checker.Steps;
 
 namespace Checker.Devices
@@ -62,6 +63,9 @@ namespace Checker.Devices
                     case DeviceNames.PCI_1762_4:
                     case DeviceNames.PCI_1762_5:
                         newDevice = new Pci1762Device(device.Description);
+                        break;
+                    case DeviceNames.PCI_1751:
+                        newDevice = new Pci1751Device(device.Description);
                         break;
                     case DeviceNames.PST_3201:
                         newDevice = new Pst3201Device(device.SerialPort);

@@ -59,6 +59,16 @@ namespace Checker.Device.DeviceList
                     case DeviceCommands.ClearAll:
                         asbl.ClearAll();
                         return ResultOk("");
+                    case DeviceCommands.SetFrequency:
+                        var frequency = int.Parse(step.Argument);
+                        asbl.SetFrequency(frequency);
+                        return ResultOk($"{step.DeviceName}: установлена частота {frequency} Гц");
+                    case DeviceCommands.StartGenerator:
+                        asbl.StartGenerator();
+                        return ResultOk($"{step.DeviceName}: генерация частоты запущена");    
+                    case DeviceCommands.StopGenerator:
+                        asbl.StopGenerator();
+                        return ResultOk($"{step.DeviceName}: генерация частоты остановлена");         
                     default:
                         return ResultError($"Неизвестная команда {step.Command}");
                 }

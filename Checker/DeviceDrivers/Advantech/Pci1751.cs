@@ -100,7 +100,7 @@ namespace Advantech
             });
         }
 
-        public bool OpenAllRelays()
+        public bool ClearAllSignals()
         {
             return Enumerable.Range(0, portsCount)
                 .All(portNum => instantDoCtrl.Write(portNum, 0x00) == ErrorCode.Success);

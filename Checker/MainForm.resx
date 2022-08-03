@@ -187,16 +187,16 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="label11.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 80</value>
+    <value>23, 80</value>
   </data>
   <data name="label11.Size" type="System.Drawing.Size, System.Drawing">
-    <value>74, 17</value>
+    <value>117, 17</value>
   </data>
   <data name="label11.TabIndex" type="System.Int32, mscorlib">
     <value>44</value>
   </data>
   <data name="label11.Text" xml:space="preserve">
-    <value>Оператор</value>
+    <value>ФИО оператора</value>
   </data>
   <data name="&gt;&gt;label11.Name" xml:space="preserve">
     <value>label11</value>
@@ -217,16 +217,16 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="label12.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 51</value>
+    <value>23, 51</value>
   </data>
   <data name="label12.Size" type="System.Drawing.Size, System.Drawing">
-    <value>123, 17</value>
+    <value>147, 17</value>
   </data>
   <data name="label12.TabIndex" type="System.Int32, mscorlib">
     <value>43</value>
   </data>
   <data name="label12.Text" xml:space="preserve">
-    <value>Заводской номер</value>
+    <value>Заводской номер ОК</value>
   </data>
   <data name="&gt;&gt;label12.Name" xml:space="preserve">
     <value>label12</value>
@@ -268,16 +268,16 @@
     <value>Microsoft Sans Serif, 10pt</value>
   </data>
   <data name="label13.Location" type="System.Drawing.Point, System.Drawing">
-    <value>40, 20</value>
+    <value>23, 20</value>
   </data>
   <data name="label13.Size" type="System.Drawing.Size, System.Drawing">
-    <value>89, 17</value>
+    <value>98, 17</value>
   </data>
   <data name="label13.TabIndex" type="System.Int32, mscorlib">
     <value>42</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
-    <value>Коментарий</value>
+    <value>Комментарий</value>
   </data>
   <data name="&gt;&gt;label13.Name" xml:space="preserve">
     <value>label13</value>
@@ -541,10 +541,10 @@
     <value>2</value>
   </data>
   <data name="comboBoxCheckingMode.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 42</value>
+    <value>138, 42</value>
   </data>
   <data name="comboBoxCheckingMode.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 21</value>
+    <value>287, 21</value>
   </data>
   <data name="comboBoxCheckingMode.TabIndex" type="System.Int32, mscorlib">
     <value>34</value>
@@ -562,10 +562,10 @@
     <value>3</value>
   </data>
   <data name="comboBoxVoltageSupply.Location" type="System.Drawing.Point, System.Drawing">
-    <value>162, 15</value>
+    <value>138, 15</value>
   </data>
   <data name="comboBoxVoltageSupply.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 21</value>
+    <value>287, 21</value>
   </data>
   <data name="comboBoxVoltageSupply.TabIndex" type="System.Int32, mscorlib">
     <value>36</value>
@@ -776,6 +776,9 @@
   </data>
   <data name="checkBoxIgnoreErrors.Text" xml:space="preserve">
     <value>Игнорировать ошибки</value>
+  </data>
+  <data name="checkBoxIgnoreErrors.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="&gt;&gt;checkBoxIgnoreErrors.Name" xml:space="preserve">
     <value>checkBoxIgnoreErrors</value>

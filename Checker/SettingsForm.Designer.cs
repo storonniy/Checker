@@ -46,7 +46,7 @@ namespace Checker
             this.textBoxComment.Name = "textBoxComment";
             this.textBoxComment.Size = new System.Drawing.Size(270, 23);
             this.textBoxComment.TabIndex = 22;
-            this.textBoxComment.Text = "Не указан";
+            this.textBoxComment.Text = "";
             // 
             // textBoxOperatorName
             // 
@@ -55,7 +55,7 @@ namespace Checker
             this.textBoxOperatorName.Name = "textBoxOperatorName";
             this.textBoxOperatorName.Size = new System.Drawing.Size(270, 23);
             this.textBoxOperatorName.TabIndex = 20;
-            this.textBoxOperatorName.Text = "Не указан";
+            this.textBoxOperatorName.Text = "";
             // 
             // textBoxFactoryNumber
             // 

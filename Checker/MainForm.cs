@@ -18,8 +18,10 @@ namespace Checker
     {
         #region Глобальные переменные
 
-        private static readonly Dictionary<TreeNode, Steps.Step> NodeStepDictionary = new Dictionary<TreeNode, Steps.Step>();
-        private static readonly Dictionary<Steps.Step, TreeNode> StepNodeDictionary = new Dictionary<Steps.Step, TreeNode>();
+        private static readonly Dictionary<TreeNode, Step> NodeStepDictionary = new ();
+
+        private static readonly Dictionary<Step, TreeNode> StepNodeDictionary = new ();
+
         private static StepsInfo _stepsInfo;
         private static DeviceInit _deviceHandler;
         private ControlObjectSettings.Settings settings;
@@ -54,6 +56,7 @@ namespace Checker
                     Thread.Sleep(10);
                 }
             }
+
             if (step != null)
             {
                 if (step.ShowStep)
@@ -61,6 +64,7 @@ namespace Checker
                     var node = StepNodeDictionary[step];
                     _form.HighlightTreeNode(node, Color.Blue);
                 }
+
                 var stepResult = DoStep(step);
                 if (step.ShowStep)
                 {
@@ -80,8 +84,8 @@ namespace Checker
             {
                 _isCheckingStarted = false;
                 var result = _checkingResult ? "ОК исправен." : "ОК неисправен";
-                result = _isCheckingInterrupted 
-                    ? "Проверка прервана, результаты проверки записаны в файл." 
+                result = _isCheckingInterrupted
+                    ? "Проверка прервана, результаты проверки записаны в файл."
                     : $"Проверка завершена, результаты проверки записаны в файл. {result}";
                 _log.Send(result);
                 MessageBox.Show(result);
@@ -95,9 +99,11 @@ namespace Checker
                 Thread.Sleep(42);
             }
         }
+
         #endregion
 
         #region Конструктор Form1
+
         public Form1(ControlObjectSettings.Settings settings)
         {
             _form = this;
@@ -106,7 +112,7 @@ namespace Checker
             treeOfChecking.AfterCheck += (node_AfterCheck);
             this.settings = settings;
             ShowSettings();
-            InitialActions();       
+            InitialActions();
             Text = _stepsInfo.ProgramName;
             buttonCheckingPause.Enabled = false;
             mainThread.Start();
@@ -114,8 +120,8 @@ namespace Checker
 
         public sealed override string Text
         {
-            get { return base.Text; }
-            set { base.Text = value; }
+            get => base.Text;
+            set => base.Text = value;
         }
 
         #endregion
@@ -124,9 +130,9 @@ namespace Checker
 
         private void ShowSettings()
         {
-            textBoxComment.Text = (settings.Comment != "") ? settings.Comment : "Не указано";
+            textBoxComment.Text = (settings.Comment != "") ? settings.Comment : "";
             textBoxFactoryNumber.Text = settings.FactoryNumber;
-            textBoxOperatorName.Text = (settings.OperatorName != "") ? settings.OperatorName : "Не указано";
+            textBoxOperatorName.Text = (settings.OperatorName != "") ? settings.OperatorName : "";
         }
 
         private void SetVoltageSupplyModes()
@@ -135,11 +141,13 @@ namespace Checker
             {
                 comboBoxVoltageSupply.Items.Add(modeName);
             }
+
             var selectedItemNumber = 0;
             if (comboBoxVoltageSupply.Items.Count > 1)
             {
                 selectedItemNumber = 1;
             }
+
             comboBoxVoltageSupply.SelectedItem = comboBoxVoltageSupply.Items[selectedItemNumber];
         }
 
@@ -149,11 +157,13 @@ namespace Checker
             {
                 comboBoxCheckingMode.Items.Add(modeName);
             }
+
             var selectedItemNumber = 0;
             if (comboBoxCheckingMode.Items.Count > 1)
             {
                 selectedItemNumber = 1;
             }
+
             comboBoxCheckingMode.SelectedItem = comboBoxCheckingMode.Items[selectedItemNumber];
         }
 
@@ -170,6 +180,7 @@ namespace Checker
             {
                 comboBoxVoltageSupply.Enabled = false;
             }
+
             if (modeName == "Режим самопроверки")
             {
                 labelAttention.ForeColor = Color.Red;
@@ -189,11 +200,13 @@ namespace Checker
 
         #endregion
 
-        #region Инициализация 
+        #region Инициализация
 
         private void InitialActions(string pathToDataBase)
         {
-            var connectionString = string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}; Extended Properties=Excel 12.0;", pathToDataBase);//"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + pathToDataBase;
+            var connectionString =
+                string.Format("Provider=Microsoft.ACE.OLEDB.12.0;Data Source={0}; Extended Properties=Excel 12.0;",
+                    pathToDataBase); //"Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + pathToDataBase;
             var dbReader = new DbReader(connectionString);
             var dataSet = dbReader.GetDataSet();
             _stepsInfo = Step.GetStepsInfo(dataSet);
@@ -212,7 +225,7 @@ namespace Checker
 
         private void InitialActions()
         {
-            var connectionString = settings.TableName;// "UPD.xlsx;";
+            var connectionString = settings.TableName; // "UPD.xlsx;";
             InitialActions(connectionString);
         }
 
@@ -230,7 +243,6 @@ namespace Checker
             var voltageMode = GetModeName();
             _log.Send($"Режим проверки: {_regime}\n");
             _log.Send($"Напряжение питания: {voltageMode}\r\n");
-
         }
 
         private string GetModeName()
@@ -240,6 +252,7 @@ namespace Checker
             {
                 modeName = comboBoxVoltageSupply.SelectedItem.ToString();
             }
+
             return modeName;
         }
 
@@ -249,8 +262,8 @@ namespace Checker
 
         private static void EnQueueCheckingSteps(string modeName)
         {
-           //var stepsDictionary = modeName.ToLower().Contains("проверка") ? _stepsInfo.VoltageSupplyModesDictionary[modeName] : _stepsInfo.ModesDictionary[modeName];
-           var stepsDictionary = _stepsInfo.VoltageSupplyModesDictionary[modeName];
+            //var stepsDictionary = modeName.ToLower().Contains("проверка") ? _stepsInfo.VoltageSupplyModesDictionary[modeName] : _stepsInfo.ModesDictionary[modeName];
+            var stepsDictionary = _stepsInfo.VoltageSupplyModesDictionary[modeName];
             foreach (var step in stepsDictionary.Keys.SelectMany(tableName => stepsDictionary[tableName]))
             {
                 lock (Queue)
@@ -264,14 +277,14 @@ namespace Checker
         {
             var node = StepNodeDictionary[step];
             _form.HighlightTreeNode(node, Color.Blue);
-            var indexOf = node.Text.IndexOf(' ');
-            var stepNumber = int.Parse(node.Text.Substring(0, indexOf));
-            var result = $"{step.Description}\r\n{deviceResult.Description}\r\n\r\n";// $"Шаг {stepNumber}: {step.Description}\r\n{deviceResult.Description}\r\n\r\n";
-            if (step.Command.ToString().Contains("Set") || step.Command.ToString().Contains("Get"))
+            var result =
+                $"{step.Description}\r\n{deviceResult.Description}\r\n\r\n"; // $"Шаг {stepNumber}: {step.Description}\r\n{deviceResult.Description}\r\n\r\n";
+            if (step.Command.ToString().Contains("Set") || step.Command.ToString().Contains("Get") || step.DeviceName == DeviceNames.None)
             {
                 _log.Send(result);
-                _log.Send(DateTime.Now.ToString(CultureInfo.InvariantCulture));                
+                _log.Send(DateTime.Now.ToString(CultureInfo.InvariantCulture));
             }
+
             _form.AddSubTreeNode(node, deviceResult.Description);
             Color color;
             switch (deviceResult.State)
@@ -292,7 +305,8 @@ namespace Checker
 
         private static void ShowErrorDialog(string description)
         {
-            var dialogResult = MessageBox.Show(description, @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+            var dialogResult =
+                MessageBox.Show(description, @"Внимание!", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
             switch (dialogResult)
             {
                 case DialogResult.No:
@@ -315,15 +329,17 @@ namespace Checker
             var stepParser = new StepParser(_deviceHandler, step);
             var deviceResult = stepParser.DoStep();
             if (deviceResult.State == DeviceStatus.Error || deviceResult.State == DeviceStatus.NotConnected)
-            {             
+            {
                 _checkingResult = false;
                 if (!_form.checkBoxIgnoreErrors.Checked)
                 {
                     _isCheckingStarted = false;
-                    var description = $"В ходе проверки произошла ошибка:\r\nШаг: {step.Description}\r\nРезультат шага: {deviceResult.Description}\r\nПродолжить проверку?";
+                    var description =
+                        $"В ходе проверки произошла ошибка:\r\nШаг: {step.Description}\r\nРезультат шага: {deviceResult.Description}\r\nПродолжить проверку?";
                     ShowErrorDialog(description);
                 }
             }
+
             if (deviceResult.State == DeviceStatus.NotConnected)
             {
                 /*
@@ -333,6 +349,7 @@ namespace Checker
                 form.UpdateDevicesOnForm();
                 */
             }
+
             return deviceResult;
         }
 
@@ -350,7 +367,7 @@ namespace Checker
             for (var i = 0; i < numericUpDown1.Value; i++)
                 AddSelectedStepsToQueue(stepList);
         }
-        
+
         private static List<Steps.Step> GetSelectedSteps()
         {
             return NodeStepDictionary.Keys
@@ -359,7 +376,7 @@ namespace Checker
                 .ToList();
         }
 
-        private void AddSelectedStepsToQueue(List<Steps.Step> stepList)
+        private static void AddSelectedStepsToQueue(List<Step> stepList)
         {
             foreach (var step in stepList)
             {
@@ -370,7 +387,7 @@ namespace Checker
             }
         }
 
-        private void node_AfterCheck(object sender, TreeViewEventArgs e)
+        private static void node_AfterCheck(object sender, TreeViewEventArgs e)
         {
             if (e.Action == TreeViewAction.Unknown) return;
             if (e.Node.Nodes.Count > 0)
@@ -379,7 +396,7 @@ namespace Checker
             }
         }
 
-        private void CheckChildNodes(TreeNode node, bool state)
+        private static void CheckChildNodes(TreeNode node, bool state)
         {
             foreach (TreeNode n in node.Nodes)
             {
@@ -392,17 +409,19 @@ namespace Checker
         #region Управление потоком проверки
 
         private void AbortChecking()
-        {         
-            _isCheckingStarted = false;           
+        {
+            _isCheckingStarted = false;
             lock (Queue)
             {
-                Queue.Clear();         
+                Queue.Clear();
                 foreach (var step in _stepsInfo.EmergencyStepList)
                 {
                     Queue.Enqueue(step);
                 }
+
                 _isCheckingStarted = true;
             }
+
             IDeviceInterface.ClearCoefficientDictionary();
             IDeviceInterface.ClearValuesDictionary();
             Thread.Sleep(3000);
@@ -417,6 +436,7 @@ namespace Checker
                 Invoke((MethodInvoker)ChangeStartButtonState);
                 return;
             }
+
             //isCheckingStarted = !isCheckingStarted;
             var buttonText = _isCheckingStarted ? "Стоп" : "Старт";
             buttonCheckingStart.Text = buttonText;
@@ -429,6 +449,7 @@ namespace Checker
                 Invoke((MethodInvoker)ChangeButtonPauseResume);
                 return;
             }
+
             var buttonText = _isCheckingStarted ? "Пауза" : "Продолжить";
             buttonCheckingPause.Text = buttonText;
         }
@@ -440,6 +461,7 @@ namespace Checker
                 Invoke((MethodInvoker)delegate { ChangeButton(button, text); });
                 return;
             }
+
             button.Text = text;
         }
 
@@ -461,15 +483,15 @@ namespace Checker
                 foreach (var step in stepDictionary[tableName].Where(step => step.ShowStep))
                 {
                     nodesCount++;
-                    var nodeName = $"{nodesCount} {step.Description}";
+                    var nodeName = step.Description;//$"{nodesCount} {step.Description}";
                     var stepNode = new TreeNode(nodeName);
                     NodeStepDictionary.Add(stepNode, step);
                     StepNodeDictionary.Add(step, stepNode);
                     treeNode.Nodes.Add(stepNode);
                     treeNode.Expand();
                 }
-
             }
+
             treeView.EndUpdate();
         }
 
@@ -480,6 +502,7 @@ namespace Checker
                 Invoke((MethodInvoker)delegate { HighlightTreeNode(treeNode, color); });
                 return;
             }
+
             treeNode.EnsureVisible();
             treeNode.ForeColor = color;
         }
@@ -491,6 +514,7 @@ namespace Checker
                 Invoke((MethodInvoker)delegate { AddSubTreeNode(parentTreeNode, stepResult); });
                 return;
             }
+
             parentTreeNode.Nodes.Add(stepResult);
             //parentTreeNode.Expand();
         }
@@ -517,6 +541,7 @@ namespace Checker
             NodeStepDictionary.Clear();
             StepNodeDictionary.Clear();
         }
+
         private void CleanTreeView()
         {
             if (InvokeRequired)
@@ -524,9 +549,11 @@ namespace Checker
                 Invoke((MethodInvoker)CleanTreeView);
                 return;
             }
+
             treeOfChecking.Nodes.Clear();
             SelectCheckingMode();
         }
+
         private void ChangeControlState(Control control, bool state)
         {
             if (InvokeRequired)
@@ -534,12 +561,14 @@ namespace Checker
                 Invoke((MethodInvoker)delegate { ChangeControlState(control, state); });
                 return;
             }
+
             control.Enabled = state;
         }
 
-        #endregion     
+        #endregion
 
         #region Методы элементов управления
+
         private void buttonCheckingStart_Click(object sender, EventArgs e)
         {
             _checkingResult = true;
@@ -550,6 +579,7 @@ namespace Checker
             _isCheckingStarted = true;
             BlockControls(_isCheckingStarted);
         }
+
         private void buttonCheckingStop_Click(object sender, EventArgs e)
         {
             IDeviceInterface.ClearCoefficientDictionary();
@@ -569,6 +599,7 @@ namespace Checker
             CleanAll();
             InitialActions(openBinFileDialog.FileName);
         }
+
         private void buttonCheckingPause_Click(object sender, EventArgs e)
         {
             Pause();
@@ -582,6 +613,7 @@ namespace Checker
         }
 
         private static string _regime;
+
         private void comboBoxCheckingMode_SelectedIndexChanged(object sender, EventArgs e)
         {
             _regime = comboBoxCheckingMode.SelectedItem.ToString();
@@ -596,41 +628,18 @@ namespace Checker
 
         private void treeOfChecking_AfterSelect(object sender, TreeViewEventArgs e)
         {
-
             // if (treeViewNodeStep.ContainsKey(e.Node) && isCheckingInterrupted)
             // {
             //     var thisStep = treeViewNodeStep[e.Node];
             //     var node = treeViewStepNode[thisStep];
             //     DoStep(thisStep);
             // }
-
         }
 
-        #endregion
-
-        #region Закомментированные методы
-        /*
-        private void ReplaceVoltageSupplyInStepsDictionary()
-        {
-            var stepsDictionary = stepsInfo.StepsDictionary;
-            foreach (var tableName in stepsDictionary.Keys)
-            {
-                foreach (var step in stepsDictionary[tableName])
-                {
-                    if (tableName == "'Установка напряжения питания'" && step.Command == "SetVoltage" && step.Device.Contains("power") || step.Device.Contains("Power"))
-                    {
-                        var voltage = stepsInfo.VoltageSupplyDictionary[comboBoxVoltageSupply.SelectedItem.ToString()];
-                        step.Argument = voltage.ToString();
-                        step.Description = $"Установка напряжения питания {step.Argument} на ИП1";
-                    }
-                }
-            }
-            stepsInfo.StepsDictionary = stepsDictionary;
-        }
-        */
         #endregion
 
         #region Обработка закрытия формы
+
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (Queue.Count != 0)
@@ -638,12 +647,14 @@ namespace Checker
                 AbortChecking();
                 Thread.Sleep(3000);
             }
+
             if (_isCheckingStarted)
             {
                 _isCheckingInterrupted = true;
                 const string result = "Проверка прервана, результаты проверки записаны в файл.";
                 _log.Send(result);
             }
+
             Die();
             Application.Exit();
             mainThread.Abort();
@@ -664,7 +675,7 @@ namespace Checker
 
         private void buttonStep_Click(object sender, EventArgs e)
         {
-            Steps.Step step = null;
+            Step step = null;
             lock (Queue)
             {
                 if (Queue.Count != 0)
@@ -680,11 +691,13 @@ namespace Checker
                 var node = StepNodeDictionary[step];
                 _form.HighlightTreeNode(node, Color.Blue);
             }
+
             var stepResult = DoStep(step);
             if (step.Argument == "")
             {
                 MessageBox.Show($@"Шаг {step.Description}: Аргумент пустой: {step.Argument}");
             }
+
             if (step.ShowStep)
             {
                 ShowStepResult(step, stepResult);

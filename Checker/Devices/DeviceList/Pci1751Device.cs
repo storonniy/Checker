@@ -27,6 +27,14 @@ namespace Checker.Devices.DeviceList
                     if (stat)
                         return ResultOk($"{step.DeviceName}: установлены сигналы {step.Argument} в 0");
                     return ResultError($"{step.DeviceName}: произошла ошибка при установке сигналов {step.Argument} в 0");
+                case DeviceCommands.GetSignals:
+                    var expectedSignals = GetSignalNames(step.Argument);
+                    var signals = pci1751.GetSignals();
+                    var result = expectedSignals.All(s => signals.Contains(s));
+                    return ResultOk(string.Join(", ", signals));
+                case DeviceCommands.ClearAllSignals:
+                    var st = pci1751.ClearAllSignals();
+                    return st ? ResultOk($"{step.DeviceName}: все сигналы установлены в 0") : ResultError($"{step.DeviceName}: при установке всех сигналов в 0 произошла ошибка");
                 default:
                     return ResultError($"Неизвестная команда {step.Command}");
             }
